@@ -1,0 +1,809 @@
+/* ============================================
+   Indian Artefact Export Catalogue
+   TRADITIONAL INDIAN Design System
+   ============================================ */
+
+/* Google Fonts - More Traditional */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ============================================
+   CSS Custom Properties (Design Tokens)
+   ============================================ */
+:root {
+  /* Traditional Indian Palette - Richer & Warmer */
+  --color-terracotta: #B8503A;
+  --color-terracotta-light: #D06B55;
+  --color-terracotta-dark: #8B3D2D;
+
+  --color-ivory: #FBF8F1;
+  --color-ivory-light: #FFFEF9;
+  --color-ivory-dark: #F0E8D8;
+  --color-cream: #F5ECD9;
+
+  --color-maroon: #5C1515;
+  --color-maroon-light: #7A2020;
+  --color-maroon-dark: #3D0E0E;
+
+  --color-gold: #D4A84B;
+  --color-gold-light: #E5C06A;
+  --color-gold-dark: #B08930;
+  --color-antique-gold: #C5A052;
+
+  --color-indigo: #1E3A5F;
+  --color-indigo-light: #2C4A75;
+  --color-indigo-dark: #132844;
+
+  --color-saffron: #F4A83A;
+  --color-copper: #B87333;
+  --color-henna: #8B4513;
+
+  /* Neutral Colors */
+  --color-white: #FFFFFF;
+  --color-black: #1A1411;
+  --color-gray-100: #F7F5F2;
+  --color-gray-200: #E8E3DB;
+  --color-gray-300: #D4CEC3;
+  --color-gray-400: #A39B8B;
+  --color-gray-500: #6B6356;
+  --color-gray-600: #4A4438;
+  --color-gray-700: #332E26;
+
+  /* Typography - Traditional */
+  --font-heading: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Font Sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+
+  /* Font Weights */
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* Border Radius - Less rounded for traditional feel */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.375rem;
+  --radius-xl: 0.5rem;
+  --radius-2xl: 0.75rem;
+  --radius-full: 9999px;
+
+  /* Shadows - Warmer tones */
+  --shadow-sm: 0 1px 2px 0 rgba(26, 20, 17, 0.05);
+  --shadow-md: 0 4px 12px -2px rgba(26, 20, 17, 0.12);
+  --shadow-lg: 0 12px 24px -4px rgba(26, 20, 17, 0.15);
+  --shadow-xl: 0 24px 48px -8px rgba(26, 20, 17, 0.18);
+  --shadow-warm: 0 12px 32px -6px rgba(184, 80, 58, 0.25);
+  --shadow-gold: 0 12px 32px -6px rgba(212, 168, 75, 0.35);
+  --shadow-inner: inset 0 2px 4px 0 rgba(26, 20, 17, 0.08);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+
+  /* Container */
+  --container-max: 1280px;
+  --container-padding: var(--space-6);
+}
+
+/* ============================================
+   CSS Reset & Base Styles
+   ============================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  line-height: 1.7;
+  color: var(--color-black);
+  background-color: var(--color-ivory);
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4a84b' fill-opacity='0.03'%3E%3Cpath d='M40 40c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zm0 0c0 11.046 8.954 20 20 20s20-8.954 20-20-8.954-20-20-20-20 8.954-20 20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* ============================================
+   Typography - Traditional Indian Style
+   ============================================ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-semibold);
+  line-height: 1.2;
+  color: var(--color-maroon);
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  font-size: var(--text-5xl);
+}
+
+h2 {
+  font-size: var(--text-4xl);
+}
+
+h3 {
+  font-size: var(--text-3xl);
+}
+
+h4 {
+  font-size: var(--text-2xl);
+}
+
+h5 {
+  font-size: var(--text-xl);
+}
+
+h6 {
+  font-size: var(--text-lg);
+}
+
+p {
+  margin-bottom: var(--space-4);
+  color: var(--color-gray-600);
+}
+
+.text-gold {
+  color: var(--color-gold);
+}
+
+.text-terracotta {
+  color: var(--color-terracotta);
+}
+
+.text-maroon {
+  color: var(--color-maroon);
+}
+
+.text-indigo {
+  color: var(--color-indigo);
+}
+
+/* ============================================
+   Layout Utilities
+   ============================================ */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.section {
+  padding: var(--space-20) 0;
+  position: relative;
+}
+
+.section-sm {
+  padding: var(--space-12) 0;
+}
+
+.section-lg {
+  padding: var(--space-24) 0;
+}
+
+/* Flexbox & Grid Utilities */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.gap-2 {
+  gap: var(--space-2);
+}
+
+.gap-4 {
+  gap: var(--space-4);
+}
+
+.gap-6 {
+  gap: var(--space-6);
+}
+
+.gap-8 {
+  gap: var(--space-8);
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* ============================================
+   TRADITIONAL DECORATIVE PATTERNS
+   ============================================ */
+
+/* Ornate Paisley Border Pattern */
+.pattern-paisley {
+  position: relative;
+}
+
+.pattern-paisley::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23d4a84b' fill-opacity='0.04' d='M50 10c-5 0-10 5-10 15s5 20 15 25c-10 5-15 15-15 25s5 15 10 15c5 0 10-5 10-15s-5-20-15-25c10-5 15-15 15-25s-5-15-10-15z'/%3E%3C/svg%3E");
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Rich Mandala Pattern */
+.pattern-mandala {
+  position: relative;
+}
+
+.pattern-mandala::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 50% 50%, transparent 20%, rgba(212, 168, 75, 0.04) 21%, rgba(212, 168, 75, 0.04) 22%, transparent 23%),
+    radial-gradient(circle at 50% 50%, transparent 35%, rgba(212, 168, 75, 0.03) 36%, rgba(212, 168, 75, 0.03) 37%, transparent 38%),
+    radial-gradient(circle at 50% 50%, transparent 50%, rgba(212, 168, 75, 0.02) 51%, rgba(212, 168, 75, 0.02) 52%, transparent 53%);
+  background-size: 150px 150px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Intricate Jaali/Lattice Pattern */
+.pattern-jaali {
+  position: relative;
+}
+
+.pattern-jaali::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(45deg, transparent 40%, rgba(212, 168, 75, 0.06) 40%, rgba(212, 168, 75, 0.06) 60%, transparent 60%),
+    linear-gradient(-45deg, transparent 40%, rgba(212, 168, 75, 0.06) 40%, rgba(212, 168, 75, 0.06) 60%, transparent 60%),
+    linear-gradient(0deg, transparent 45%, rgba(184, 80, 58, 0.03) 45%, rgba(184, 80, 58, 0.03) 55%, transparent 55%),
+    linear-gradient(90deg, transparent 45%, rgba(184, 80, 58, 0.03) 45%, rgba(184, 80, 58, 0.03) 55%, transparent 55%);
+  background-size: 30px 30px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Temple Arch Pattern */
+.pattern-temple {
+  position: relative;
+}
+
+.pattern-temple::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background:
+    radial-gradient(ellipse 100% 200% at 50% 100%, transparent 70%, rgba(212, 168, 75, 0.08) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Handcrafted Texture Background */
+.bg-texture {
+  background-color: var(--color-cream);
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4a84b' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+    linear-gradient(180deg, rgba(245, 236, 217, 0.5) 0%, rgba(251, 248, 241, 1) 100%);
+}
+
+/* Paper/Parchment Texture */
+.bg-parchment {
+  background:
+    linear-gradient(to right, rgba(212, 168, 75, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 168, 75, 0.03) 1px, transparent 1px),
+    var(--color-cream);
+  background-size: 20px 20px, 20px 20px, 100% 100%;
+}
+
+/* ============================================
+   ORNATE SECTION HEADERS
+   ============================================ */
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+  position: relative;
+}
+
+.section-header h2 {
+  margin-bottom: var(--space-4);
+  position: relative;
+  display: inline-block;
+  padding: 0 var(--space-8);
+}
+
+/* Ornate underline with lotus motif */
+.section-header h2::before,
+.section-header h2::after {
+  content: '✦';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gold);
+  font-size: var(--text-lg);
+}
+
+.section-header h2::before {
+  left: 0;
+}
+
+.section-header h2::after {
+  right: 0;
+}
+
+.section-header .ornate-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.section-header .ornate-line::before,
+.section-header .ornate-line::after {
+  content: '';
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+.section-header .ornate-line .lotus {
+  color: var(--color-terracotta);
+  font-size: var(--text-2xl);
+}
+
+.section-header p {
+  max-width: 600px;
+  margin: var(--space-6) auto 0;
+  color: var(--color-gray-500);
+  font-size: var(--text-lg);
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+/* ============================================
+   Background Variants
+   ============================================ */
+.bg-ivory {
+  background-color: var(--color-ivory);
+}
+
+.bg-ivory-light {
+  background-color: var(--color-ivory-light);
+}
+
+.bg-cream {
+  background-color: var(--color-cream);
+}
+
+.bg-maroon {
+  background-color: var(--color-maroon);
+  color: var(--color-ivory);
+}
+
+.bg-indigo {
+  background-color: var(--color-indigo);
+  color: var(--color-ivory);
+}
+
+.bg-white {
+  background-color: var(--color-white);
+}
+
+.bg-gradient-warm {
+  background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-ivory) 100%);
+}
+
+.bg-gradient-gold {
+  background: linear-gradient(135deg, rgba(212, 168, 75, 0.08) 0%, rgba(212, 168, 75, 0.02) 100%);
+}
+
+.bg-gradient-royal {
+  background: linear-gradient(180deg, var(--color-maroon-dark) 0%, var(--color-maroon) 100%);
+}
+
+/* ============================================
+   ORNATE DECORATIVE BORDERS
+   ============================================ */
+
+/* Gold Double Border */
+.border-ornate {
+  border: 3px double var(--color-gold);
+  padding: var(--space-1);
+  background: linear-gradient(var(--color-white), var(--color-white)) padding-box,
+    linear-gradient(135deg, var(--color-gold), var(--color-antique-gold)) border-box;
+}
+
+/* Fancy Corner Box */
+.box-traditional {
+  position: relative;
+  background: var(--color-white);
+  border: 1px solid var(--color-gold);
+  box-shadow: var(--shadow-md);
+}
+
+.box-traditional::before,
+.box-traditional::after,
+.box-traditional .corner-tl,
+.box-traditional .corner-br {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: var(--color-gold);
+  border-style: solid;
+}
+
+.box-traditional::before {
+  top: -3px;
+  left: -3px;
+  border-width: 3px 0 0 3px;
+}
+
+.box-traditional::after {
+  top: -3px;
+  right: -3px;
+  border-width: 3px 3px 0 0;
+}
+
+.box-traditional .corner-bl {
+  position: absolute;
+  bottom: -3px;
+  left: -3px;
+  width: 24px;
+  height: 24px;
+  border: solid var(--color-gold);
+  border-width: 0 0 3px 3px;
+}
+
+.box-traditional .corner-br {
+  bottom: -3px;
+  right: -3px;
+  border-width: 0 3px 3px 0;
+}
+
+/* Decorative Divider */
+.divider-ornate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  margin: var(--space-8) 0;
+}
+
+.divider-ornate::before,
+.divider-ornate::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+.divider-ornate .icon {
+  color: var(--color-gold);
+  font-size: var(--text-xl);
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(212, 168, 75, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(212, 168, 75, 0.5);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Stagger Animation Delays */
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+/* ============================================
+   Responsive Breakpoints
+   ============================================ */
+@media (max-width: 1024px) {
+  :root {
+    --text-5xl: 2.5rem;
+    --text-4xl: 2rem;
+    --text-3xl: 1.5rem;
+  }
+
+  .grid-cols-4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid-cols-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --text-5xl: 2rem;
+    --text-4xl: 1.75rem;
+    --text-3xl: 1.375rem;
+    --container-padding: var(--space-4);
+  }
+
+  .section {
+    padding: var(--space-12) 0;
+  }
+
+  .grid-cols-4,
+  .grid-cols-3,
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .md-flex-col {
+    flex-direction: column;
+  }
+
+  .md-text-center {
+    text-align: center;
+  }
+
+  .section-header h2::before,
+  .section-header h2::after {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --text-5xl: 1.75rem;
+    --text-4xl: 1.5rem;
+    --container-padding: var(--space-4);
+  }
+}
+
+/* ============================================
+   Visibility Utilities
+   ============================================ */
+.hidden {
+  display: none !important;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+@media (max-width: 768px) {
+  .md-hidden {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .md-visible {
+    display: block;
+  }
+}

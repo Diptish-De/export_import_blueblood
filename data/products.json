@@ -1,0 +1,152 @@
+[
+  {
+    "id": "art001",
+    "name": "Brass Nataraja Idol",
+    "category": "Brass",
+    "material": "Pure Brass",
+    "origin": "Tamil Nadu, India",
+    "dimensions": "12 x 8 inches",
+    "weight": "4.5 kg",
+    "moq": 10,
+    "images": [
+      "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1567361808960-dec9cb578182?w=600&h=600&fit=crop"
+    ],
+    "description": "Handcrafted brass Nataraja idol made by traditional artisans using the ancient lost-wax casting technique. Each piece is unique and represents the cosmic dance of Lord Shiva."
+  },
+  {
+    "id": "art002",
+    "name": "Carved Teak Elephant",
+    "category": "Wood",
+    "material": "Teak Wood",
+    "origin": "Rajasthan, India",
+    "dimensions": "8 x 6 inches",
+    "weight": "1.2 kg",
+    "moq": 20,
+    "images": [
+      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&h=600&fit=crop"
+    ],
+    "description": "Intricately hand-carved teak wood elephant with traditional Rajasthani motifs. A symbol of wisdom and good fortune, perfect for home decor."
+  },
+  {
+    "id": "art003",
+    "name": "Banarasi Silk Tapestry",
+    "category": "Textile",
+    "material": "Pure Silk",
+    "origin": "Varanasi, India",
+    "dimensions": "48 x 24 inches",
+    "weight": "0.5 kg",
+    "moq": 15,
+    "images": [
+      "https://images.unsplash.com/photo-1558171813-4c088753af8f?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=600&h=600&fit=crop"
+    ],
+    "description": "Handwoven Banarasi silk tapestry featuring traditional floral and paisley patterns with gold zari work. A masterpiece representing centuries of weaving tradition."
+  },
+  {
+    "id": "art004",
+    "name": "Marble Ganesha Statue",
+    "category": "Stone",
+    "material": "White Marble",
+    "origin": "Jaipur, India",
+    "dimensions": "10 x 7 inches",
+    "weight": "3.5 kg",
+    "moq": 8,
+    "images": [
+      "https://images.unsplash.com/photo-1604076913837-52ab5629fba9?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1609619938734-4d60f42d3e6e?w=600&h=600&fit=crop"
+    ],
+    "description": "Exquisite hand-carved white marble Ganesha statue from the artisans of Jaipur. Each piece showcases remarkable detailing and spiritual significance."
+  },
+  {
+    "id": "art005",
+    "name": "Copper Wall Art Panel",
+    "category": "Metal",
+    "material": "Pure Copper",
+    "origin": "Gujarat, India",
+    "dimensions": "24 x 18 inches",
+    "weight": "2.8 kg",
+    "moq": 12,
+    "images": [
+      "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1567361808960-dec9cb578182?w=600&h=600&fit=crop"
+    ],
+    "description": "Hand-hammered copper wall panel featuring traditional Indian motifs. The natural patina develops over time, adding character to each piece."
+  },
+  {
+    "id": "art006",
+    "name": "Bronze Krishna Flute Player",
+    "category": "Brass",
+    "material": "Bronze Alloy",
+    "origin": "Odisha, India",
+    "dimensions": "14 x 5 inches",
+    "weight": "3.2 kg",
+    "moq": 10,
+    "images": [
+      "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=600&h=600&fit=crop"
+    ],
+    "description": "Stunning bronze statue of Lord Krishna playing the divine flute. Crafted using traditional Dhokra metal casting technique native to Odisha."
+  },
+  {
+    "id": "art007",
+    "name": "Sheesham Wood Jewelry Box",
+    "category": "Wood",
+    "material": "Sheesham Wood",
+    "origin": "Saharanpur, India",
+    "dimensions": "6 x 4 x 3 inches",
+    "weight": "0.8 kg",
+    "moq": 50,
+    "images": [
+      "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&h=600&fit=crop"
+    ],
+    "description": "Hand-carved sheesham wood jewelry box with intricate brass inlay work. Features traditional floral patterns passed down through generations."
+  },
+  {
+    "id": "art008",
+    "name": "Pashmina Embroidered Shawl",
+    "category": "Textile",
+    "material": "Pure Pashmina",
+    "origin": "Kashmir, India",
+    "dimensions": "80 x 28 inches",
+    "weight": "0.3 kg",
+    "moq": 10,
+    "images": [
+      "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1558171813-4c088753af8f?w=600&h=600&fit=crop"
+    ],
+    "description": "Luxurious hand-embroidered Pashmina shawl featuring traditional Kashmiri paisley patterns. Each shawl takes months to complete."
+  },
+  {
+    "id": "art009",
+    "name": "Sandstone Buddha Head",
+    "category": "Stone",
+    "material": "Red Sandstone",
+    "origin": "Mahabalipuram, India",
+    "dimensions": "12 x 8 inches",
+    "weight": "5.5 kg",
+    "moq": 6,
+    "images": [
+      "https://images.unsplash.com/photo-1609619938734-4d60f42d3e6e?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1604076913837-52ab5629fba9?w=600&h=600&fit=crop"
+    ],
+    "description": "Serene Buddha head sculpture carved from red sandstone by temple sculptors of Mahabalipuram. Represents peace and enlightenment."
+  },
+  {
+    "id": "art010",
+    "name": "Iron Tribal Art Figurine",
+    "category": "Metal",
+    "material": "Wrought Iron",
+    "origin": "Bastar, India",
+    "dimensions": "10 x 4 inches",
+    "weight": "1.5 kg",
+    "moq": 25,
+    "images": [
+      "https://images.unsplash.com/photo-1567361808960-dec9cb578182?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&h=600&fit=crop"
+    ],
+    "description": "Authentic Bastar tribal art figurine made from wrought iron. Each piece is handcrafted by indigenous artisans using age-old techniques."
+  }
+]
