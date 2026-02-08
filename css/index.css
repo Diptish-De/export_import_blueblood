@@ -825,8 +825,8 @@ p {
   /* Kept strict padding to ensure it's down */
   /* Floating above the image */
   position: absolute;
-  top: -120px;
-  /* Float much higher to clear image border */
+  top: -90px;
+  /* Adjusted to -90px from -120px */
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
