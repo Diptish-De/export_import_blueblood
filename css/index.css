@@ -877,6 +877,9 @@ p {
   opacity: 0.9;
   padding-top: 0;
   /* Removed manual adjustment for perfect geometric centering */
+  position: relative;
+  top: -3px;
+  /* Lift text slightly for optical alignment */
   line-height: 1;
   /* Match Hindi line-height for consistent bounding box */
   /* Optical alignment with the larger Hindi font */
