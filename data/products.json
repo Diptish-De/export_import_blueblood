@@ -45,21 +45,6 @@
     "description": "Handwoven Banarasi silk tapestry featuring traditional floral and paisley patterns with gold zari work. A masterpiece representing centuries of weaving tradition."
   },
   {
-    "id": "art005",
-    "name": "Copper Wall Art Panel",
-    "category": "Metal",
-    "material": "Pure Copper",
-    "origin": "Gujarat, India",
-    "dimensions": "24 x 18 inches",
-    "weight": "2.8 kg",
-    "moq": 12,
-    "images": [
-      "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1567361808960-dec9cb578182?w=600&h=600&fit=crop"
-    ],
-    "description": "Hand-hammered copper wall panel featuring traditional Indian motifs. The natural patina develops over time, adding character to each piece."
-  },
-  {
     "id": "art006",
     "name": "Bronze Krishna Flute Player",
     "category": "Brass",
