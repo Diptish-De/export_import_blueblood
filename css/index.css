@@ -825,8 +825,8 @@ p {
   /* Kept strict padding to ensure it's down */
   /* Floating above the image */
   position: absolute;
-  top: -90px;
-  /* Adjusted to -90px from -120px */
+  top: -50px;
+  /* Lowered to -50px to definitely clear the top banner */
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
