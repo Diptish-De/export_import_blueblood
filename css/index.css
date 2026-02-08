@@ -529,6 +529,11 @@ p {
   color: var(--color-ivory);
 }
 
+.bg-maroon p {
+  color: var(--color-gold);
+  /* Brighter text for readability */
+}
+
 .bg-indigo {
   background-color: var(--color-indigo);
   color: var(--color-ivory);
