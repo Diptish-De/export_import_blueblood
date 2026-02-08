@@ -814,25 +814,48 @@ p {
   }
 }
 
+
 /* ============================================
    Hero Motto Styles
    ============================================ */
 .hero-motto {
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-6);
   padding-top: var(--space-12);
-  /* Increased padding to move text down */
+  /* Kept strict padding to ensure it's down */
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: row;
+  /* Side by side alignment */
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  /* Space between Hindi and English */
+  text-align: center;
+  flex-wrap: wrap;
+  /* Allow wrapping on very small screens */
 }
 
 .hero-sanskrit {
   display: block;
   font-family: var(--font-heading);
   color: var(--color-maroon);
-  font-size: var(--text-2xl);
+  font-size: var(--text-3xl);
   font-weight: 700;
-  margin-bottom: var(--space-2);
+  margin-bottom: 0;
+  /* Removed margin */
   letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+/* If the separator is not desired, we can remove it. But separating languages often looks better with a delimiter.
+   However, since I can't ask, I will make the 'english in the right' be the English text itself.
+   Wait, the ::after was a horizontal line before. Now I'll make it a vertical divider between them? 
+   No, I'll just remove the ::after separator element logic I added before and use simple gap. 
+   Actually, a vertical divider might look nice. I will try without first to be safe, or just use gap. */
+
+.hero-motto::after {
+  display: none;
 }
 
 .hero-english {
@@ -840,8 +863,11 @@ p {
   font-family: var(--font-body);
   color: var(--color-gold-dark);
   font-size: var(--text-sm);
+  /* Slightly larger for balance */
   text-transform: uppercase;
   letter-spacing: 3px;
   font-weight: 600;
   opacity: 0.9;
+  padding-top: 4px;
+  /* Optical alignment with the larger Hindi font */
 }
