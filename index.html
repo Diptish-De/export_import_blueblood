@@ -123,18 +123,16 @@
             <a href="catalogue.html?category=Brass" class="cat-pill">Brass</a>
             <a href="catalogue.html?category=Wood" class="cat-pill">Wood</a>
             <a href="catalogue.html?category=Textile" class="cat-pill">Textile</a>
+            <a href="catalogue.html?category=Stone" class="cat-pill">Stone</a>
             <a href="catalogue.html?category=Metal" class="cat-pill">Metal</a>
-            <a href="catalogue.html" class="cat-pill cat-pill-view-all">View Full Catalogue</a>
           </div>
 
           <!-- Featured Products Grid -->
-          <div class="grid grid-cols-3 gap-4" id="featuredProducts">
+          <div class="grid grid-cols-4 gap-4" id="featuredProducts">
             <!-- Products loaded via JS -->
           </div>
 
-          <div class="text-center" style="margin-top: var(--space-6);">
-            <a href="catalogue.html" class="btn btn-outline-gold btn-sm">View Full Catalogue</a>
-          </div>
+          <!-- View Full Catalogue card placed in grid via JS -->
         </div>
       </div>
 
@@ -545,10 +543,11 @@
       try {
         const response = await fetch('data/products.json');
         const products = await response.json();
-        const featured = products.slice(0, 4);
+        const featured = products.slice(0, 3); // Only 3 products
         const container = document.getElementById('featuredProducts');
 
-        container.innerHTML = featured.map(product => `
+        // Product cards
+        const productCards = featured.map(product => `
           <div class="product-card">
             <div class="product-card-image">
               <span class="product-card-category">${product.category}</span>
@@ -577,6 +576,19 @@
             </div>
           </div>
         `).join('');
+
+        // View Full Catalogue card
+        const catalogueCard = `
+          <div class="product-card view-catalogue-card" style="display: flex; align-items: center; justify-content: center; background: var(--color-cream); border: 2px dashed var(--color-gold); min-height: 300px;">
+            <a href="catalogue.html" class="text-center" style="text-decoration: none;">
+              <div style="font-size: 3rem; color: var(--color-gold); margin-bottom: var(--space-4);">→</div>
+              <h3 style="font-family: var(--font-heading); color: var(--color-maroon); margin-bottom: var(--space-2);">View Full Catalogue</h3>
+              <p style="color: var(--color-gray-600); font-size: var(--text-sm);">Explore all products</p>
+            </a>
+          </div>
+        `;
+
+        container.innerHTML = productCards + catalogueCard;
       } catch (error) {
         console.error('Error loading products:', error);
       }
