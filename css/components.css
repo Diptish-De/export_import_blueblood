@@ -498,7 +498,8 @@
     align-items: center;
     padding-top: 80px;
     padding-bottom: var(--space-8);
-    overflow: hidden;
+    overflow: visible;
+    /* Allow image to overlap next section */
     background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-ivory) 50%, rgba(212, 168, 75, 0.08) 100%);
 }
 
