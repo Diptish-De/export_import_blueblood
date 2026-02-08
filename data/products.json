@@ -45,21 +45,6 @@
     "description": "Handwoven Banarasi silk tapestry featuring traditional floral and paisley patterns with gold zari work. A masterpiece representing centuries of weaving tradition."
   },
   {
-    "id": "art004",
-    "name": "Marble Ganesha Statue",
-    "category": "Stone",
-    "material": "White Marble",
-    "origin": "Jaipur, India",
-    "dimensions": "10 x 7 inches",
-    "weight": "3.5 kg",
-    "moq": 8,
-    "images": [
-      "https://images.unsplash.com/photo-1604076913837-52ab5629fba9?w=600&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1609619938734-4d60f42d3e6e?w=600&h=600&fit=crop"
-    ],
-    "description": "Exquisite hand-carved white marble Ganesha statue from the artisans of Jaipur. Each piece showcases remarkable detailing and spiritual significance."
-  },
-  {
     "id": "art005",
     "name": "Copper Wall Art Panel",
     "category": "Metal",
