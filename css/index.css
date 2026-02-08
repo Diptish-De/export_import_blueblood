@@ -830,11 +830,12 @@ p {
   /* Side by side alignment */
   align-items: center;
   /* Center vertically */
-  justify-content: center;
+  justify-content: flex-start;
+  /* Align to the left */
   gap: var(--space-4);
   /* Reduced gap slightly for better flow */
   /* Space between Hindi and English */
-  text-align: center;
+  text-align: left;
   flex-wrap: nowrap;
   /* Prevent wrapping */
   /* Allow wrapping on very small screens */
