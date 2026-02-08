@@ -53,22 +53,30 @@
 }
 
 .navbar-logo-img {
-    height: 45px;
+    height: 55px;
     width: auto;
+    max-width: 280px;
     transition: transform var(--transition-fast);
 }
 
-.navbar-logo:hover .navbar-logo-img {
-    transform: scale(1.02);
+.navbar-logo-icon {
+    height: 45px;
+    width: 45px;
+    object-fit: contain;
+    transition: transform var(--transition-fast);
+}
+
+.navbar-logo:hover .navbar-logo-img,
+.navbar-logo:hover .navbar-logo-icon {
+    transform: scale(1.05);
 }
 
 .navbar-logo-text {
     font-family: var(--font-heading);
-    font-size: var(--text-2xl);
+    font-size: var(--text-lg);
     font-weight: var(--font-bold);
     color: var(--color-maroon);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    letter-spacing: 0.02em;
 }
 
 .navbar-logo-text span {
@@ -555,6 +563,16 @@
 
 .hero-tagline::after {
     right: -20px;
+}
+
+.hero-sanskrit {
+    display: block;
+    font-family: 'Noto Sans Devanagari', 'Mangal', serif;
+    font-size: var(--text-xl);
+    color: var(--color-terracotta);
+    margin-bottom: var(--space-3);
+    letter-spacing: 0.1em;
+    font-weight: var(--font-medium);
 }
 
 .hero-title {

@@ -1,0 +1,26 @@
+{
+  "name": "export_import_blueblood",
+  "version": "1.0.0",
+  "description": "A premium, traditional Indian-style catalogue website for an export-import artefacts business.",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Diptish-De/export_import_blueblood.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Diptish-De/export_import_blueblood/issues"
+  },
+  "homepage": "https://github.com/Diptish-De/export_import_blueblood#readme",
+  "devDependencies": {
+    "vite": "^7.3.1"
+  }
+}
