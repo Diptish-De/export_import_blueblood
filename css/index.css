@@ -823,19 +823,33 @@ p {
   margin-bottom: var(--space-6);
   padding-top: var(--space-8);
   /* Kept strict padding to ensure it's down */
-  position: relative;
-  z-index: 2;
+  /* Floating above the image */
+  position: absolute;
+  top: -60px;
+  /* Float above the image */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  /* Ensure full width for centering */
+  z-index: 20;
   display: flex;
+  flex-direction: column;
+  /* Stack them for this layout? Or keep row? User said "whole thing". Let's try Row first as it was. */
   flex-direction: row;
-  /* Side by side alignment */
   align-items: center;
   /* Center vertically */
-  justify-content: flex-start;
-  /* Align to the left */
+  justify-content: center;
+  /* Center horizontally relative to image */
   gap: var(--space-4);
   /* Reduced gap slightly for better flow */
   /* Space between Hindi and English */
-  text-align: left;
+  text-align: center;
+  background: rgba(251, 248, 241, 0.829);
+  /* Slight background for readability */
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-gold);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
   flex-wrap: nowrap;
   /* Prevent wrapping */
   /* Allow wrapping on very small screens */
