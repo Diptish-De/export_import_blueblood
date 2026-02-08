@@ -875,7 +875,9 @@ p {
   letter-spacing: 3px;
   font-weight: 600;
   opacity: 0.9;
-  padding-top: 6px;
-  /* Increased slightly for better optical baseline alignment */
+  padding-top: 0;
+  /* Removed manual adjustment for perfect geometric centering */
+  line-height: 1;
+  /* Match Hindi line-height for consistent bounding box */
   /* Optical alignment with the larger Hindi font */
 }
