@@ -885,3 +885,12 @@ p {
   /* Match Hindi line-height for consistent bounding box */
   /* Optical alignment with the larger Hindi font */
 }
+
+/* ============================================
+   Hero Image Adjustment
+   ============================================ */
+.hero-image {
+  position: relative;
+  z-index: 50;
+  /* Bring image to front */
+}
