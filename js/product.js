@@ -4,7 +4,7 @@
  */
 
 // WhatsApp Configuration - Update this number for production
-const WHATSAPP_NUMBER = '91XXXXXXXXXX';
+const WHATSAPP_NUMBER = '917812028686';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
