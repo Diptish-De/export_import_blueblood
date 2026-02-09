@@ -5,6 +5,27 @@
 
 // Mobile Navigation Toggle
 document.addEventListener('DOMContentLoaded', () => {
+  // Hide page loader after page loads
+  const pageLoader = document.getElementById('pageLoader');
+  if (pageLoader) {
+    // Minimum display time of 800ms for branding
+    const minDisplayTime = 800;
+    const startTime = Date.now();
+
+    window.addEventListener('load', () => {
+      const elapsed = Date.now() - startTime;
+      const remainingTime = Math.max(0, minDisplayTime - elapsed);
+
+      setTimeout(() => {
+        pageLoader.classList.add('loaded');
+        // Remove from DOM after transition
+        setTimeout(() => {
+          pageLoader.remove();
+        }, 600);
+      }, remainingTime);
+    });
+  }
+
   const navToggle = document.getElementById('navToggle');
   const navMenu = document.getElementById('navMenu');
   const navbar = document.getElementById('navbar');
@@ -37,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', function (e) {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute('href'));
       if (target) {
