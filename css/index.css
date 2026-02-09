@@ -788,7 +788,292 @@ p {
   :root {
     --text-5xl: 1.75rem;
     --text-4xl: 1.5rem;
+    --text-3xl: 1.25rem;
+    --text-2xl: 1.125rem;
     --container-padding: var(--space-4);
+  }
+}
+
+/* ============================================
+   ANDROID/MOBILE FIRST OPTIMIZATIONS
+   For B2B buyers on smartphones
+   ============================================ */
+
+/* Better touch targets - 48px minimum for Android */
+@media (max-width: 768px) {
+
+  /* Increase tap target sizes for mobile */
+  .btn,
+  .filter-btn,
+  .navbar-link,
+  .footer-links a {
+    min-height: 48px;
+    padding: var(--space-4) var(--space-6);
+  }
+
+  /* Larger buttons on mobile */
+  .btn-lg {
+    width: 100%;
+    padding: var(--space-5) var(--space-8);
+    font-size: var(--text-base);
+  }
+
+  /* Better mobile navigation */
+  .navbar-container {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .navbar-logo-icon {
+    height: 40px;
+    width: 40px;
+  }
+
+  .navbar-logo-text {
+    font-size: var(--text-base);
+  }
+
+  .navbar-toggle {
+    padding: var(--space-3);
+    min-width: 48px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbar-toggle span {
+    width: 28px;
+    height: 3px;
+  }
+
+  /* Mobile menu full screen */
+  .navbar-menu {
+    top: 70px;
+    padding: var(--space-6) var(--space-4);
+    gap: 0;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+  }
+
+  .navbar-menu .navbar-link {
+    padding: var(--space-5) var(--space-4);
+    border-bottom: 1px solid var(--color-gray-200);
+    width: 100%;
+    text-align: center;
+    font-size: var(--text-lg);
+  }
+
+  /* Hero section mobile optimize */
+  .hero {
+    min-height: auto;
+    padding: 100px 0 var(--space-10);
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero-tagline {
+    font-size: var(--text-xs);
+    padding: var(--space-2) var(--space-4);
+    letter-spacing: 1.5px;
+  }
+
+  .hero-tagline::before,
+  .hero-tagline::after {
+    display: none;
+  }
+
+  .hero-title {
+    font-size: 1.625rem;
+    line-height: 1.2;
+  }
+
+  .hero-description {
+    font-size: var(--text-base);
+    line-height: 1.7;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Contact cards full width */
+  .contact-card {
+    padding: var(--space-6);
+    text-align: center;
+  }
+
+  .contact-card .btn {
+    width: 100%;
+  }
+
+  /* Sections more compact */
+  .section {
+    padding: var(--space-8) 0;
+  }
+
+  .section-lg {
+    padding: var(--space-10) 0;
+  }
+
+  .section-header {
+    margin-bottom: var(--space-8);
+  }
+
+  .section-header h2 {
+    font-size: var(--text-2xl);
+    padding: 0 var(--space-2);
+  }
+
+  .section-header p {
+    font-size: var(--text-base);
+    margin-top: var(--space-4);
+  }
+
+  /* Feature cards stack nicely */
+  .feature-card {
+    padding: var(--space-6);
+  }
+
+  .feature-icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .feature-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Countries grid on mobile */
+  .countries-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+  }
+
+  .country-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .country-flag img {
+    width: 32px;
+    height: 24px;
+  }
+
+  .country-name {
+    font-size: var(--text-xs);
+  }
+
+  /* Footer mobile optimize */
+  .footer {
+    padding: var(--space-10) 0 var(--space-6);
+  }
+
+  .footer-grid {
+    gap: var(--space-6);
+  }
+
+  .footer-brand h3 {
+    font-size: var(--text-xl);
+  }
+
+  .footer-column h4 {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-4);
+  }
+
+  .footer-links a {
+    padding: var(--space-2) 0;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .footer-social a {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Page headers compact */
+  .page-header {
+    padding: 100px 0 var(--space-6);
+  }
+
+  .page-header h1 {
+    font-size: var(--text-2xl);
+  }
+
+  .page-header p {
+    font-size: var(--text-base);
+  }
+
+  .breadcrumb {
+    font-size: var(--text-sm);
+  }
+}
+
+/* Extra small phones (iPhone SE size and below) */
+@media (max-width: 375px) {
+  :root {
+    --text-5xl: 1.5rem;
+    --text-4xl: 1.375rem;
+    --text-3xl: 1.125rem;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .navbar-logo-text {
+    font-size: var(--text-sm);
+  }
+
+  .countries-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Ensure smooth scrolling and touch on Android */
+@media (pointer: coarse) {
+
+  /* Devices with touch */
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Disable hover effects on touch devices */
+  .product-card:hover {
+    transform: none;
+  }
+
+  .product-card:active {
+    transform: scale(0.98);
+  }
+
+  .btn:hover {
+    transform: none;
+  }
+
+  .btn:active {
+    transform: scale(0.97);
+    opacity: 0.9;
+  }
+
+  /* Better tap feedback */
+  .navbar-link,
+  .filter-btn,
+  .btn,
+  a {
+    -webkit-tap-highlight-color: rgba(212, 168, 75, 0.2);
   }
 }
 
