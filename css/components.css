@@ -1678,3 +1678,116 @@
     color: var(--color-white);
     box-shadow: 0 4px 12px rgba(212, 168, 75, 0.3);
 }
+
+/* ============================================
+   Floating WhatsApp Button - Mobile CTA
+   ============================================ */
+.whatsapp-float {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    z-index: 999;
+    transition: all var(--transition-base);
+    animation: pulse-whatsapp 2s infinite;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5);
+}
+
+.whatsapp-float svg {
+    width: 32px;
+    height: 32px;
+    fill: white;
+}
+
+.whatsapp-float-label {
+    position: absolute;
+    right: 70px;
+    background: var(--color-maroon);
+    color: var(--color-ivory);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: all var(--transition-base);
+    pointer-events: none;
+}
+
+.whatsapp-float:hover .whatsapp-float-label {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+@keyframes pulse-whatsapp {
+
+    0%,
+    100% {
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 4px 30px rgba(37, 211, 102, 0.6), 0 0 0 10px rgba(37, 211, 102, 0.1);
+    }
+}
+
+/* Mobile: Make button slightly smaller */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        width: 56px;
+        height: 56px;
+    }
+
+    .whatsapp-float svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .whatsapp-float-label {
+        display: none;
+    }
+
+    /* Mobile: 2 columns for product grid instead of 1 */
+    .grid.grid-cols-3,
+    .grid.grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: var(--space-4);
+    }
+
+    /* Smaller product card padding on mobile */
+    .product-card-content {
+        padding: var(--space-4);
+    }
+
+    .product-card-name {
+        font-size: var(--text-base);
+    }
+
+    .product-card-meta {
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+}
+
+/* Very small screens: single column */
+@media (max-width: 400px) {
+
+    .grid.grid-cols-3,
+    .grid.grid-cols-4 {
+        grid-template-columns: 1fr !important;
+    }
+}
