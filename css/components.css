@@ -660,7 +660,7 @@
 @media (max-width: 768px) {
     .hero {
         min-height: auto;
-        padding: 120px 0 80px;
+        padding: 100px 0 var(--space-8);
     }
 
     .hero::before {
@@ -672,11 +672,42 @@
     }
 
     .hero-image {
-        display: none;
+        position: relative;
+        right: auto;
+        bottom: auto;
+        width: 80%;
+        max-width: 280px;
+        margin: var(--space-8) auto 0;
+        opacity: 1;
+        order: 2;
+    }
+
+    .hero-image::before {
+        top: -8px;
+        left: -8px;
+        right: 8px;
+        bottom: 8px;
+    }
+
+    .hero-image img {
+        border-width: 3px;
+    }
+
+    .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .hero-buttons {
         flex-direction: column;
+        width: 100%;
     }
 }
 
