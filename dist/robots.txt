@@ -1,0 +1,13 @@
+# Allow all bots to crawl the site
+User-agent: *
+Allow: /
+
+# Disallow crawling of admin/private areas (if any in future)
+Disallow: /admin/
+Disallow: /.git/
+
+# Sitemap location
+Sitemap: https://export-import-blueblood.vercel.app/sitemap.xml
+
+# Crawl-delay to prevent server overload
+Crawl-delay: 1
