@@ -1,42 +1,198 @@
 /* ============================================
-   DARK THEME VARIABLES
+   DARK THEME VARIABLES & OVERRIDES
    ============================================ */
 [data-theme="dark"] {
-    /* Dark backgrounds */
-    --color-ivory: #1a1a1a;
-    --color-ivory-light: #252525;
-    --color-ivory-dark: #0f0f0f;
-    --color-cream: #2a2a2a;
-    --color-white: #1e1e1e;
-    --color-gray-100: #2d2d2d;
-    --color-gray-200: #3a3a3a;
+    /* 
+       1. Base Background Colors - INVERTED LOGIC
+       Dark mode needs dark backgrounds
+    */
+    --color-ivory: #121212;
+    /* Main dark background */
+    --color-ivory-light: #1E1E1E;
+    /* Slightly lighter (cards) */
+    --color-ivory-dark: #000000;
+    /* Deepest black */
+    --color-cream: #1A1A1A;
+    /* Secondary background */
 
-    /* Adjusted brand colors for dark mode */
-    --color-maroon: #8B3030;
-    --color-maroon-light: #A84040;
-    --color-maroon-dark: #6B2020;
+    /* 
+       2. Text Colors - INVERTED Logic
+       Light text on dark background
+    */
+    --color-black: #E0E0E0;
+    /* Primary text */
+    --color-gray-700: #D1D5DB;
+    /* Secondary text */
+    --color-gray-600: #9CA3AF;
+    /* Muted text */
+    --color-gray-500: #6B7280;
+    --color-gray-400: #4B5563;
+    --color-gray-300: #374151;
+    /* Borders */
+    --color-gray-200: #1F2937;
+    /* Dark borders */
+    --color-gray-100: #111827;
+    /* Very dark elements */
+    --color-white: #0f172a;
+    /* Inverted white areas to dark blue-black */
 
-    --color-gold: #E5C878;
-    --color-gold-light: #F0D896;
-    --color-gold-dark: #C5A84B;
+    /* 
+       3. Brand Colors - ADJUSTED for Dark Mode
+       Slightly desaturated or brighter to pop against dark
+    */
+    --color-maroon: #ff6b6b;
+    /* Brighter red/pink for dark mode */
+    --color-maroon-light: #ff8787;
+    --color-maroon-dark: #c92a2a;
 
-    --color-indigo: #3A5A8F;
-    --color-indigo-light: #4A6AA5;
-    --color-indigo-dark: #2A4A75;
+    --color-gold: #ffd43b;
+    /* Brighter gold */
+    --color-gold-light: #ffe066;
+    --color-gold-dark: #fcc419;
+    --color-antique-gold: #fab005;
 
-    /* Text colors */
-    --color-black: #f0f0f0;
-    --text-primary: #e6e6e6;
-    --text-secondary: #b3b3b3;
+    --color-indigo: #4dabf7;
+    /* Brighter blue */
+    --color-indigo-light: #74c0fc;
+    --color-indigo-dark: #339af0;
+
+    --color-saffron: #ff922b;
+    --color-copper: #f08c00;
+    --color-henna: #e67700;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    --shadow-gold: 0 4px 14px 0 rgba(255, 212, 59, 0.2);
 }
 
-/* Apply transitions to all themed elements */
-body,
-.navbar,
-.hero,
-.section-sm,
-.feature-card,
-.product-card,
-.btn {
-    transition: var(--theme-transition);
+/* ============================================
+   COMPONENT SPECIFIC OVERRIDES
+   ============================================ */
+
+/* Navbar */
+[data-theme="dark"] .navbar {
+    background: rgba(18, 18, 18, 0.95);
+    /* Dark background */
+    border-bottom: 2px solid var(--color-gold-dark);
+}
+
+[data-theme="dark"] .navbar-link {
+    color: var(--color-gray-600);
+    /* Use variable */
+}
+
+[data-theme="dark"] .navbar-link:hover,
+[data-theme="dark"] .navbar-link.active {
+    color: var(--color-gold);
+}
+
+[data-theme="dark"] .navbar-logo-text {
+    color: var(--color-gold);
+}
+
+/* Mobile Menu */
+[data-theme="dark"] .navbar-menu {
+    background: var(--color-ivory);
+}
+
+/* Buttons */
+[data-theme="dark"] .btn-primary {
+    background: linear-gradient(135deg, #a61e4d 0%, #862e9c 100%);
+    /* Purple/Pink gradient */
+    color: #fff;
+    border-color: transparent;
+}
+
+[data-theme="dark"] .btn-secondary {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: var(--color-gold);
+    color: #000;
+}
+
+/* Cards & Sections */
+[data-theme="dark"] .feature-card,
+[data-theme="dark"] .process-step-content,
+[data-theme="dark"] .product-card,
+[data-theme="dark"] .catalogue-card,
+[data-theme="dark"] .artisan-card,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .doc-card {
+    background: var(--color-ivory-light);
+    border: 1px solid var(--color-gray-200);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Inputs */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+    background-color: var(--color-ivory-light);
+    color: var(--color-black);
+    border-color: var(--color-gray-300);
+}
+
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus {
+    border-color: var(--color-gold);
+    background-color: var(--color-ivory);
+}
+
+/* Footer */
+[data-theme="dark"] .footer {
+    background: #000;
+    border-top: 1px solid var(--color-gray-200);
+}
+
+[data-theme="dark"] .footer-brand h3 {
+    color: var(--color-gold);
+}
+
+[data-theme="dark"] .footer-brand h3 span {
+    color: var(--color-ivory);
+}
+
+/* Sections with specific backgrounds */
+[data-theme="dark"] .bg-white {
+    background-color: var(--color-ivory) !important;
+}
+
+[data-theme="dark"] .bg-cream {
+    background-color: var(--color-ivory-light) !important;
+}
+
+[data-theme="dark"] .bg-gray-100 {
+    background-color: var(--color-ivory-dark) !important;
+}
+
+/* Text Overrides */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+    color: var(--color-black);
+}
+
+[data-theme="dark"] p,
+[data-theme="dark"] li,
+[data-theme="dark"] span:not(.navbar-logo-text span):not(.badge) {
+    color: var(--text-secondary);
+    /* Ensure readability */
+}
+
+/* Ensure Logo text pops */
+[data-theme="dark"] .navbar-logo-text span {
+    color: var(--color-gold-light);
+}
+
+/* Transitions */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
