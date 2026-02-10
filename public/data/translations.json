@@ -1,0 +1,98 @@
+{
+    "en": {
+        "nav": {
+            "home": "Home",
+            "about": "About",
+            "catalogue": "Catalogue",
+            "exportProcess": "Export Process",
+            "contact": "Contact"
+        },
+        "hero": {
+            "tagline": "Since 1985 • Export Quality • Made in India",
+            "title": "Timeless Indian Artefacts for the World",
+            "description": "Discover premium handcrafted treasures from India's finest artisan communities — from the sacred brass works of Moradabad to the intricate Sandalwood carvings of Mysore. We bring centuries-old craftsmanship to discerning collectors worldwide.",
+            "exploreCatalogue": "Explore Catalogue",
+            "contactUs": "Contact Us"
+        },
+        "common": {
+            "learnMore": "Learn More",
+            "viewDetails": "View Details",
+            "getQuote": "Get Quote",
+            "chatNow": "Chat Now",
+            "sendEmail": "Send Email",
+            "viewOnMap": "View on Map",
+            "loading": "Loading..."
+        },
+        "footer": {
+            "quickLinks": "Quick Links",
+            "legal": "Legal",
+            "contact": "Contact",
+            "tagline": "Curating India's finest handcrafted artefacts since 1985.",
+            "copyright": "© 2024 Blueblood Exports. All rights reserved."
+        }
+    },
+    "hi": {
+        "nav": {
+            "home": "होम",
+            "about": "हमारे बारे में",
+            "catalogue": "कैटलॉग",
+            "exportProcess": "निर्यात प्रक्रिया",
+            "contact": "संपर्क करें"
+        },
+        "hero": {
+            "tagline": "1985 से • निर्यात गुणवत्ता • भारत में निर्मित",
+            "title": "विश्व के लिए कालातीत भारतीय कलाकृतियाँ",
+            "description": "भारत के बेहतरीन कारीगर समुदायों से प्रीमियम हस्तनिर्मित खजाने खोजें — मुरादाबाद के पवित्र पीतल के कामों से लेकर मैसूर की जटिल चंदन की नक्काशी तक। हम दुनिया भर के विवेकी संग्राहकों के लिए सदियों पुरानी शिल्प कौशल लाते हैं।",
+            "exploreCatalogue": "कैटलॉग देखें",
+            "contactUs": "संपर्क करें"
+        },
+        "common": {
+            "learnMore": "और जानें",
+            "viewDetails": "विवरण देखें",
+            "getQuote": "उद्धरण प्राप्त करें",
+            "chatNow": "अभी चैट करें",
+            "sendEmail": "ईमेल भेजें",
+            "viewOnMap": "मानचित्र पर देखें",
+            "loading": "लोड हो रहा है..."
+        },
+        "footer": {
+            "quickLinks": "त्वरित लिंक",
+            "legal": "कानूनी",
+            "contact": "संपर्क",
+            "tagline": "1985 से भारत की बेहतरीन हस्तनिर्मित कलाकृतियों का संग्रह।",
+            "copyright": "© 2024 ब्लूब्लड एक्सपोर्ट्स। सर्वाधिकार सुरक्षित।"
+        }
+    },
+    "ar": {
+        "nav": {
+            "home": "الرئيسية",
+            "about": "عنا",
+            "catalogue": "الكتالوج",
+            "exportProcess": "عملية التصدير",
+            "contact": "اتصل بنا"
+        },
+        "hero": {
+            "tagline": "منذ 1985 • جودة التصدير • صنع في الهند",
+            "title": "تحف هندية خالدة للعالم",
+            "description": "اكتشف الكنوز اليدوية الفاخرة من أفضل مجتمعات الحرفيين في الهند - من أعمال النحاس المقدسة في مرادآباد إلى نقوش خشب الصندل المعقدة في ميسور. نحن نقدم حرفية عمرها قرون لهواة الجمع المميزين في جميع أنحاء العالم.",
+            "exploreCatalogue": "استكشف الكتالوج",
+            "contactUs": "اتصل بنا"
+        },
+        "common": {
+            "learnMore": "اعرف أكثر",
+            "viewDetails": "عرض التفاصيل",
+            "getQuote": "احصل على عرض",
+            "chatNow": "دردش الآن",
+            "sendEmail": "إرسال بريد إلكتروني",
+            "viewOnMap": "عرض على الخريطة",
+            "loading": "جار التحميل..."
+        },
+        "footer": {
+            "quickLinks": "روابط سريعة",
+            "legal": "قانوني",
+            "contact": "اتصل",
+            "tagline": "تنظيم أفضل القطع الأثرية الهندية المصنوعة يدويًا منذ عام 1985.",
+            "copyright": "© 2024 بلوبلود إكسبورتس. جميع الحقوق محفوظة."
+        }
+    }
+}

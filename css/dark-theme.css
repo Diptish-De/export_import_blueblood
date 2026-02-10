@@ -1,0 +1,42 @@
+/* ============================================
+   DARK THEME VARIABLES
+   ============================================ */
+[data-theme="dark"] {
+    /* Dark backgrounds */
+    --color-ivory: #1a1a1a;
+    --color-ivory-light: #252525;
+    --color-ivory-dark: #0f0f0f;
+    --color-cream: #2a2a2a;
+    --color-white: #1e1e1e;
+    --color-gray-100: #2d2d2d;
+    --color-gray-200: #3a3a3a;
+
+    /* Adjusted brand colors for dark mode */
+    --color-maroon: #8B3030;
+    --color-maroon-light: #A84040;
+    --color-maroon-dark: #6B2020;
+
+    --color-gold: #E5C878;
+    --color-gold-light: #F0D896;
+    --color-gold-dark: #C5A84B;
+
+    --color-indigo: #3A5A8F;
+    --color-indigo-light: #4A6AA5;
+    --color-indigo-dark: #2A4A75;
+
+    /* Text colors */
+    --color-black: #f0f0f0;
+    --text-primary: #e6e6e6;
+    --text-secondary: #b3b3b3;
+}
+
+/* Apply transitions to all themed elements */
+body,
+.navbar,
+.hero,
+.section-sm,
+.feature-card,
+.product-card,
+.btn {
+    transition: var(--theme-transition);
+}
