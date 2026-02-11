@@ -38,12 +38,13 @@
 
     /* 
        3. Brand Colors - ADJUSTED for Dark Mode
-       Slightly desaturated or brighter to pop against dark
-    */
-    --color-maroon: #ff6b6b;
-    /* Brighter red/pink for dark mode */
-    --color-maroon-light: #ff8787;
-    --color-maroon-dark: #c92a2a;
+       Slightly desaturated    /* Adjusted brand colors for dark mode - Premium Rich Red */
+    --color-maroon: #DA0037;
+    /* Vivid Crimson */
+    --color-maroon-light: #FF1744;
+    /* Bright Red highlight */
+    --color-maroon-dark: #900020;
+    /* Deep Burgundy */
 
     --color-gold: #ffd43b;
     /* Brighter gold */
