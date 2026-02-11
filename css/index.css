@@ -39,63 +39,45 @@
     pointer-events: none;
   }
 
-  /* Mandala Loader */
+  /* Simplified Loader - Elegant & Minimal */
   .loader-mandala {
     position: relative;
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
     margin-bottom: 2rem;
   }
 
-  /* Outer rotating ring */
+  /* Single Elegant Ring */
   .loader-ring {
     position: absolute;
     inset: 0;
     border: 3px solid transparent;
     border-top-color: var(--color-gold);
     border-radius: 50%;
-    animation: spin 1.5s linear infinite;
+    animation: spin 1s linear infinite;
   }
 
-  .loader-ring:nth-child(2) {
-    inset: 10px;
-    border-top-color: transparent;
-    border-right-color: var(--color-gold-light);
-    animation-duration: 2s;
-    animation-direction: reverse;
-  }
-
+  /* Remove excessive rings */
+  .loader-ring:nth-child(2),
   .loader-ring:nth-child(3) {
-    inset: 20px;
-    border-top-color: var(--color-saffron);
-    border-bottom-color: var(--color-saffron);
-    animation-duration: 2.5s;
+    display: none;
   }
 
-  /* Center lotus */
+  /* Center Icon (Lotus/Logo) */
   .loader-lotus {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 2rem;
+    font-size: 1.5rem;
     animation: pulse-lotus 1.5s ease-in-out infinite;
+    color: var(--color-gold);
   }
 
-  /* Decorative petals */
-  .loader-petals {
-    position: absolute;
-    inset: -10px;
-    animation: rotate-slow 8s linear infinite;
-  }
-
+  /* Remove petals */
+  .loader-petals,
   .loader-petal {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: var(--color-gold);
-    border-radius: 50%;
-    opacity: 0.6;
+    display: none;
   }
 
   .loader-petal:nth-child(1) {

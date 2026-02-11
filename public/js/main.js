@@ -5,25 +5,34 @@
 
 // Mobile Navigation Toggle
 document.addEventListener('DOMContentLoaded', () => {
-  // Hide page loader after page loads
+  // Page Loader Logic - Show only once per session
   const pageLoader = document.getElementById('pageLoader');
   if (pageLoader) {
-    // Minimum display time of 800ms for branding
-    const minDisplayTime = 800;
-    const startTime = Date.now();
+    // Check if we've already shown the loader in this session
+    if (sessionStorage.getItem('blueblood_loaded')) {
+      // If already visited, hide immediately
+      pageLoader.style.display = 'none';
+      pageLoader.remove();
+    } else {
+      // First visit - show loader
+      const minDisplayTime = 800; // 800ms
+      const startTime = Date.now();
 
-    window.addEventListener('load', () => {
-      const elapsed = Date.now() - startTime;
-      const remainingTime = Math.max(0, minDisplayTime - elapsed);
+      window.addEventListener('load', () => {
+        const elapsed = Date.now() - startTime;
+        const remainingTime = Math.max(0, minDisplayTime - elapsed);
 
-      setTimeout(() => {
-        pageLoader.classList.add('loaded');
-        // Remove from DOM after transition
         setTimeout(() => {
-          pageLoader.remove();
-        }, 600);
-      }, remainingTime);
-    });
+          pageLoader.classList.add('loaded');
+          // Mark as visited
+          sessionStorage.setItem('blueblood_loaded', 'true');
+
+          setTimeout(() => {
+            pageLoader.remove();
+          }, 600);
+        }, remainingTime);
+      });
+    }
   }
 
   const navToggle = document.getElementById('navToggle');

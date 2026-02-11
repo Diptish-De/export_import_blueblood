@@ -202,6 +202,25 @@
     /* Explicit light gray to be safe */
 }
 
+/* Heritage Quote Section Override */
+[data-theme="dark"] .heritage-quote-section {
+    background: var(--color-ivory-dark) !important;
+    border-top: 1px solid var(--color-maroon-dark);
+    border-bottom: 1px solid var(--color-maroon-dark);
+}
+
+[data-theme="dark"] .heritage-quote-section::before {
+    opacity: 0.1;
+    /* Reduce pattern opacity */
+    background-image: radial-gradient(circle at center, rgba(218, 0, 55, 0.15) 0%, transparent 70%);
+    /* Add glow */
+}
+
+[data-theme="dark"] .heritage-quote .english-text,
+[data-theme="dark"] .heritage-desc {
+    color: var(--color-gray-200) !important;
+}
+
 
 /* Text Overrides */
 [data-theme="dark"] h1,
