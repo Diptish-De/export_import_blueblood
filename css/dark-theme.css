@@ -196,8 +196,10 @@
 [data-theme="dark"] .bg-maroon h3,
 [data-theme="dark"] .bg-maroon p,
 [data-theme="dark"] .bg-maroon div {
-    color: var(--color-gray-100) !important;
-    /* Ensure text remains light */
+    color: var(--color-gray-200) !important;
+    /* Fixed: Use light text color (defined as #E0E0E0/light-gray in dark mode context) or just white */
+    color: #e5e7eb !important;
+    /* Explicit light gray to be safe */
 }
 
 
