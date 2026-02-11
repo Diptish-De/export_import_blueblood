@@ -180,45 +180,46 @@
     overflow: hidden;
 }
 
-/* Add a subtle red glow effect to replace the solid background */
-[data-theme="dark"] .bg-maroon::before {
+/* Add traditional pattern to red sections in dark mode */
+[data-theme="dark"] .bg-maroon::before,
+[data-theme="dark"] .heritage-quote-section::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, rgba(218, 0, 55, 0.15) 0%, transparent 70%);
+    /* Traditional Diamond Pattern */
+    background-image:
+        radial-gradient(circle at center, rgba(218, 0, 55, 0.2) 0%, transparent 80%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23d4a84b' fill-opacity='0.15' d='M30 5L5 30l25 25 25-25L30 5zm0 10l15 15-15 15-15-15 15-15z'/%3E%3C/svg%3E");
+    background-size: 100% 100%, 60px 60px;
+    background-position: center, center;
     pointer-events: none;
+    opacity: 0.8;
+    /* Subtle visibility */
 }
 
+/* Ensure text readability on patterned dark background */
 [data-theme="dark"] .bg-maroon h2,
 [data-theme="dark"] .bg-maroon h3,
 [data-theme="dark"] .bg-maroon p,
-[data-theme="dark"] .bg-maroon div {
-    color: var(--color-gray-200) !important;
-    /* Fixed: Use light text color (defined as #E0E0E0/light-gray in dark mode context) or just white */
+[data-theme="dark"] .bg-maroon div,
+[data-theme="dark"] .heritage-quote .english-text,
+[data-theme="dark"] .heritage-desc {
     color: #e5e7eb !important;
-    /* Explicit light gray to be safe */
+    /* Light text */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    /* Enhance contrast against pattern */
+    position: relative;
+    z-index: 1;
 }
 
-/* Heritage Quote Section Override */
+/* Heritage Quote Section Override - Matching style */
 [data-theme="dark"] .heritage-quote-section {
     background: var(--color-ivory-dark) !important;
     border-top: 1px solid var(--color-maroon-dark);
     border-bottom: 1px solid var(--color-maroon-dark);
-}
-
-[data-theme="dark"] .heritage-quote-section::before {
-    opacity: 0.1;
-    /* Reduce pattern opacity */
-    background-image: radial-gradient(circle at center, rgba(218, 0, 55, 0.15) 0%, transparent 70%);
-    /* Add glow */
-}
-
-[data-theme="dark"] .heritage-quote .english-text,
-[data-theme="dark"] .heritage-desc {
-    color: var(--color-gray-200) !important;
 }
 
 
