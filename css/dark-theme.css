@@ -98,6 +98,13 @@
     background: var(--color-ivory);
 }
 
+/* Brighten Logo in Dark Mode */
+[data-theme="dark"] .navbar-logo-icon {
+    filter: brightness(0) invert(1);
+    /* Makes the logo white */
+    opacity: 0.9;
+}
+
 /* Buttons */
 [data-theme="dark"] .btn-primary {
     background: linear-gradient(135deg, #a61e4d 0%, #862e9c 100%);
