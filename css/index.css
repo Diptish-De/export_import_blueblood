@@ -762,11 +762,25 @@ p {
 .bg-maroon {
   background-color: var(--color-maroon);
   color: var(--color-ivory);
+  position: relative;
+  /* Add traditional diamond pattern for 'justifying tradition' */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23d4a84b' fill-opacity='0.08' d='M30 5L5 30l25 25 25-25L30 5zm0 10l15 15-15 15-15-15 15-15z'/%3E%3C/svg%3E");
+  background-size: 60px 60px;
 }
 
 .bg-maroon p {
   color: var(--color-gold);
   /* Brighter text for readability */
+  position: relative;
+  /* Ensure text sits above pattern */
+  z-index: 1;
+}
+
+.bg-maroon h2,
+.bg-maroon h3,
+.bg-maroon div {
+  position: relative;
+  z-index: 1;
 }
 
 .bg-indigo {
