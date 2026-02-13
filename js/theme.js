@@ -1,3 +1,6 @@
+import '../css/dark-theme.css';
+import '../css/theme-toggle.css';
+
 /**
  * Theme Switcher
  * Blueblood Exports

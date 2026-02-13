@@ -3,6 +3,12 @@
  * Blueblood Exports
  */
 
+// Import styles for Vite bundling
+import '../css/index.css';
+import '../css/components.css';
+import '../css/dark-theme.css';
+import '../css/theme-toggle.css';
+
 // Mobile Navigation Toggle
 document.addEventListener('DOMContentLoaded', () => {
   // Page Loader Logic - Show only once per session
