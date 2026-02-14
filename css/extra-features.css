@@ -327,12 +327,12 @@
     width: 100%;
     height: auto;
     display: block;
-    opacity: 0.4;
-    filter: sepia(0.2) brightness(0.9);
+    opacity: 0.8;
+    filter: brightness(1);
 }
 
 [data-theme="dark"] .global-reach-map img {
-    filter: invert(1) brightness(0.6) contrast(1.2) opacity(0.3);
+    filter: invert(1) brightness(0.7) contrast(1.2) opacity(0.5);
 }
 
 /* Elegant Markers */
