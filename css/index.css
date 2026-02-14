@@ -16,64 +16,61 @@
   --color-terracotta-dark: #8B3D2D;
 
   /* ============================================
-   PAGE LOADER - Traditional Indian Style
-   ============================================ */
+  /* Modern Loader - Glassmorphism & Elegant */
   .page-loader {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, var(--color-maroon-dark) 0%, var(--color-maroon) 50%, var(--color-indigo-dark) 100%);
+    background: radial-gradient(circle at center, var(--color-maroon) 0%, var(--color-maroon-dark) 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 99999;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
+    backdrop-filter: blur(10px);
   }
 
-  .page-loader.loaded,
-  .page-is-loaded .page-loader {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    display: none !important;
-  }
-
-  /* Simplified Loader - Elegant & Minimal */
   .loader-mandala {
     position: relative;
     width: 80px;
     height: 80px;
     margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   /* Single Elegant Ring */
   .loader-ring {
     position: absolute;
     inset: 0;
-    border: 3px solid transparent;
+    border: 2px solid rgba(212, 168, 75, 0.1);
     border-top-color: var(--color-gold);
     border-radius: 50%;
-    animation: spin 1s linear infinite;
+    animation: spin 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    box-shadow: 0 0 15px rgba(212, 168, 75, 0.2);
   }
 
-  /* Remove excessive rings */
-  .loader-ring:nth-child(2),
-  .loader-ring:nth-child(3) {
-    display: none;
+  /* Second Ring for Depth */
+  .loader-ring::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border: 1px solid rgba(212, 168, 75, 0.05);
+    border-bottom-color: var(--color-gold);
+    border-radius: 50%;
+    animation: spin 2s linear reverse infinite;
   }
 
   /* Center Icon (Lotus/Logo) */
   .loader-lotus {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.5rem;
-    animation: pulse-lotus 1.5s ease-in-out infinite;
-    color: var(--color-gold);
+    font-size: 2rem;
+    animation: pulse-lotus 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(212, 168, 75, 0.3));
+    z-index: 10;
   }
 
   /* Remove petals */
@@ -82,93 +79,54 @@
     display: none;
   }
 
-  .loader-petal:nth-child(1) {
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .loader-petal:nth-child(2) {
-    top: 15%;
-    right: 15%;
-  }
-
-  .loader-petal:nth-child(3) {
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  .loader-petal:nth-child(4) {
-    bottom: 15%;
-    right: 15%;
-  }
-
-  .loader-petal:nth-child(5) {
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .loader-petal:nth-child(6) {
-    bottom: 15%;
-    left: 15%;
-  }
-
-  .loader-petal:nth-child(7) {
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  .loader-petal:nth-child(8) {
-    top: 15%;
-    left: 15%;
-  }
-
   /* Brand text */
   .loader-brand {
     text-align: center;
     color: var(--color-ivory);
+    position: relative;
+    overflow: hidden;
   }
 
   .loader-brand h2 {
     font-family: 'Cinzel', serif;
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.75rem;
+    font-weight: 500;
     color: var(--color-ivory);
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     margin-bottom: 0.5rem;
     text-transform: uppercase;
-  }
-
-  .loader-brand h2 span {
-    color: var(--color-gold);
+    background: linear-gradient(to right, #fff, #D4A84B, #fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: shine 3s linear infinite;
   }
 
   .loader-brand p {
     font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    color: var(--color-gold-light);
-    letter-spacing: 2px;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 6px;
     text-transform: uppercase;
-    opacity: 0.8;
     margin: 0;
+    font-weight: 300;
   }
 
-  /* Loading dots */
+  /* Loading dots - Minimal */
   .loader-dots {
     display: flex;
-    gap: 8px;
-    margin-top: 1.5rem;
+    gap: 6px;
+    margin-top: 2rem;
+    opacity: 0.5;
   }
 
   .loader-dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     background: var(--color-gold);
     border-radius: 50%;
-    animation: bounce-dot 1.4s ease-in-out infinite;
+    animation: fade-dot 1.4s ease-in-out infinite both;
   }
 
   .loader-dot:nth-child(2) {
