@@ -83,12 +83,7 @@
   <link rel="stylesheet" href="css/extra-features.css">
 
   <!-- Theme Persistence Script (Prevents Glitch) -->
-  <script>
-    (function () {
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      document.documentElement.setAttribute('data-theme', savedTheme); if (sessionStorage.getItem('blueblood_loaded')) { document.documentElement.classList.add('page-is-loaded'); }
-    })();
-  </script>
+  <script>(function(){const t=localStorage.getItem("theme")||"light";document.documentElement.setAttribute("data-theme",t);if(sessionStorage.getItem("blueblood_loaded")){document.documentElement.classList.add("page-is-loaded");document.write("<style>.page-loader{display:none!important;}</style>")}}).call(this);</script>
   <script type="module" src="/js/i18n.js"></script>
 
   <!-- Structured Data (JSON-LD) -->
@@ -882,6 +877,8 @@
 </body>
 
 </html>
+
+
 
 
 

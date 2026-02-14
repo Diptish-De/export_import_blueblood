@@ -14,23 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const pageLoader = document.getElementById('pageLoader');
   if (pageLoader) {
     if (sessionStorage.getItem('blueblood_loaded')) {
-      pageLoader.style.display = 'none';
       pageLoader.remove();
     } else {
-      const minDisplayTime = 800; // 800ms
-      const startTime = Date.now();
-
       window.addEventListener('load', () => {
-        const elapsed = Date.now() - startTime;
-        const remainingTime = Math.max(0, minDisplayTime - elapsed);
-
         setTimeout(() => {
           pageLoader.classList.add('loaded');
           sessionStorage.setItem('blueblood_loaded', 'true');
-          setTimeout(() => {
-            pageLoader.remove();
-          }, 600);
-        }, remainingTime);
+          setTimeout(() => pageLoader.remove(), 600);
+        }, 400); // Reduced delay for better UX
       });
     }
   }
