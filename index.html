@@ -86,7 +86,7 @@
       document.documentElement.setAttribute('data-theme', savedTheme);
     })();
   </script>
-  <script type="module" src="/js/theme.js"></script>
+  <script type="module" src="/js/i18n.js"></script>
 
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
@@ -170,6 +170,28 @@
 
       <!-- Theme Controls -->
       <div class="navbar-controls">
+        <div class="lang-selector">
+          <button class="lang-btn" id="langToggle" onclick="toggleLanguageDropdown()">
+            <span class="lang-flag">🇬🇧</span>
+            <span class="lang-name">EN</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div class="lang-dropdown">
+            <button class="lang-option" onclick="switchLanguage('en')"><span>🇬🇧</span> English</button>
+            <button class="lang-option" onclick="switchLanguage('hi')"><span>🇮🇳</span> हिन्दी</button>
+            <button class="lang-option" onclick="switchLanguage('ar')"><span>🇦🇪</span> العربية</button>
+          </div>
+        </div>
+        <button class="cart-toggle" id="cartToggle" aria-label="View Inquiry Bag">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 01-8 0"></path>
+          </svg>
+          <span class="cart-badge">0</span>
+        </button>
         <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">
           <span class="theme-icon">🌙</span>
         </button>
@@ -189,10 +211,10 @@
       <div class="hero-content animate-fade-in-up">
 
         <span class="hero-tagline">Since 1985 • Export Quality • Made in India</span>
-        <h1 class="hero-title">
+        <h1 class="hero-title" data-i18n="hero.title">
           Timeless Indian <span>Artefacts</span> for the World
         </h1>
-        <p class="hero-description">
+        <p class="hero-description" data-i18n="hero.description">
           Discover premium handcrafted treasures from India's finest artisan communities —
           from the sacred brass works of Moradabad to the intricate Sandalwood carvings of Mysore.
           We bring centuries-old craftsmanship to discerning collectors worldwide.
@@ -374,6 +396,61 @@
     </div>
   </section>
 
+  <!-- Artisan Spotlight Section -->
+  <section class="section artisan-spotlight bg-texture">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="text-terracotta" style="font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">Meet the
+          Makers</span>
+        <h2>Artisan Spotlight</h2>
+        <div class="ornate-line">
+          <span class="lotus">🪷</span>
+        </div>
+        <p>Behind every masterpiece is a story of dedication, passed down through generations of Indian artisan
+          families.
+        </p>
+      </div>
+
+      <div class="artisan-grid">
+        <div class="artisan-card animate-on-scroll">
+          <div class="artisan-image">
+            <img src="https://images.unsplash.com/photo-1590739225287-bd2ba5198abf?w=600&h=800&fit=crop"
+              alt="Master Brass Artisan">
+          </div>
+          <div class="artisan-info">
+            <span class="artisan-tag">Brass Master</span>
+            <h3>Rajesh Dhobi</h3>
+            <p>A 4th generation master of the lost-wax casting technique in Moradabad.</p>
+          </div>
+        </div>
+
+        <div class="artisan-card animate-on-scroll" style="animation-delay: 0.2s;">
+          <div class="artisan-image">
+            <img src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=600&h=800&fit=crop"
+              alt="Master Silk Weaver">
+          </div>
+          <div class="artisan-info">
+            <span class="artisan-tag">Master Weaver</span>
+            <h3>Anika Banerjee</h3>
+            <p>Preserving the intricate silk weaving traditions of Varanasi for over 30 years.</p>
+          </div>
+        </div>
+
+        <div class="artisan-card animate-on-scroll" style="animation-delay: 0.4s;">
+          <div class="artisan-image">
+            <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&h=800&fit=crop"
+              alt="Stone Carver">
+          </div>
+          <div class="artisan-info">
+            <span class="artisan-tag">Stone Sculptor</span>
+            <h3>Vikram Singh</h3>
+            <p>Transforming raw Macrana marble into ethereal spiritual icons in Jaipur.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Heritage Quote Section -->
   <section class="heritage-quote-section">
     <div class="container">
@@ -507,7 +584,17 @@
         <p>Trusted by collectors and businesses across continents</p>
       </div>
 
-      <div class="countries-grid">
+      <div class="global-reach-map animate-on-scroll">
+        <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=1200&h=600&fit=crop" alt="World Map"
+          style="opacity: 0.2; filter: grayscale(1);">
+        <!-- Map Animation Points -->
+        <div class="map-point" style="top: 55%; left: 70%; text-indent: -9999px;">India</div>
+        <div class="map-point" style="top: 35%; left: 25%; text-indent: -9999px;">USA</div>
+        <div class="map-point" style="top: 25%; left: 50%; text-indent: -9999px;">Europe</div>
+        <div class="map-point" style="top: 45%; left: 62%; text-indent: -9999px;">UAE</div>
+        <div class="map-point" style="top: 70%; left: 85%; text-indent: -9999px;">Australia</div>
+      </div>
+      <div class="countries-grid" style="margin-top: var(--space-8);">
         <div class="country-item">
           <div class="country-flag">
             <img src="https://flagcdn.com/w80/us.png" alt="USA Flag">
@@ -673,7 +760,36 @@
   </footer>
 
   <!-- Scripts -->
+  <!-- Cart Drawer -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+      <h3>Inquiry Bag</h3>
+      <button id="closeCart" aria-label="Close Bag">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="cart-drawer-items" id="cartItems">
+      <!-- Items added dynamically -->
+      <div class="text-center" style="padding: 2rem; color: var(--color-gray-500);">
+        Your inquiry bag is empty.
+      </div>
+    </div>
+    <div class="cart-drawer-footer">
+      <button class="btn btn-whatsapp btn-lg" style="width: 100%;" id="sendInquiry">
+        Send Inquiry via WhatsApp
+      </button>
+      <p style="font-size: 0.75rem; text-align: center; margin-top: 1rem; color: var(--color-gray-500);">
+        We will pre-fill a WhatsApp message with your selected items.
+      </p>
+    </div>
+  </div>
+
   <script type="module" src="/js/main.js"></script>
+  <script type="module" src="/js/cart.js"></script>
   <script>
     // Load featured products on homepage
     document.addEventListener('DOMContentLoaded', async () => {

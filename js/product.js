@@ -57,40 +57,126 @@ document.addEventListener('DOMContentLoaded', async () => {
     function renderProduct() {
         document.title = `${currentProduct.name} | Blueblood Exports`;
 
-        // Main content
-        mainImage.src = currentProduct.images[0];
-        mainImage.alt = currentProduct.name;
-        productName.textContent = currentProduct.name;
-        productCategory.textContent = currentProduct.category;
-        productOrigin.textContent = currentProduct.origin;
-        productDesc.textContent = currentProduct.description;
-        productMaterial.textContent = currentProduct.material;
-        productDimensions.textContent = currentProduct.dimensions;
-        productWeight.textContent = currentProduct.weight;
-        productCat2.textContent = currentProduct.category;
-        productMOQ.textContent = `${currentProduct.moq} units`;
-        breadcrumbName.textContent = currentProduct.name;
-        quantityInput.value = currentProduct.moq;
-        quantityInput.min = 1;
+        function displayProduct(product) {
+            // ... (breadcrumb and title logic)
+            document.getElementById('breadcrumbName').textContent = product.name; // Changed from breadcrumbProduct to breadcrumbName
+            document.getElementById('productName').textContent = product.name;
+            document.getElementById('productOrigin').innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg> ${product.origin}`;
+            document.getElementById('productDesc').textContent = product.description; // Changed from productDescription to productDesc
 
-        // Render thumbnails
-        thumbnails.innerHTML = currentProduct.images.map((img, idx) => `
-      <div class="product-thumbnail ${idx === 0 ? 'active' : ''}" data-image="${img}">
-        <img src="${img}" alt="${currentProduct.name} - Image ${idx + 1}">
+            // Details
+            document.getElementById('productMaterial').textContent = product.material; // Changed from detailMaterial to productMaterial
+            document.getElementById('productDimensions').textContent = product.dimensions; // Changed from detailDimensions to productDimensions
+            document.getElementById('productWeight').textContent = product.weight; // Changed from detailWeight to productWeight
+            document.getElementById('productCategory').textContent = product.category; // Changed from detailCategory to productCategory
+            document.getElementById('productMOQ').textContent = `${product.moq} units`; // Changed from detailMOQ to productMOQ
+
+            // Images
+            const mainImage = document.getElementById('mainImage');
+            mainImage.src = product.images[0];
+            mainImage.alt = product.name;
+
+            // Lightbox Trigger
+            mainImage.style.cursor = 'zoom-in';
+            mainImage.onclick = () => showLightbox(mainImage.src);
+
+            const thumbnails = document.getElementById('thumbnails');
+            thumbnails.innerHTML = product.images.map((img, index) => `
+      <div class="product-thumbnail ${index === 0 ? 'active' : ''}" onclick="updateMainImage('${img}', this)">
+        <img src="${img}" alt="${product.name} ${index + 1}">
       </div>
     `).join('');
 
-        // Thumbnail click handlers
-        thumbnails.querySelectorAll('.product-thumbnail').forEach(thumb => {
-            thumb.addEventListener('click', () => {
-                thumbnails.querySelectorAll('.product-thumbnail').forEach(t => t.classList.remove('active'));
-                thumb.classList.add('active');
-                mainImage.src = thumb.dataset.image;
-            });
-        });
+            // Update WhatsApp Inquiry to include "Add to Bag"
+            const inquiryActions = document.querySelector('.product-actions'); // Assuming a .product-actions container exists
+            if (inquiryActions) {
+                inquiryActions.innerHTML = `
+                <div class="quantity-selector">
+                    <button class="qty-btn" onclick="updateQty(-1)">-</button>
+                    <input type="number" id="quantityInput" value="${product.moq}" min="${product.moq}">
+                    <button class="qty-btn" onclick="updateQty(1)">+</button>
+                </div>
+                <button class="btn btn-whatsapp btn-lg" onclick="inquiryNow()">
+                    Inquire Now
+                </button>
+                <button class="btn btn-secondary btn-lg" onclick="addToBag()">
+                    Add to Inquiry Bag
+                </button>
+            `;
+            } else {
+                // Fallback if .product-actions is not found, update existing buttons
+                quantityInput.value = product.moq;
+                quantityInput.min = product.moq;
+                // The whatsappBtn.href will be updated by updateWhatsAppLink()
+            }
 
-        updateWhatsAppLink();
+
+            // Scoped functions
+            window.updateQty = (val) => {
+                const input = document.getElementById('quantityInput'); // Changed from quantity to quantityInput
+                input.value = Math.max(product.moq, parseInt(input.value) + val);
+                updateWhatsAppLink(); // Call to update WhatsApp link after quantity change
+            };
+
+            window.inquiryNow = () => {
+                const qty = document.getElementById('quantityInput').value; // Changed from quantity to quantityInput
+                const message = `Hello, I'm interested in ${qty} units of ${product.name} (ID: ${product.id}).`;
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank'); // Used WHATSAPP_NUMBER
+            };
+
+            window.addToBag = () => {
+                const qty = parseInt(document.getElementById('quantityInput').value); // Changed from quantity to quantityInput
+                // Assuming window.cart is defined elsewhere for cart functionality
+                if (window.cart && typeof window.cart.addItem === 'function') {
+                    window.cart.addItem({
+                        id: product.id,
+                        name: product.name,
+                        category: product.category
+                    }, qty);
+                    alert(`${qty} x ${product.name} added to inquiry bag!`); // Simple feedback
+                } else {
+                    console.warn("Cart functionality (window.cart.addItem) not available.");
+                    alert("Inquiry bag feature is not fully implemented yet.");
+                }
+            };
+        }
+
+        displayProduct(currentProduct); // Call the new displayProduct function
+        updateWhatsAppLink(); // Ensure the original WhatsApp link is updated if buttons are not replaced
     }
+
+    function showLightbox(src) {
+        let lb = document.getElementById('lightbox');
+        if (!lb) {
+            lb = document.createElement('div');
+            lb.id = 'lightbox';
+            lb.className = 'lightbox';
+            lb.innerHTML = `
+                <div class="lightbox-content">
+                    <span class="lightbox-close">&times;</span>
+                    <img class="lightbox-image" src="${src}">
+                </div>
+            `;
+            document.body.appendChild(lb);
+            lb.onclick = (e) => {
+                if (e.target.className !== 'lightbox-image') lb.classList.remove('active');
+            };
+            // Add event listener for close button if it exists
+            const closeBtn = lb.querySelector('.lightbox-close');
+            if (closeBtn) {
+                closeBtn.onclick = () => lb.classList.remove('active');
+            }
+        } else {
+            lb.querySelector('.lightbox-image').src = src;
+        }
+        lb.classList.add('active');
+    }
+
+    window.updateMainImage = (src, thumb) => {
+        document.getElementById('mainImage').src = src;
+        document.querySelectorAll('.product-thumbnail').forEach(t => t.classList.remove('active')); // Changed from .thumbnail to .product-thumbnail
+        thumb.classList.add('active');
+    };
 
     // Quantity controls
     decreaseBtn.addEventListener('click', () => {

@@ -17,7 +17,7 @@
             document.documentElement.setAttribute('data-theme', savedTheme);
         })();
     </script>
-    <script type="module" src="/js/theme.js"></script>
+    <script type="module" src="/js/i18n.js"></script>
     <style>
         .artisan-card {
             background: var(--color-white);
@@ -158,6 +158,29 @@
                 <a href="contact.html" class="navbar-link">Contact</a>
             </div>
             <div class="navbar-controls">
+                <div class="lang-selector">
+                    <button class="lang-btn" id="langToggle" onclick="toggleLanguageDropdown()">
+                        <span class="lang-flag">🇬🇧</span>
+                        <span class="lang-name">EN</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M6 9l6 6 6-6"></path>
+                        </svg>
+                    </button>
+                    <div class="lang-dropdown">
+                        <button class="lang-option" onclick="switchLanguage('en')"><span>🇬🇧</span> English</button>
+                        <button class="lang-option" onclick="switchLanguage('hi')"><span>🇮🇳</span> हिन्दी</button>
+                        <button class="lang-option" onclick="switchLanguage('ar')"><span>🇦🇪</span> العربية</button>
+                    </div>
+                </div>
+                <button class="cart-toggle" id="cartToggle" aria-label="View Inquiry Bag">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 01-8 0"></path>
+                    </svg>
+                    <span class="cart-badge">0</span>
+                </button>
                 <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">
                     <span class="theme-icon">🌙</span>
                 </button>
@@ -448,7 +471,31 @@
             </div>
         </div>
     </footer>
+    <!-- Cart Drawer -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-drawer-header">
+            <h3>Inquiry Bag</h3>
+            <button id="closeCart" aria-label="Close Bag">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="cart-drawer-items" id="cartItems">
+            <div class="text-center" style="padding: 2rem; color: var(--color-gray-500);">Your inquiry bag is empty.
+            </div>
+        </div>
+        <div class="cart-drawer-footer">
+            <button class="btn btn-whatsapp btn-lg" style="width: 100%;" id="sendInquiry">
+                Send Inquiry via WhatsApp
+            </button>
+        </div>
+    </div>
+
     <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/js/cart.js"></script>
 </body>
 
 </html>

@@ -1,24 +1,28 @@
 /**
- * Theme and Language Switcher
+ * Theme and Language Switcher (Unified)
  * Blueblood Exports
  */
 
-// Initialize theme and language on page load
+// Global State
+let translations = {};
+let currentLang = 'en';
+
+// Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     initializeTheme();
     initializeLanguage();
 });
 
 /* ============================================
-   THEME SWITCHER
+   THEME LOGIC (Exposed to window)
    ============================================ */
-function initializeTheme() {
+window.initializeTheme = function () {
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     updateThemeButton(savedTheme);
 }
 
-function toggleTheme() {
+window.toggleTheme = function () {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
@@ -34,35 +38,19 @@ function updateThemeButton(theme) {
         if (icon) {
             icon.textContent = theme === 'dark' ? '☀️' : '🌙';
         }
-        themeBtn.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
     }
 }
 
 /* ============================================
-   LANGUAGE SWITCHER
+   LANGUAGE LOGIC (Exposed to window)
    ============================================ */
-let translations = {};
-let currentLang = 'en';
-
-async function initializeLanguage() {
-    // Load translations
+window.initializeLanguage = async function () {
     try {
         const response = await fetch('/data/translations.json');
         translations = await response.json();
-
-        // Get saved language or default to English
         currentLang = localStorage.getItem('language') || 'en';
 
-        // Set HTML dir for RTL languages
-        if (currentLang === 'ar') {
-            document.documentElement.setAttribute('dir', 'rtl');
-            document.documentElement.setAttribute('lang', 'ar');
-        } else {
-            document.documentElement.setAttribute('dir', 'ltr');
-            document.documentElement.setAttribute('lang', currentLang);
-        }
-
-        // Apply translations
+        applyLanguageSettings(currentLang);
         applyTranslations();
         updateLanguageButton();
     } catch (error) {
@@ -70,46 +58,44 @@ async function initializeLanguage() {
     }
 }
 
-function switchLanguage(lang) {
+window.switchLanguage = function (lang) {
     if (!translations[lang]) return;
-
     currentLang = lang;
     localStorage.setItem('language', lang);
 
-    // Update HTML attributes
-    document.documentElement.setAttribute('lang', lang);
-
-    if (lang === 'ar') {
-        document.documentElement.setAttribute('dir', 'rtl');
-    } else {
-        document.documentElement.setAttribute('dir', 'ltr');
-    }
-
+    applyLanguageSettings(lang);
     applyTranslations();
     updateLanguageButton();
 
-    // Close language dropdown
+    // Close dropdown
     const dropdown = document.querySelector('.lang-dropdown');
     if (dropdown) dropdown.classList.remove('active');
+}
+
+function applyLanguageSettings(lang) {
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
 }
 
 function applyTranslations() {
     const t = translations[currentLang];
     if (!t) return;
 
-    // Translate all elements with data-i18n attribute
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
         const keys = key.split('.');
         let value = t;
 
         for (const k of keys) {
-            value = value[k];
-            if (!value) break;
+            value = value ? value[k] : null;
         }
 
         if (value) {
-            element.textContent = value;
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                element.placeholder = value;
+            } else {
+                element.textContent = value;
+            }
         }
     });
 }
@@ -117,16 +103,8 @@ function applyTranslations() {
 function updateLanguageButton() {
     const langBtn = document.getElementById('langToggle');
     if (langBtn) {
-        const flagMap = {
-            'en': '🇬🇧',
-            'hi': '🇮🇳',
-            'ar': '🇦🇪'
-        };
-        const nameMap = {
-            'en': 'EN',
-            'hi': 'हिं',
-            'ar': 'عر'
-        };
+        const flagMap = { 'en': '🇬🇧', 'hi': '🇮🇳', 'ar': '🇦🇪' };
+        const nameMap = { 'en': 'EN', 'hi': 'हिं', 'ar': 'عر' };
 
         const flag = langBtn.querySelector('.lang-flag');
         const name = langBtn.querySelector('.lang-name');
@@ -136,15 +114,12 @@ function updateLanguageButton() {
     }
 }
 
-// Toggle language dropdown
-function toggleLanguageDropdown() {
+window.toggleLanguageDropdown = function () {
     const dropdown = document.querySelector('.lang-dropdown');
-    if (dropdown) {
-        dropdown.classList.toggle('active');
-    }
+    if (dropdown) dropdown.classList.toggle('active');
 }
 
-// Close dropdown when clicking outside
+// Global click listener to close dropdowns
 document.addEventListener('click', (e) => {
     if (!e.target.closest('.lang-selector')) {
         const dropdown = document.querySelector('.lang-dropdown');

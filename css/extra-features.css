@@ -1,0 +1,374 @@
+/**
+ * Extra Features CSS
+ * Cart, Lightbox, Language Switcher, Artisan Spotlight
+ */
+
+/* Cart Icon Badge */
+.cart-toggle {
+    position: relative;
+    padding: var(--space-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-maroon);
+    border-radius: var(--radius-full);
+    transition: var(--transition-base);
+}
+
+.cart-toggle:hover {
+    background: rgba(184, 80, 58, 0.1);
+}
+
+.cart-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: var(--color-terracotta);
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--color-white);
+}
+
+[data-theme="dark"] .cart-toggle {
+    color: var(--color-gold);
+}
+
+[data-theme="dark"] .cart-badge {
+    border-color: var(--color-ivory-dark);
+}
+
+/* Cart Modal/Notification */
+.cart-notification {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--color-maroon);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    z-index: 10000;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cart-notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.cart-notification-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* Cart Drawer/Modal UI */
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 100%;
+    max-width: 400px;
+    height: 100vh;
+    background: var(--color-white);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    z-index: 100000;
+    transition: right 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-drawer.active {
+    right: 0;
+}
+
+.cart-drawer-header {
+    padding: var(--space-6);
+    border-bottom: 1px solid var(--color-gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-drawer-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-6);
+}
+
+.cart-item {
+    display: flex;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--color-gray-100);
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-name {
+    font-weight: 600;
+    font-family: var(--font-heading);
+    color: var(--color-maroon);
+}
+
+.cart-item-meta {
+    font-size: 0.8rem;
+    color: var(--color-gray-500);
+}
+
+.cart-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cart-quantity-btn {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--color-gray-300);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.cart-drawer-footer {
+    padding: var(--space-6);
+    border-top: 1px solid var(--color-gray-200);
+    background: var(--color-gray-100);
+}
+
+.cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.cart-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Dark Mode Overrides for Drawer */
+[data-theme="dark"] .cart-drawer {
+    background: var(--color-ivory-dark);
+}
+
+[data-theme="dark"] .cart-item-name {
+    color: var(--color-gold);
+}
+
+[data-theme="dark"] .cart-drawer-footer {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Language Switcher Dropdown */
+.lang-selector {
+    position: relative;
+    margin-right: var(--space-4);
+}
+
+.lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-md);
+    background: transparent;
+    border: 1px solid var(--color-gray-200);
+    font-weight: 500;
+    color: var(--color-maroon);
+}
+
+[data-theme="dark"] .lang-btn {
+    border-color: var(--color-gray-600);
+    color: var(--color-gold);
+}
+
+.lang-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    background: var(--color-white);
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-md);
+    min-width: 140px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+    z-index: 1000;
+}
+
+.lang-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.lang-option {
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    text-align: left;
+    transition: background 0.2s;
+}
+
+.lang-option:hover {
+    background: var(--color-gray-100);
+}
+
+[data-theme="dark"] .lang-dropdown {
+    background: var(--color-ivory-dark);
+}
+
+[data-theme="dark"] .lang-option:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Artisan Spotlight */
+.artisan-spotlight {
+    position: relative;
+    overflow: hidden;
+}
+
+.artisan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-8);
+}
+
+.artisan-card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s ease;
+}
+
+.artisan-card:hover {
+    transform: translateY(-5px);
+}
+
+.artisan-image {
+    height: 300px;
+    overflow: hidden;
+}
+
+.artisan-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.artisan-card:hover .artisan-image img {
+    transform: scale(1.05);
+}
+
+.artisan-info {
+    padding: var(--space-6);
+    text-align: center;
+}
+
+.artisan-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--color-cream);
+    color: var(--color-terracotta);
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+}
+
+/* Heritage Map Animations */
+.global-reach-map {
+    position: relative;
+    margin-top: var(--space-12);
+}
+
+.map-point {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--color-gold);
+    border-radius: 50%;
+}
+
+.map-point::after {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border: 2px solid var(--color-gold);
+    border-radius: 50%;
+    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+
+    75%,
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* Lightbox UI */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 200000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.lightbox.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90%;
+    position: relative;
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: white;
+    font-size: 30px;
+}

@@ -1,87 +1,167 @@
 /* ============================================
-   DARK THEME VARIABLES & OVERRIDES
+   PREMIUM DARK THEME (GLASSMORPHISM)
    ============================================ */
 [data-theme="dark"] {
-    /* 
-       1. Base Background Colors - INVERTED LOGIC
-       Dark mode needs dark backgrounds
-    */
-    --color-ivory: #121212;
-    /* Main dark background */
-    --color-ivory-light: #1E1E1E;
-    /* Slightly lighter (cards) */
-    --color-ivory-dark: #000000;
-    /* Deepest black */
-    --color-cream: #1A1A1A;
-    /* Secondary background */
+    /* 1. Base Background Colors - Deep Ocean / Night palette */
+    --color-ivory: #0a0a0b;
+    --color-ivory-light: #151518;
+    --color-ivory-dark: #050505;
+    --color-cream: #121214;
+    --color-white: #0a0a0c;
 
-    /* 
-       2. Text Colors - INVERTED Logic
-       Light text on dark background
-    */
-    --color-black: #E0E0E0;
-    /* Primary text */
-    --color-gray-700: #D1D5DB;
-    /* Secondary text */
-    --color-gray-600: #9CA3AF;
-    /* Muted text */
-    --color-gray-500: #6B7280;
-    --color-gray-400: #4B5563;
+    /* 2. Text Colors - High Contrast */
+    --color-black: #f8f9fa;
+    --color-gray-700: #e9ecef;
+    --color-gray-600: #ced4da;
+    --color-gray-500: #adb5bd;
     --color-gray-300: #374151;
     /* Borders */
     --color-gray-200: #1F2937;
-    /* Dark borders */
-    --color-gray-100: #111827;
-    /* Very dark elements */
-    --color-white: #0f172a;
-    /* Inverted white areas to dark blue-black */
 
-    /* 
-       3. Brand Colors - ADJUSTED for Dark Mode
-       Slightly desaturated    /* Adjusted brand colors for dark mode - Premium Rich Red */
-    --color-maroon: #DA0037;
-    /* Vivid Crimson */
-    --color-maroon-light: #FF1744;
-    /* Bright Red highlight */
-    --color-maroon-dark: #900020;
-    /* Deep Burgundy */
-
-    --color-gold: #ffd43b;
-    /* Brighter gold */
-    --color-gold-light: #ffe066;
-    --color-gold-dark: #fcc419;
+    /* 3. Brand Colors - Luminous version */
+    --color-maroon: #e63946;
+    --color-maroon-dark: #a4161a;
+    --color-gold: #ffc300;
+    --color-gold-light: #ffd60a;
     --color-antique-gold: #fab005;
 
-    --color-indigo: #4dabf7;
-    /* Brighter blue */
-    --color-indigo-light: #74c0fc;
-    --color-indigo-dark: #339af0;
-
-    --color-saffron: #ff922b;
-    --color-copper: #f08c00;
-    --color-henna: #e67700;
-
     /* Shadows */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-    --shadow-gold: 0 4px 14px 0 rgba(255, 212, 59, 0.2);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.5);
+    --shadow-gold: 0 4px 20px rgba(255, 195, 0, 0.15);
 }
 
-/* ============================================
-   COMPONENT SPECIFIC OVERRIDES
-   ============================================ */
-
-/* Navbar */
+/* Glassmorphism Navbar */
 [data-theme="dark"] .navbar {
-    background: rgba(18, 18, 18, 0.95);
-    /* Dark background */
-    border-bottom: 2px solid var(--color-gold-dark);
+    background: rgba(10, 10, 12, 0.8) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 195, 0, 0.2) !important;
+}
+
+[data-theme="dark"] .navbar.scrolled {
+    background: rgba(5, 5, 5, 0.9) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Glassmorphism Cards */
+[data-theme="dark"] .feature-card,
+[data-theme="dark"] .product-card,
+[data-theme="dark"] .artisan-card,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .doc-card,
+[data-theme="dark"] .ad-card:not(.bg-maroon) {
+    background: rgba(21, 21, 24, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .feature-card:hover,
+[data-theme="dark"] .product-card:hover {
+    border-color: rgba(255, 195, 0, 0.3);
+    transform: translateY(-5px);
+    background: rgba(21, 21, 24, 0.8);
+}
+
+/* Hero Section Ghibli effect */
+[data-theme="dark"] .hero {
+    background: var(--color-ivory);
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 80%;
+    height: 150%;
+    background: radial-gradient(circle, rgba(230, 57, 70, 0.08) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+[data-theme="dark"] .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    left: -20%;
+    width: 80%;
+    height: 150%;
+    background: radial-gradient(circle, rgba(255, 195, 0, 0.04) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+[data-theme="dark"] .hero-content {
+    position: relative;
+    z-index: 10;
+}
+
+/* Premium Buttons */
+[data-theme="dark"] .btn-primary {
+    background: linear-gradient(135deg, var(--color-maroon) 0%, #a4161a 100%);
+    box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+    border: none;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(230, 57, 70, 0.5);
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+[data-theme="dark"] .btn-secondary {
+    border: 1px solid rgba(255, 195, 0, 0.5);
+    color: var(--color-gold);
+    background: transparent;
+}
+
+[data-theme="dark"] .btn-gold {
+    background: var(--color-gold);
+    color: #000;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(255, 195, 0, 0.3);
+}
+
+/* Section Backgrounds */
+[data-theme="dark"] .bg-white {
+    background-color: var(--color-ivory) !important;
+}
+
+[data-theme="dark"] .bg-texture {
+    background-image: radial-gradient(at 0% 0%, rgba(21, 21, 24, 1) 0, transparent 50%),
+        radial-gradient(at 50% 0%, rgba(10, 10, 12, 1) 0, transparent 50%);
+}
+
+[data-theme="dark"] .bg-maroon {
+    background: linear-gradient(135deg, #151518 0%, #050505 100%) !important;
+    border-top: 1px solid rgba(230, 57, 70, 0.2);
+    border-bottom: 1px solid rgba(230, 57, 70, 0.2);
+}
+
+/* Footer Refinement */
+[data-theme="dark"] .footer {
+    background: #050505;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .footer-social a {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-gold);
+}
+
+/* Logo & Navigation */
+[data-theme="dark"] .navbar-logo-icon {
+    filter: brightness(0) invert(1) drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
 }
 
 [data-theme="dark"] .navbar-link {
-    color: var(--color-gray-600);
-    /* Use variable */
+    color: var(--color-gray-500);
 }
 
 [data-theme="dark"] .navbar-link:hover,
@@ -89,181 +169,24 @@
     color: var(--color-gold);
 }
 
-[data-theme="dark"] .navbar-logo-text {
-    color: var(--color-gold);
-}
-
-/* Mobile Menu */
-[data-theme="dark"] .navbar-menu {
-    background: var(--color-ivory);
-}
-
-/* Brighten Logo in Dark Mode */
-[data-theme="dark"] .navbar-logo-icon {
-    filter: brightness(0) invert(1);
-    /* Makes the logo white */
-    opacity: 0.9;
-}
-
-/* Buttons */
-[data-theme="dark"] .btn-primary {
-    background: linear-gradient(135deg, #a61e4d 0%, #862e9c 100%);
-    /* Purple/Pink gradient */
-    color: #fff;
-    border-color: transparent;
-}
-
-[data-theme="dark"] .btn-secondary {
-    border-color: var(--color-gold);
-    color: var(--color-gold);
-}
-
-[data-theme="dark"] .btn-secondary:hover {
-    background: var(--color-gold);
-    color: #000;
-}
-
-/* Cards & Sections */
-[data-theme="dark"] .feature-card,
-[data-theme="dark"] .process-step-content,
-[data-theme="dark"] .product-card,
-[data-theme="dark"] .catalogue-card,
-[data-theme="dark"] .artisan-card,
-[data-theme="dark"] .stat-card,
-[data-theme="dark"] .doc-card {
-    background: var(--color-ivory-light);
-    border: 1px solid var(--color-gray-200);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-}
-
-/* Inputs */
-[data-theme="dark"] input,
-[data-theme="dark"] textarea,
-[data-theme="dark"] select {
-    background-color: var(--color-ivory-light);
-    color: var(--color-black);
-    border-color: var(--color-gray-300);
-}
-
-[data-theme="dark"] input:focus,
-[data-theme="dark"] textarea:focus {
-    border-color: var(--color-gold);
-    background-color: var(--color-ivory);
-}
-
-/* Footer */
-[data-theme="dark"] .footer {
-    background: #000;
-    border-top: 1px solid var(--color-gray-200);
-}
-
-[data-theme="dark"] .footer-brand h3 {
-    color: var(--color-gold);
-}
-
-[data-theme="dark"] .footer-brand h3 span {
-    color: var(--color-ivory);
-}
-
-/* Sections with specific backgrounds - Overrides for Dark Mode */
-[data-theme="dark"] .bg-white {
-    background-color: var(--color-ivory) !important;
-}
-
-[data-theme="dark"] .bg-cream {
-    background-color: var(--color-ivory-light) !important;
-}
-
-[data-theme="dark"] .bg-gray-100 {
-    background-color: var(--color-ivory-dark) !important;
-}
-
-/* Transform the solid red background into a dark section with red accents */
-[data-theme="dark"] .bg-maroon {
-    background-color: var(--color-ivory-dark) !important;
-    border-top: 1px solid var(--color-maroon-dark);
-    border-bottom: 1px solid var(--color-maroon-dark);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Add traditional pattern to red sections in dark mode */
-[data-theme="dark"] .bg-maroon::before,
-[data-theme="dark"] .heritage-quote-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Traditional Diamond Pattern */
-    background-image:
-        radial-gradient(circle at center, rgba(218, 0, 55, 0.2) 0%, transparent 80%),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23d4a84b' fill-opacity='0.15' d='M30 5L5 30l25 25 25-25L30 5zm0 10l15 15-15 15-15-15 15-15z'/%3E%3C/svg%3E");
-    background-size: 100% 100%, 60px 60px;
-    background-position: center, center;
-    pointer-events: none;
-    opacity: 0.8;
-    /* Subtle visibility */
-}
-
-/* Ensure text readability on patterned dark background */
-[data-theme="dark"] .bg-maroon h2,
-[data-theme="dark"] .bg-maroon h3,
-[data-theme="dark"] .bg-maroon p,
-[data-theme="dark"] .bg-maroon div,
-[data-theme="dark"] .heritage-quote .english-text,
-[data-theme="dark"] .heritage-desc {
-    color: #e5e7eb !important;
-    /* Light text */
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-    /* Enhance contrast against pattern */
-    position: relative;
-    z-index: 1;
-}
-
-/* Heritage Quote Section Override - Matching style */
-[data-theme="dark"] .heritage-quote-section {
-    background: var(--color-ivory-dark) !important;
-    border-top: 1px solid var(--color-maroon-dark);
-    border-bottom: 1px solid var(--color-maroon-dark);
-}
-
-
-/* Text Overrides */
+/* Typography Overrides */
 [data-theme="dark"] h1,
 [data-theme="dark"] h2,
-[data-theme="dark"] h3,
-[data-theme="dark"] h4,
-[data-theme="dark"] h5,
-[data-theme="dark"] h6 {
+[data-theme="dark"] h3 {
     color: var(--color-black);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-[data-theme="dark"] p,
-[data-theme="dark"] li,
-[data-theme="dark"] span:not(.navbar-logo-text span):not(.badge) {
-    color: var(--text-secondary);
-    /* Ensure readability */
+[data-theme="dark"] p {
+    color: var(--color-gray-600);
 }
 
-/* Ensure Logo text pops */
-[data-theme="dark"] .navbar-logo-text span {
-    color: var(--color-gold-light);
+/* Ornate elements */
+[data-theme="dark"] .ornate-line {
+    border-color: rgba(255, 195, 0, 0.2);
 }
 
-/* Transitions */
-/* Transitions */
-body,
-.btn,
-.navbar,
-.card {
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Base Body Override */
-[data-theme="dark"] body {
-    background-image: none;
-    /* Optional: Add a dark pattern here if desired */
-    background-color: var(--color-ivory);
+[data-theme="dark"] .lotus {
+    color: var(--color-gold);
+    filter: drop-shadow(0 0 5px rgba(255, 195, 0, 0.5));
 }
