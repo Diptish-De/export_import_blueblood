@@ -43,5 +43,117 @@
       "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=600&h=600&fit=crop"
     ],
     "description": "Handwoven Banarasi silk tapestry featuring traditional floral and paisley patterns with gold zari work. A masterpiece representing centuries of weaving tradition."
+  },
+  {
+    "id": "art004",
+    "name": "Brass Diya Lamp",
+    "category": "Brass",
+    "material": "Brass",
+    "origin": "Moradabad, India",
+    "dimensions": "6 x 4 inches",
+    "weight": "0.8 kg",
+    "moq": 50,
+    "images": [
+      "https://images.unsplash.com/photo-1601391605500-111453273e91?w=600&h=600&fit=crop"
+    ],
+    "description": "Traditional brass oil lamp (Diya) with intricate engravings. Perfect for festive lighting and spiritual decor."
+  },
+  {
+    "id": "art005",
+    "name": "Antique Brass Vase",
+    "category": "Brass",
+    "material": "Brass",
+    "origin": "Aligarh, India",
+    "dimensions": "14 x 6 inches",
+    "weight": "1.5 kg",
+    "moq": 25,
+    "images": [
+      "https://images.unsplash.com/photo-1589820296156-2454bb8a6d54?w=600&h=600&fit=crop"
+    ],
+    "description": "Vintage-style brass vase with hammered finish. Adds a touch of royal elegance to any interior space."
+  },
+  {
+    "id": "art006",
+    "name": "Brass Ganesha Statue",
+    "category": "Brass",
+    "material": "Solid Brass",
+    "origin": "Karnataka, India",
+    "dimensions": "10 x 7 inches",
+    "weight": "3.2 kg",
+    "moq": 12,
+    "images": [
+      "https://images.unsplash.com/photo-1567361809025-a7b69324d774?w=600&h=600&fit=crop"
+    ],
+    "description": "Detailed Ganesha statue seated on a lotus. A symbol of new beginnings and prosperity."
+  },
+  {
+    "id": "art007",
+    "name": "Brass Wall Panel",
+    "category": "Brass",
+    "material": "Brass & Wood",
+    "origin": "Kerala, India",
+    "dimensions": "24 x 12 inches",
+    "weight": "5.0 kg",
+    "moq": 8,
+    "images": [
+      "https://images.unsplash.com/photo-1620619767323-b95a89183081?w=600&h=600&fit=crop"
+    ],
+    "description": "Decorative wall panel featuring brass figurines mounted on seasoned wood. A classic piece of Indian heritage."
+  },
+  {
+    "id": "art008",
+    "name": "Sandalwood Carved Panel",
+    "category": "Wood",
+    "material": "Sandalwood",
+    "origin": "Mysore, India",
+    "dimensions": "18 x 12 inches",
+    "weight": "1.1 kg",
+    "moq": 5,
+    "images": [
+      "https://images.unsplash.com/photo-1615800001854-e054eb903102?w=600&h=600&fit=crop"
+    ],
+    "description": "Exquisite sandalwood panel deep carved with mythological scenes. Emits a natural, soothing fragrance."
+  },
+  {
+    "id": "art009",
+    "name": "Kashmiri Wool Shawl",
+    "category": "Textile",
+    "material": "Pashmina Wool",
+    "origin": "Kashmir, India",
+    "dimensions": "80 x 40 inches",
+    "weight": "0.3 kg",
+    "moq": 20,
+    "images": [
+      "https://images.unsplash.com/photo-1576487248871-369a82cd4d67?w=600&h=600&fit=crop"
+    ],
+    "description": "Authentic Kashmiri shawl with intricate needle embroidery (Sozni). Soft, warm, and timelessly elegant."
+  },
+  {
+    "id": "art010",
+    "name": "Marble Inlay Coasters",
+    "category": "Stone",
+    "material": "White Marble",
+    "origin": "Agra, India",
+    "dimensions": "4 x 4 inches",
+    "weight": "0.6 kg (Set of 6)",
+    "moq": 50,
+    "images": [
+      "https://images.unsplash.com/photo-1560130958-fcd1983c2331?w=600&h=600&fit=crop"
+    ],
+    "description": "Set of 6 marble coasters with semi-precious stone inlay work, inspired by the Taj Mahal."
+  },
+  {
+    "id": "art011",
+    "name": "Hand-painted Blue Pottery",
+    "category": "Stone",
+    "material": "Ceramic/Quartz",
+    "origin": "Jaipur, India",
+    "dimensions": "10 x 10 inches",
+    "weight": "0.9 kg",
+    "moq": 30,
+    "images": [
+      "https://images.unsplash.com/photo-1610738362635-43bbc0c0a87f?w=600&h=600&fit=crop"
+    ],
+    "description": "Famous Jaipur Blue Pottery plate featuring geometric and floral patterns in vibrant blue and white."
   }
 ]

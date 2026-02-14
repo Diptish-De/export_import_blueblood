@@ -31,11 +31,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  // Render products based on current filter
+  // Search and Filter Logic
+  let searchQuery = '';
+
   function renderProducts() {
-    const filtered = currentCategory === 'all'
-      ? allProducts
-      : allProducts.filter(p => p.category === currentCategory);
+    let filtered = allProducts;
+
+    // Filter by Category
+    if (currentCategory !== 'all') {
+      filtered = filtered.filter(p => p.category === currentCategory);
+    }
+
+    // Filter by Search Query
+    if (searchQuery) {
+      const lowerQuery = searchQuery.toLowerCase();
+      filtered = filtered.filter(p =>
+        p.name.toLowerCase().includes(lowerQuery) ||
+        p.category.toLowerCase().includes(lowerQuery) ||
+        (p.material && p.material.toLowerCase().includes(lowerQuery)) ||
+        (p.origin && p.origin.toLowerCase().includes(lowerQuery))
+      );
+    }
 
     if (filtered.length === 0) {
       productGrid.innerHTML = '';
@@ -46,10 +62,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     emptyState.classList.add('hidden');
 
     productGrid.innerHTML = filtered.map(product => `
-      <div class="product-card" data-category="${product.category}">
+      <div class="product-card group" data-category="${product.category}">
         <div class="product-card-image">
           <span class="product-card-category">${product.category}</span>
           <img src="${product.images[0]}" alt="${product.name}" loading="lazy">
+          <button class="quick-view-btn" onclick="openQuickView('${product.id}')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:5px">
+               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+               <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            Quick View
+          </button>
         </div>
         <div class="product-card-content">
           <h3 class="product-card-name">${product.name}</h3>
@@ -101,17 +124,117 @@ document.addEventListener('DOMContentLoaded', async () => {
   categoryFilter.addEventListener('click', (e) => {
     if (e.target.classList.contains('filter-btn')) {
       currentCategory = e.target.dataset.category;
+      searchQuery = ''; // Reset search logic if category changes? Or keep it? Let's keep filters independent for now, but usually clear search or refine.
+      // Let's NOT clear search query to allow "Brass" + "Lamp". But UI might get confusing.
+      // For this simple UI, let's keep them combined.
+      // Update toggle state
+      updateActiveFilter();
 
-      // Update URL without reload
+      // Update URL
       const newUrl = currentCategory === 'all'
         ? window.location.pathname
         : `${window.location.pathname}?category=${currentCategory}`;
       window.history.pushState({}, '', newUrl);
 
-      updateActiveFilter();
       renderProducts();
     }
   });
+
+  // Handle Search Input
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim();
+      renderProducts();
+    });
+  }
+
+  // Quick View Logic
+  // Expose to global scope for inline onclick handler
+  window.openQuickView = (productId) => {
+    const product = allProducts.find(p => p.id === productId);
+    if (!product) return;
+
+    // Create Modal Elements if not exist
+    let modal = document.getElementById('quickViewModal');
+    if (!modal) {
+      // Build modal DOM
+      const modalHtml = `
+        <div id="quickViewModal" class="modal-overlay">
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeQuickView()">&times;</button>
+                <div class="quick-view-grid">
+                    <div class="quick-view-image">
+                        <img id="qvImage" src="" alt="">
+                    </div>
+                    <div class="quick-view-details">
+                        <span id="qvCategory" class="text-terracotta" style="font-size:0.9rem; font-weight:600; text-transform:uppercase; letter-spacing:1px;"></span>
+                        <h2 id="qvName" style="margin-top:var(--space-2); margin-bottom:var(--space-4);"></h2>
+                        <p id="qvDesc" style="color:var(--color-gray-600); font-size:0.95rem; line-height:1.6;"></p>
+                        
+                        <div style="margin: var(--space-6) 0; padding: var(--space-4); background: var(--color-gray-100); border-radius: var(--radius-md);">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                                <strong>Material:</strong> <span id="qvMaterial"></span>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                                <strong>Origin:</strong> <span id="qvOrigin"></span>
+                            </div>
+                            <div style="display:flex; justify-content:space-between;">
+                                <strong>MOQ:</strong> <span id="qvMoq"></span>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; gap:10px;">
+                             <a id="qvLink" href="#" class="btn btn-primary" style="flex:1; text-align:center;">View Full Details</a>
+                             <button id="qvAdd" class="btn btn-secondary" style="flex:1;">Add to Bag</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+      document.body.insertAdjacentHTML('beforeend', modalHtml);
+      modal = document.getElementById('quickViewModal');
+
+      // Add overlay click close
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeQuickView();
+      });
+    }
+
+    // Populate Data
+    document.getElementById('qvImage').src = product.images[0];
+    document.getElementById('qvCategory').textContent = product.category;
+    document.getElementById('qvName').textContent = product.name;
+    document.getElementById('qvDesc').textContent = product.description;
+    document.getElementById('qvMaterial').textContent = product.material;
+    document.getElementById('qvOrigin').textContent = product.origin;
+    document.getElementById('qvMoq').textContent = product.moq + ' units';
+    document.getElementById('qvLink').href = `product.html?id=${product.id}`;
+
+    // Update Add to Cart Button
+    const addBtn = document.getElementById('qvAdd');
+    addBtn.onclick = () => {
+      window.cart.addItem({
+        id: product.id,
+        name: product.name,
+        category: product.category
+      });
+      closeQuickView(); // Optional: close or keep open
+    };
+
+    // Show Modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scroll
+  };
+
+  window.closeQuickView = () => {
+    const modal = document.getElementById('quickViewModal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  };
 
   // Load products on page load
   await loadProducts();

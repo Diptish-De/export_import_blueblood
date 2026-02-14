@@ -15,39 +15,39 @@
     <link rel='stylesheet' href='css/theme-toggle.css'>
     <link rel='stylesheet' href='css/extra-features.css'>
     <!-- CSS injected by Vite via main.js import -->
-    <script>(function(){const t=localStorage.getItem("theme")||"light";document.documentElement.setAttribute("data-theme",t);if(sessionStorage.getItem("blueblood_loaded")){document.documentElement.classList.add("page-is-loaded");document.write("<style>.page-loader{display:none!important;}</style>")}}).call(this);</script>
+    <script>(function () { const t = localStorage.getItem("theme") || "light"; document.documentElement.setAttribute("data-theme", t); if (sessionStorage.getItem("blueblood_loaded")) { document.documentElement.classList.add("page-is-loaded"); document.write("<style>.page-loader{display:none!important;}</style>") } }).call(this);</script>
     <script type="module" src="/js/i18n.js"></script>
 </head>
 
 <body>
-  <!-- Page Loader -->
-  <div class="page-loader" id="pageLoader">
-    <div class="loader-mandala">
-      <div class="loader-petals">
-        <div class="loader-petal"></div>
-        <div class="loader-petal"></div>
-        <div class="loader-petal"></div>
-        <div class="loader-petal"></div>
-        <div class="loader-petal"></div>
-        <div class="loader-petal"></div>
-        <div class="loader-petal"></div>
-        <div class="loader-petal"></div>
-      </div>
-      <div class="loader-ring"></div>
-      <div class="loader-ring"></div>
-      <div class="loader-ring"></div>
-      <div class="loader-lotus"></div>
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-mandala">
+            <div class="loader-petals">
+                <div class="loader-petal"></div>
+                <div class="loader-petal"></div>
+                <div class="loader-petal"></div>
+                <div class="loader-petal"></div>
+                <div class="loader-petal"></div>
+                <div class="loader-petal"></div>
+                <div class="loader-petal"></div>
+                <div class="loader-petal"></div>
+            </div>
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+            <div class="loader-lotus"></div>
+        </div>
+        <div class="loader-brand">
+            <h2>Blue<span>blood</span></h2>
+            <p>Exports</p>
+        </div>
+        <div class="loader-dots">
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+        </div>
     </div>
-    <div class="loader-brand">
-      <h2>Blue<span>blood</span></h2>
-      <p>Exports</p>
-    </div>
-    <div class="loader-dots">
-      <div class="loader-dot"></div>
-      <div class="loader-dot"></div>
-      <div class="loader-dot"></div>
-    </div>
-  </div>
     <nav class="navbar" id="navbar">
         <div class="navbar-container">
             <a href="index.html" class="navbar-logo">
@@ -59,6 +59,7 @@
                 <a href="index.html" class="navbar-link">Home</a>
                 <a href="about.html" class="navbar-link">About</a>
                 <a href="catalogue.html" class="navbar-link active">Catalogue</a>
+                <a href="stories.html" class="navbar-link">Stories</a>
                 <a href="export-process.html" class="navbar-link">Export Process</a>
                 <a href="contact.html" class="navbar-link">Contact</a>
             </div>
@@ -108,6 +109,17 @@
 
     <section class="section bg-white">
         <div class="container">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search for artefacts (e.g. Brass, Lamp, Ganesh)..."
+                    aria-label="Search products">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="search-icon">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </div>
+
             <div class="category-filter" id="categoryFilter">
                 <button class="filter-btn active" data-category="all">All</button>
                 <button class="filter-btn" data-category="Brass">Brass</button>
@@ -157,7 +169,8 @@
                 <div class="footer-column">
                     <h4>Quick Links</h4>
                     <div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a
-                            href="catalogue.html">Catalogue</a><a href="contact.html">Contact</a></div>
+                            href="catalogue.html">Catalogue</a><a href="stories.html">Stories</a><a
+                            href="contact.html">Contact</a></div>
                 </div>
                 <div class="footer-column">
                     <h4>Legal</h4>
@@ -165,6 +178,7 @@
                         <a href="privacy-policy.html">Privacy Policy</a>
                         <a href="terms-conditions.html">Terms & Conditions</a>
                         <a href="shipping-policy.html">Shipping & Returns</a>
+                        <a href="faq.html">FAQ</a>
                     </div>
                 </div>
                 <div class="footer-column">
@@ -220,10 +234,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-

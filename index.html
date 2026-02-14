@@ -162,6 +162,7 @@
         <a href="index.html" class="navbar-link active">Home</a>
         <a href="about.html" class="navbar-link">About</a>
         <a href="catalogue.html" class="navbar-link">Catalogue</a>
+        <a href="stories.html" class="navbar-link">Stories</a>
         <a href="export-process.html" class="navbar-link">Export Process</a>
         <a href="contact.html" class="navbar-link">Contact</a>
       </div>
@@ -664,6 +665,107 @@
     </div>
   </section>
 
+  <!-- Testimonials Section -->
+  <section class="section bg-ivory">
+    <div class="container">
+      <div class="section-header">
+        <h2>Trusted by Connoisseurs</h2>
+        <p>Stories from our global family of collectors</p>
+      </div>
+      <div class="grid grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card"
+          style="background:var(--color-white); padding:var(--space-8); border-radius:var(--radius-lg); box-shadow:var(--shadow-md); position:relative;">
+          <div
+            style="color:var(--color-gold); font-size:4rem; line-height:1; position:absolute; top:20px; left:20px; opacity:0.3; font-family:'Cormorant Garamond', serif;">
+            "</div>
+          <p style="font-size:1.1rem; font-style:italic; margin-bottom:var(--space-6); position:relative; z-index:1;">
+            The brass statue I ordered for my boutique hotel in London is absolutely magnificent. The level of detail is
+            unlike anything I've seen.
+          </p>
+          <div style="display:flex; align-items:center; gap:15px;">
+            <div
+              style="width:50px; height:50px; background:var(--color-terracotta); border-radius:50%; color:white; display:flex; align-items:center; justify-content:center; font-weight:bold;">
+              ES</div>
+            <div>
+              <h4 style="margin:0; font-size:1rem;">Elena S.</h4>
+              <span style="font-size:0.85rem; color:var(--color-gray-500);">Interior Designer, UK</span>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card"
+          style="background:var(--color-white); padding:var(--space-8); border-radius:var(--radius-lg); box-shadow:var(--shadow-md); position:relative;">
+          <div
+            style="color:var(--color-gold); font-size:4rem; line-height:1; position:absolute; top:20px; left:20px; opacity:0.3; font-family:'Cormorant Garamond', serif;">
+            "</div>
+          <p style="font-size:1.1rem; font-style:italic; margin-bottom:var(--space-6); position:relative; z-index:1;">
+            Professional packaging and smooth customs clearance. Blueblood made importing these fragile stone carvings
+            completely stress-free.
+          </p>
+          <div style="display:flex; align-items:center; gap:15px;">
+            <div
+              style="width:50px; height:50px; background:var(--color-terracotta); border-radius:50%; color:white; display:flex; align-items:center; justify-content:center; font-weight:bold;">
+              MA</div>
+            <div>
+              <h4 style="margin:0; font-size:1rem;">Mark A.</h4>
+              <span style="font-size:0.85rem; color:var(--color-gray-500);">Gallery Owner, USA</span>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card"
+          style="background:var(--color-white); padding:var(--space-8); border-radius:var(--radius-lg); box-shadow:var(--shadow-md); position:relative;">
+          <div
+            style="color:var(--color-gold); font-size:4rem; line-height:1; position:absolute; top:20px; left:20px; opacity:0.3; font-family:'Cormorant Garamond', serif;">
+            "</div>
+          <p style="font-size:1.1rem; font-style:italic; margin-bottom:var(--space-6); position:relative; z-index:1;">
+            A true representation of Indian heritage. The artifacts add a soul to my home in Dubai. Highly recommended
+            for authentic craftsmanship.
+          </p>
+          <div style="display:flex; align-items:center; gap:15px;">
+            <div
+              style="width:50px; height:50px; background:var(--color-terracotta); border-radius:50%; color:white; display:flex; align-items:center; justify-content:center; font-weight:bold;">
+              FA</div>
+            <div>
+              <h4 style="margin:0; font-size:1rem;">Fatima Al-H.</h4>
+              <span style="font-size:0.85rem; color:var(--color-gray-500);">Private Collector, UAE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="section bg-maroon text-center" style="position: relative; overflow: hidden;">
+    <!-- Decorative bg pattern overlay -->
+    <div
+      style="position: absolute; inset: 0; background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23d4af37\' fill-opacity=\'0.05\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E'); pointer-events: none;">
+    </div>
+
+    <div class="container" style="position: relative; z-index: 1;">
+      <h2 style="color:var(--color-ivory); margin-bottom:var(--space-4);">Join Our Journey</h2>
+      <p style="color:rgba(245,240,230,0.8); max-width:600px; margin:0 auto var(--space-6);">
+        Subscribe to receive updates on new collections, artisan stories, and exclusive offers.
+      </p>
+
+      <form id="newsletterForm"
+        onsubmit="event.preventDefault(); document.getElementById('newsletterSuccess').style.display='block'; this.style.display='none';"
+        style="max-width: 500px; margin: 0 auto; display: flex; gap: 10px;">
+        <input type="email" placeholder="Your email address" required
+          style="flex: 1; padding: 12px 20px; border-radius: var(--radius-full); border: none; outline: none;">
+        <button type="submit" class="btn btn-gold"
+          style="border-radius: var(--radius-full); white-space: nowrap;">Subscribe</button>
+      </form>
+
+      <div id="newsletterSuccess"
+        style="display: none; color: var(--color-gold); font-size: 1.2rem; font-weight: 500; animation: fadeIn 0.5s ease;">
+        Thank you for subscribing! Welcome to the family.
+      </div>
+    </div>
+  </section>
+
   <!-- CTA Section -->
   <section class="section bg-maroon pattern-mandala">
     <div class="container text-center">
@@ -728,6 +830,7 @@
             <a href="index.html">Home</a>
             <a href="about.html">About Us</a>
             <a href="catalogue.html">Catalogue</a>
+            <a href="stories.html">Stories</a>
             <a href="export-process.html">Export Process</a>
             <a href="contact.html">Contact</a>
           </div>
@@ -739,6 +842,7 @@
             <a href="privacy-policy.html">Privacy Policy</a>
             <a href="terms-conditions.html">Terms & Conditions</a>
             <a href="shipping-policy.html">Shipping & Returns</a>
+            <a href="faq.html">FAQ</a>
           </div>
         </div>
 

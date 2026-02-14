@@ -435,6 +435,22 @@
   line-height: 1.2;
 }
 
+/* Sticky Navigation Visibility Classes */
+.navbar {
+  transition: transform var(--transition-base), background-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.navbar-hidden {
+  transform: translateY(-100%);
+}
+
+.navbar-visible {
+  transform: translateY(0);
+  background: var(--color-white);
+  /* Ensure background is solid when visible */
+  box-shadow: var(--shadow-md);
+}
+
 /* ============================================
    CSS Reset & Base Styles
    ============================================ */

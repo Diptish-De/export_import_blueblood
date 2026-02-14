@@ -29,6 +29,25 @@
             "contact": "Contact",
             "tagline": "Curating India's finest handcrafted artefacts since 1985.",
             "copyright": "© 2024 Blueblood Exports. All rights reserved."
+        },
+        "error": {
+            "title": "The Lost Artefact",
+            "description": "It seems you've wandered into an uncharted territory. The treasure you are looking for might have been moved or does not exist.",
+            "returnHome": "Return Home",
+            "browseCollection": "Browse Collection"
+        },
+        "stories": {
+            "title": "The Artisan Chronicles",
+            "description": "Dive deep into the rich history, mythology, and craftsmanship behind every Blueblood artefact.",
+            "readMore": "Read Full Story"
+        },
+        "calculator": {
+            "title": "Shipping Estimator",
+            "destination": "Destination",
+            "weight": "Weight (kg)",
+            "volume": "Volume (cbm)",
+            "calculate": "Calculate Cost",
+            "estimate": "Estimated Cost:"
         }
     },
     "hi": {
@@ -61,6 +80,25 @@
             "contact": "संपर्क",
             "tagline": "1985 से भारत की बेहतरीन हस्तनिर्मित कलाकृतियों का संग्रह।",
             "copyright": "© 2024 ब्लूब्लड एक्सपोर्ट्स। सर्वाधिकार सुरक्षित।"
+        },
+        "error": {
+            "title": "खोई हुई कलाकृति",
+            "description": "लगता है आप किसी अज्ञात क्षेत्र में आ गए हैं। जिस खजाने की आपको तलाश है, वह शायद स्थानांतरित हो गया है या मौजूद नहीं है।",
+            "returnHome": "घर वापस जाएँ",
+            "browseCollection": "संग्रह ब्राउज़ करें"
+        },
+        "stories": {
+            "title": "कारीगरों की कहानियाँ",
+            "description": "हर ब्लूब्लड कलाकृति के पीछे के समृद्ध इतिहास, पौराणिक कथाओं और शिल्प कौशल में गहराई से उतरें।",
+            "readMore": "पुरी कहानी पढ़ें"
+        },
+        "calculator": {
+            "title": "शिपिंग अनुमानक",
+            "destination": "गंतव्य",
+            "weight": "वजन (किग्रा)",
+            "volume": "आयतन (सीबीएम)",
+            "calculate": "लागत की गणना करें",
+            "estimate": "अनुमानित लागत:"
         }
     },
     "ar": {
@@ -93,6 +131,25 @@
             "contact": "اتصل",
             "tagline": "تنظيم أفضل القطع الأثرية الهندية المصنوعة يدويًا منذ عام 1985.",
             "copyright": "© 2024 بلوبلود إكسبورتس. جميع الحقوق محفوظة."
+        },
+        "error": {
+            "title": "التحفة المفقودة",
+            "description": "يبدو أنك تجولت في منطقة مجهولة. الكنز الذي تبحث عنه ربما تم نقله أو غير موجود.",
+            "returnHome": "العودة للرئيسية",
+            "browseCollection": "تصفح المجموعة"
+        },
+        "stories": {
+            "title": "قصص الحرفيين",
+            "description": "تعمق في التاريخ الغني والأساطير والحرفية وراء كل تحفة فنية من بلوبلود.",
+            "readMore": "اقرأ القصة كاملة"
+        },
+        "calculator": {
+            "title": "حاسبة الشحن",
+            "destination": "الوجهة",
+            "weight": "الوزن (كجم)",
+            "volume": "الحجم (متر مكعب)",
+            "calculate": "حساب التكلفة",
+            "estimate": "التكلفة التقديرية:"
         }
     }
 }

@@ -47,12 +47,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Navbar scroll effect
   if (navbar) {
+    let lastScrollTop = 0;
+    const delta = 5;
+    const navbarHeight = navbar.offsetHeight;
+
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
+      let st = window.scrollY;
+
+      // Make sure they scroll more than delta
+      if (Math.abs(lastScrollTop - st) <= delta) return;
+
+      // Always keep navbar visible
+      navbar.classList.remove('navbar-hidden');
+      navbar.classList.add('navbar-visible');
+
+      // Add 'scrolled' class if not at very top for styling adjustments (e.g. shadow)
+      if (st > 50) {
         navbar.classList.add('scrolled');
       } else {
         navbar.classList.remove('scrolled');
       }
+
+      lastScrollTop = st;
     });
   }
 
@@ -168,3 +184,48 @@ window.switchLanguage = (lang) => {
 function formatNumber(num) {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+// Shipping Calculator Logic
+window.calculateShipping = function (event) {
+  event.preventDefault();
+
+  // Base rates per kg (approximate for demo)
+  const rates = {
+    'usa': 12.50,
+    'uk': 10.00,
+    'uae': 8.50,
+    'eu': 11.00,
+    'aus': 14.00
+  };
+
+  const destination = document.getElementById('destination').value;
+  const weight = parseFloat(document.getElementById('weight').value);
+  const volume = parseFloat(document.getElementById('volume').value) || 0;
+
+  if (!weight) return;
+
+  // Volumetric weight calculation (Standard Air Freight: 1 CBM = 167 Kg)
+  const volumetricWeight = volume * 167;
+
+  // Chargeable weight is the higher of actual vs volumetric
+  const chargeableWeight = Math.max(weight, volumetricWeight);
+
+  const rate = rates[destination] || 15.00;
+  const totalCost = chargeableWeight * rate;
+
+  // Display Result
+  const resultElement = document.getElementById('calculator-result');
+  const costDisplay = document.getElementById('cost-display');
+
+  // Format currency
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  costDisplay.textContent = formatter.format(totalCost);
+  resultElement.style.display = 'block';
+
+  // Scroll to result if needed
+  resultElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+};

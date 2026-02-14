@@ -220,4 +220,42 @@ Please share pricing, export details, and delivery timeline.`;
 
     // Load product on page init
     await loadProduct();
+
+    // Load Related Products
+    async function loadRelatedProducts() {
+        try {
+            if (!currentProduct) return;
+
+            const response = await fetch('data/products.json');
+            const allProducts = await response.json();
+
+            // Filter by same category, exclude current, limit to 4
+            const related = allProducts
+                .filter(p => p.category === currentProduct.category && p.id !== currentProduct.id)
+                .slice(0, 4);
+
+            const grid = document.getElementById('relatedProductsGrid');
+            if (grid && related.length > 0) {
+                grid.innerHTML = related.map(product => `
+                    <div class="product-card">
+                        <div class="product-card-image">
+                            <span class="product-card-category">${product.category}</span>
+                            <img src="${product.images[0]}" alt="${product.name}" loading="lazy">
+                        </div>
+                        <div class="product-card-content">
+                            <h3 class="product-card-name" style="font-size: 1rem;">${product.name}</h3>
+                            <a href="product.html?id=${product.id}" class="btn btn-outline btn-sm" style="width:100%; margin-top:10px;">View Details</a>
+                        </div>
+                    </div>
+                `).join('');
+            } else if (grid) {
+                grid.parentElement.style.display = 'none'; // Hide section if no related
+            }
+
+        } catch (e) {
+            console.error("Error loading related products", e);
+        }
+    }
+
+    await loadRelatedProducts();
 });

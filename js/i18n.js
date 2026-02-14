@@ -48,7 +48,18 @@ window.initializeLanguage = async function () {
     try {
         const response = await fetch('/data/translations.json');
         translations = await response.json();
-        currentLang = localStorage.getItem('language') || 'en';
+
+        // Auto-detect language if not set
+        if (!localStorage.getItem('language')) {
+            const browserLang = navigator.language.split('-')[0];
+            if (['hi', 'ar'].includes(browserLang)) {
+                currentLang = browserLang;
+            } else {
+                currentLang = 'en';
+            }
+        } else {
+            currentLang = localStorage.getItem('language');
+        }
 
         applyLanguageSettings(currentLang);
         applyTranslations();

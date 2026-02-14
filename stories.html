@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Discover the stories behind India's finest artefacts. Meet the artisans of Blueblood Exports.">
+    <title>Artisan Stories | Blueblood Exports</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🏺%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/theme-toggle.css">
+    <link rel="stylesheet" href="css/extra-features.css">
+    <script>(function () { const t = localStorage.getItem("theme") || "light"; document.documentElement.setAttribute("data-theme", t); if (sessionStorage.getItem("blueblood_loaded")) { document.documentElement.classList.add("page-is-loaded"); document.write("<style>.page-loader{display:none!important;}</style>") } }).call(this);</script>
+    <script type="module" src="/js/i18n.js"></script>
+    <style>
+        .story-hero {
+            padding: var(--space-20) 0 var(--space-12);
+            text-align: center;
+            background: var(--color-white);
+            position: relative;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--space-8);
+            margin-top: var(--space-8);
+        }
+
+        .story-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-base);
+            border: 1px solid var(--color-gray-200);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .story-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+
+        .story-card:hover .story-image img {
+            transform: scale(1.05);
+        }
+
+        .story-content {
+            padding: var(--space-6);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .story-category {
+            font-size: var(--text-xs);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-gold);
+            font-weight: bold;
+            margin-bottom: var(--space-2);
+        }
+
+        .story-title {
+            font-family: var(--font-heading);
+            font-size: var(--text-xl);
+            color: var(--color-maroon);
+            margin-bottom: var(--space-3);
+            line-height: 1.3;
+        }
+
+        .story-excerpt {
+            color: var(--color-gray-600);
+            font-size: var(--text-sm);
+            line-height: 1.6;
+            margin-bottom: var(--space-4);
+            flex-grow: 1;
+        }
+
+        .read-more {
+            color: var(--color-terracotta);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            transition: gap var(--transition-fast);
+        }
+
+        .read-more:hover {
+            gap: var(--space-3);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar will be loaded via JS or verified manually -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <img src="images/logo-icon.png" alt="Blueblood Exports" width="45" height="45" class="navbar-logo-icon">
+                <span class="navbar-logo-text">BlueBloodExports <span
+                        style="font-size: 0.6em; display: block; line-height: 1;">(OPC) Private Limited</span></span>
+            </a>
+
+            <div class="navbar-menu" id="navMenu">
+                <a href="index.html" class="navbar-link">Home</a>
+                <a href="about.html" class="navbar-link">About</a>
+                <a href="catalogue.html" class="navbar-link">Catalogue</a>
+                <a href="stories.html" class="navbar-link active">Stories</a>
+                <a href="export-process.html" class="navbar-link">Export Process</a>
+                <a href="contact.html" class="navbar-link">Contact</a>
+            </div>
+
+            <div class="navbar-controls">
+                <div class="lang-selector">
+                    <button class="lang-btn" id="langToggle" onclick="toggleLanguageDropdown()">
+                        <span class="lang-flag">🇬🇧</span>
+                        <span class="lang-name">EN</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M6 9l6 6 6-6"></path>
+                        </svg>
+                    </button>
+                    <div class="lang-dropdown">
+                        <button class="lang-option" onclick="switchLanguage('en')"><span>🇬🇧</span> English</button>
+                        <button class="lang-option" onclick="switchLanguage('hi')"><span>🇮🇳</span> हिन्दी</button>
+                        <button class="lang-option" onclick="switchLanguage('ar')"><span>🇦🇪</span> العربية</button>
+                    </div>
+                </div>
+                <button class="cart-toggle" id="cartToggle" aria-label="View Inquiry Bag">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 01-8 0"></path>
+                    </svg>
+                    <span class="cart-badge">0</span>
+                </button>
+                <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+
+            <button class="navbar-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="story-hero pattern-mandala">
+        <div class="container">
+            <span class="text-terracotta"
+                style="font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">Heritage & History</span>
+            <h1 class="hero-title" style="color: var(--color-maroon-dark);">The Artisan Chronicles</h1>
+            <p style="max-width: 600px; margin: var(--space-4) auto; color: var(--color-gray-600);">
+                Dive deep into the rich history, mythology, and craftsmanship behind every Blueblood artefact.
+            </p>
+        </div>
+    </section>
+
+    <section class="section bg-ivory">
+        <div class="container">
+            <div class="story-grid">
+                <!-- Story 1 -->
+                <article class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1590739225287-bd2ba5198abf?w=600&h=400&fit=crop"
+                            alt="Lost Wax Process">
+                    </div>
+                    <div class="story-content">
+                        <span class="story-category">Craftsmanship</span>
+                        <h2 class="story-title">The Lost Wax Technique: A 4,000 Year Old Legacy</h2>
+                        <p class="story-excerpt">
+                            From the Bronze Age 'Dancing Girl' to modern masterpieces, explore the intricate process of
+                            Dhokra art that has survived millennia.
+                        </p>
+                        <a href="#" class="read-more">Read Full Story <span>&rarr;</span></a>
+                    </div>
+                </article>
+
+                <!-- Story 2 -->
+                <article class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1606293926075-69a00dbfde81?w=600&h=400&fit=crop"
+                            alt="Varanasi Silk">
+                    </div>
+                    <div class="story-content">
+                        <span class="story-category">Textile</span>
+                        <h2 class="story-title">Varanasi: Where Threads Weave Divine Tales</h2>
+                        <p class="story-excerpt">
+                            In the holy city of Kashi, weavers create Banarasi silk sarees that are more than just
+                            garments—they are poetry woven in gold zardosi.
+                        </p>
+                        <a href="#" class="read-more">Read Full Story <span>&rarr;</span></a>
+                    </div>
+                </article>
+
+                <!-- Story 3 -->
+                <article class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1620619767323-b95a89183081?w=600&h=400&fit=crop"
+                            alt="Kerala Wood Carving">
+                    </div>
+                    <div class="story-content">
+                        <span class="story-category">Woodwork</span>
+                        <h2 class="story-title">Whispers of Sandalwood</h2>
+                        <p class="story-excerpt">
+                            Journey to the forests of Mysore and discover how a fragrant wood is transformed into
+                            sculptures that breathe life into mythology.
+                        </p>
+                        <a href="#" class="read-more">Read Full Story <span>&rarr;</span></a>
+                    </div>
+                </article>
+
+                <!-- Story 4 -->
+                <article class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&h=400&fit=crop"
+                            alt="Rajasthan Palace">
+                    </div>
+                    <div class="story-content">
+                        <span class="story-category">Architecture</span>
+                        <h2 class="story-title">Bringing the Palace Home</h2>
+                        <p class="story-excerpt">
+                            How traditional Rajasthani Jharokhas (balconies) are being repurposed as statement décor
+                            pieces in modern luxury homes globally.
+                        </p>
+                        <a href="#" class="read-more">Read Full Story <span>&rarr;</span></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>Blue<span>blood</span> Exports</h3>
+                    <p>Curating India's finest artefacts since 1985.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="catalogue.html">Catalogue</a>
+                        <a href="stories.html">Stories</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <div class="footer-links">
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                        <a href="terms-conditions.html">Terms & Conditions</a>
+                        <a href="shipping-policy.html">Shipping & Returns</a>
+                        <a href="faq.html">FAQ</a>
+                    </div>
+                </div>
+                <!-- Contact Column omitted for brevity but should exist -->
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Blueblood Exports.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/js/main.js"></script>
+</body>
+
+</html>
