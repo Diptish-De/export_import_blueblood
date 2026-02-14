@@ -10,7 +10,7 @@
     <script>
         (function () {
             const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
+            document.documentElement.setAttribute('data-theme', savedTheme); if (sessionStorage.getItem('blueblood_loaded')) { document.documentElement.classList.add('page-is-loaded'); }
         })();
     </script>
     <script type="module" src="/js/i18n.js"></script>
@@ -80,3 +80,4 @@
 </body>
 
 </html>
+
