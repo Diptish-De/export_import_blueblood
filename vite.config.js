@@ -14,6 +14,7 @@ export default defineConfig({
                 privacyPolicy: resolve(__dirname, 'privacy-policy.html'),
                 termsConditions: resolve(__dirname, 'terms-conditions.html'),
                 shippingPolicy: resolve(__dirname, 'shipping-policy.html'),
+                error404: resolve(__dirname, '404.html'),
             },
         },
     },

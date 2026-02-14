@@ -1,23 +1,20 @@
-import '../css/dark-theme.css';
-import '../css/theme-toggle.css';
-
 /**
  * Theme Switcher
  * Blueblood Exports
  */
 
-// Initialize theme on page load
+// Initialize theme on page load - redundant if using inline head script but good for fallback
 document.addEventListener('DOMContentLoaded', () => {
     initializeTheme();
 });
 
-function initializeTheme() {
+export function initializeTheme() {
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     updateThemeButton(savedTheme);
 }
 
-function toggleTheme() {
+export function toggleTheme() {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
@@ -36,3 +33,7 @@ function updateThemeButton(theme) {
         themeBtn.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
     }
 }
+
+// Expose to window for HTML onclick handlers
+window.toggleTheme = toggleTheme;
+window.initializeTheme = initializeTheme;
