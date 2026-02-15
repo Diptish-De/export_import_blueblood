@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blueblood Admin Portal</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <!-- Chart.js for Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Login Overlay -->
+    <div id="loginOverlay" class="login-overlay">
+        <div class="login-card">
+            <div class="login-logo">
+                <h2>Blueblood</h2>
+                <span class="badge">ADMIN</span>
+            </div>
+            <p>Enter your access PIN to continue.</p>
+            <form id="loginForm">
+                <input type="password" id="adminPin" placeholder="Enter PIN" autocomplete="off">
+                <button type="submit">Access Portal</button>
+            </form>
+            <p id="loginError" class="error-msg"></p>
+        </div>
+    </div>
+
+    <!-- Main App Container (Hidden by default) -->
+    <div id="adminApp" class="admin-app hidden">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Admin<span class="highlight">Portal</span></h2>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-view="dashboard">
+                    <span class="icon">📊</span> Dashboard
+                </button>
+                <button class="nav-btn" data-view="inquiries">
+                    <span class="icon">📩</span> Inquiries <span class="badge-count" id="navInquiryCount">0</span>
+                </button>
+                <button class="nav-btn" data-view="products">
+                    <span class="icon">📦</span> Products
+                </button>
+                <button class="nav-btn" data-view="settings">
+                    <span class="icon">⚙️</span> Settings
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="logout-btn">Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1 id="pageTitle">Overview</h1>
+                <div class="user-profile">
+                    <div class="avatar">CEO</div>
+                    <div class="user-info">
+                        <span class="name">DIPTISH</span>
+                        <span class="role">Administrator</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-area">
+
+                <!-- DASHBOARD VIEW -->
+                <section id="view-dashboard" class="view-section active">
+                    <!-- KPI Cards -->
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-icon blue">👥</div>
+                            <div class="kpi-info">
+                                <span class="label">Total Inquiries</span>
+                                <h3 id="kpiInquiries">0</h3>
+                                <span class="trend up">Waitlist Active</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon gold">💰</div>
+                            <div class="kpi-info">
+                                <span class="label">Est. Pipeline Value</span>
+                                <h3 id="kpiPipeline">$0</h3>
+                                <span class="trend up">+12% this month</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon green">🌍</div>
+                            <div class="kpi-info">
+                                <span class="label">Top Region</span>
+                                <h3 id="kpiRegion">-</h3>
+                                <span class="trend">High Demand</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon purple">💱</div>
+                            <div class="kpi-info">
+                                <span class="label">USD / INR</span>
+                                <h3 id="kpiForex">83.12</h3>
+                                <span class="trend neutral">Live Rate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row -->
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <h3>Inquiry Trends (Last 6 Months)</h3>
+                            <canvas id="trendChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Interest by Category</h3>
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity Table -->
+                    <div class="recent-activity">
+                        <h3>Recent Inquiries</h3>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Country</th>
+                                        <th>Product Interest</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dashboardRecentTable">
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- INQUIRIES VIEW -->
+                <section id="view-inquiries" class="view-section">
+                    <div class="section-actions">
+                        <input type="text" placeholder="Search inquiries..." class="search-input">
+                        <select id="statusFilter" class="search-input" style="width: 150px;">
+                            <option value="all">All Status</option>
+                            <option value="New">New</option>
+                            <option value="Processed">Processed</option>
+                            <option value="Negotiating">Negotiating</option>
+                        </select>
+                        <button class="action-btn">Export CSV</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Client</th>
+                                    <th>Email</th>
+                                    <th>Interest</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inquiriesTableBody">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- PRODUCTS VIEW -->
+                <section id="view-products" class="view-section">
+                    <div class="products-grid" id="productsGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+
+                <!-- SETTINGS VIEW -->
+                <section id="view-settings" class="view-section">
+                    <div class="settings-card">
+                        <h3>System Configuration</h3>
+                        <div class="form-group">
+                            <label>Admin Email</label>
+                            <input type="email" value="admin@blueblood.com" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Currency Base</label>
+                            <select id="currencySelector">
+                                <option value="USD">USD ($)</option>
+                                <option value="INR">INR (₹)</option>
+                                <option value="EUR">EUR (€)</option>
+                            </select>
+                        </div>
+                        <button class="action-btn primary" onclick="alert('Settings saved!')">Save Changes</button>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Inquiry Details Modal -->
+    <div id="inquiryModal" class="login-overlay hidden">
+        <div class="login-card" style="text-align: left; max-width: 500px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                <h3 id="modalClientName">Client Name</h3>
+                <span class="badge" id="modalStatusBadge">New</span>
+            </div>
+
+            <div class="form-group">
+                <label>Interest</label>
+                <input type="text" id="modalInterest" disabled>
+            </div>
+
+            <div class="form-group">
+                <label>Admin Notes</label>
+                <textarea id="modalNotes" rows="4"
+                    style="width:100%; padding:0.75rem; background:var(--bg-darker); border:1px solid rgba(255,255,255,0.1); border-radius:6px; color:white; font-family:inherit;"></textarea>
+            </div>
+
+            <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:1.5rem;">
+                <button class="action-btn"
+                    onclick="document.getElementById('inquiryModal').classList.add('hidden')">Close</button>
+                <button class="action-btn primary" id="saveNoteBtn">Save Note</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/admin.js"></script>
+</body>
+
+</html>

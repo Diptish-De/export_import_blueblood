@@ -326,7 +326,35 @@
     </a>
     <script src="js/wishlist.js"></script>
     <script src="js/engagement.js"></script>
-    <script src="js/contact.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/engagement.js"></script>
+    <!-- <script src="js/contact.js"></script> -->
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = {
+                id: 'INQ-' + Math.floor(Math.random() * 10000),
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                interest: document.getElementById('subject').value,
+                message: document.getElementById('message').value,
+                status: 'New',
+                date: 'Just Now',
+                country: 'India' // Defaulting for demo
+            };
+
+            // Get existing or init empty array
+            const existing = JSON.parse(localStorage.getItem('blueblood_inquiries') || '[]');
+            existing.unshift(formData); // Add to top
+            localStorage.setItem('blueblood_inquiries', JSON.stringify(existing));
+
+            // Show success
+            const status = document.getElementById('form-status');
+            status.innerHTML = '<p style="color: green; font-weight: bold;">Message Sent! View it in the Admin Portal.</p>';
+            this.reset();
+        });
+    </script>
 </body>
 
 </html>
