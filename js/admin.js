@@ -5,6 +5,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    console.log("Admin JS Loaded");
+
     // --- AUTHENTICATION ---
     const loginOverlay = document.getElementById('loginOverlay');
     const loginForm = document.getElementById('loginForm');
@@ -12,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginError = document.getElementById('loginError');
     const adminApp = document.getElementById('adminApp');
     const logoutBtn = document.getElementById('logoutBtn');
+
+    if (!loginForm) console.error("Login form not found!");
 
     // Simple mocked auth
     const CORRECT_PIN = "2026"; // Simple PIN for demo
@@ -24,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const enteredPin = adminPinInput.value.trim();
+        console.log("PIN Entered:", enteredPin);
 
         if (enteredPin === CORRECT_PIN) {
             sessionStorage.setItem('admin_authenticated', 'true');
