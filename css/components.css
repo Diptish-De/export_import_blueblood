@@ -496,14 +496,11 @@
 .hero {
     position: relative;
     min-height: 90vh;
-    /* Increased further for more coverage */
-    /* Increased from 60vh to cover more viewport */
     display: flex;
     align-items: center;
     padding-top: 80px;
     padding-bottom: var(--space-8);
     overflow: visible;
-    /* Allow image to overlap next section */
     background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-ivory) 50%, rgba(212, 168, 75, 0.08) 100%);
 }
 
@@ -664,9 +661,11 @@
         min-height: auto;
         padding: 90px 0 var(--space-6);
         position: relative;
+        overflow: hidden;
     }
 
-    .hero::before {
+    .hero::before,
+    .hero::after {
         display: none;
     }
 
@@ -680,6 +679,7 @@
         text-align: center;
         order: 1;
         width: 100%;
+        padding: 0 var(--space-2);
     }
 
     .hero-tagline {
@@ -697,6 +697,8 @@
         font-size: 1.5rem;
         line-height: 1.3;
         margin-bottom: var(--space-4);
+        word-break: break-word;
+        overflow-wrap: break-word;
     }
 
     .hero-title span {
@@ -758,6 +760,7 @@
         border-radius: var(--radius-md);
         white-space: normal;
         gap: var(--space-1);
+        width: 100%;
     }
 
     .hero-sanskrit {
