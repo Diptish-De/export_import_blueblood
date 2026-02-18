@@ -1615,6 +1615,19 @@
     gap: var(--space-6);
 }
 
+.countries-track {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-6);
+    width: 100%;
+}
+
+/* Hide duplicate items on desktop */
+.countries-track .country-item:nth-child(n+9) {
+    display: none;
+}
+
 .country-item {
     display: flex;
     flex-direction: column;
@@ -2565,31 +2578,34 @@
 
     /* --- Countries Grid: Infinite Marquee --- */
     .countries-grid {
+        overflow: hidden !important;
+        margin-top: 1.5rem !important;
+        padding-bottom: 8px !important;
+        display: block !important;
+    }
+
+    .countries-track {
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;
-        overflow: hidden !important;
         gap: 24px !important;
-        margin-top: 1.5rem !important;
-        padding-bottom: 8px !important;
-        animation: countries-marquee 15s linear infinite !important;
+        animation: countries-marquee 20s linear infinite !important;
+        width: max-content !important;
     }
 
-    .countries-grid:hover,
-    .countries-grid:active {
+    .countries-track:hover,
+    .countries-track:active {
         animation-play-state: paused !important;
-    }
-
-    .countries-grid::-webkit-scrollbar {
-        display: none !important;
     }
 
     .country-item {
         flex: 0 0 auto !important;
-        min-width: 80px !important;
+        min-width: 90px !important;
         flex-direction: column !important;
         text-align: center !important;
         gap: 4px !important;
+        display: flex !important;
+        /* Show duplicates on mobile */
     }
 
     .country-flag img {
@@ -2952,9 +2968,7 @@
         font-size: 0.8rem !important;
     }
 
-    .countries-grid {
-        grid-template-columns: repeat(3, 1fr) !important;
-    }
+    /* Countries grid - handled by marquee above */
 
     .grid.grid-cols-4,
     .grid.grid-cols-3 {

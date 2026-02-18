@@ -1300,11 +1300,7 @@ p {
     height: 28px;
   }
 
-  /* Countries grid on mobile */
-  .countries-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-4);
-  }
+  /* Countries grid on mobile - handled by marquee in components.css */
 
   .country-item {
     flex-direction: column;
@@ -1384,9 +1380,7 @@ p {
     font-size: var(--text-sm);
   }
 
-  .countries-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  /* Countries grid - handled by marquee in components.css */
 }
 
 /* Ensure smooth scrolling and touch on Android */
