@@ -2565,12 +2565,26 @@
 
     /* --- Countries Grid --- */
     .countries-grid {
-        grid-template-columns: repeat(4, 1fr) !important;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
         gap: 12px !important;
         margin-top: 1.5rem !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        padding-bottom: 8px !important;
+    }
+
+    .countries-grid::-webkit-scrollbar {
+        display: none !important;
     }
 
     .country-item {
+        flex: 0 0 auto !important;
+        min-width: 80px !important;
+        scroll-snap-align: start !important;
         flex-direction: column !important;
         text-align: center !important;
         gap: 4px !important;
