@@ -2815,6 +2815,96 @@
         transform: scale(0.97) !important;
         opacity: 0.9 !important;
     }
+
+    /* --- Showcase / Ad Section --- */
+    .showcase-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+
+    .showcase-ad {
+        order: 2 !important;
+    }
+
+    .showcase-main {
+        order: 1 !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+
+    .ad-card {
+        padding: 1.25rem !important;
+        border-radius: 12px !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .ad-tag {
+        font-size: 0.65rem !important;
+    }
+
+    .ad-deal .percent {
+        font-size: 2.25rem !important;
+    }
+
+    .ad-deal .off {
+        font-size: 1.1rem !important;
+    }
+
+    .ad-image {
+        height: 150px !important;
+        border-radius: 8px !important;
+    }
+
+    /* --- Artisan Spotlight --- */
+    .artisan-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+    }
+
+    .artisan-card {
+        border-radius: 12px !important;
+    }
+
+    .artisan-card:hover {
+        transform: none !important;
+    }
+
+    .artisan-image {
+        height: 200px !important;
+    }
+
+    .artisan-info {
+        padding: 1rem !important;
+    }
+
+    .artisan-info h3 {
+        font-size: 1.1rem !important;
+    }
+
+    .artisan-info p {
+        font-size: 0.85rem !important;
+    }
+
+    .artisan-tag {
+        font-size: 0.7rem !important;
+        padding: 3px 10px !important;
+    }
+
+    /* --- Section overflow containment --- */
+    .section,
+    .section-sm,
+    .section-lg {
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+    }
+
+    .container {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
 }
 
 /* === EXTRA SMALL PHONES (≤ 400px) === */
