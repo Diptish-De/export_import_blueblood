@@ -1989,6 +1989,17 @@
         padding-bottom: var(--space-3);
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
+        position: sticky !important;
+        top: 74px !important;
+        /* Slight overlap to prevent gap */
+        z-index: 998 !important;
+        /* Below navbar (1000) but above content */
+        background: var(--color-cream) !important;
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+        margin-bottom: 12px !important;
+        border-bottom: 1px solid rgba(212, 168, 75, 0.2) !important;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
     }
 
     .category-filter::-webkit-scrollbar {
