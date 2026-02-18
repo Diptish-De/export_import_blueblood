@@ -2467,34 +2467,32 @@
         background: rgba(212, 168, 75, 0.08) !important;
     }
 
-    /* --- Product Cards: Compact Grid --- */
+    /* --- Product Cards: Amazon-style Mobile Grid --- */
     .grid.grid-cols-4,
     .grid.grid-cols-3 {
-        display: flex !important;
-        flex-direction: row !important;
-        overflow-x: auto !important;
-        gap: 12px !important;
-        scroll-snap-type: x mandatory !important;
-        -webkit-overflow-scrolling: touch !important;
-        scrollbar-width: none !important;
-        padding-bottom: 8px !important;
-    }
-
-    .grid.grid-cols-4::-webkit-scrollbar,
-    .grid.grid-cols-3::-webkit-scrollbar {
-        display: none !important;
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        overflow: visible !important;
+        padding-bottom: 0 !important;
+        scroll-snap-type: none !important;
     }
 
     .grid.grid-cols-4>*,
     .grid.grid-cols-3>* {
-        flex: 0 0 75% !important;
-        max-width: 75% !important;
-        scroll-snap-align: start !important;
+        flex: none !important;
+        max-width: none !important;
+        scroll-snap-align: none !important;
+        width: auto !important;
     }
 
     .product-card {
-        border-radius: 12px !important;
+        border-radius: 8px !important;
         overflow: hidden !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        background: #fff !important;
     }
 
     .product-card::before,
@@ -2502,34 +2500,72 @@
         display: none !important;
     }
 
+    .product-card-image {
+        aspect-ratio: 1/1 !important;
+    }
+
     .product-card-content {
-        padding: 12px !important;
+        padding: 8px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        flex-grow: 1 !important;
     }
 
     .product-card-name {
-        font-size: 0.85rem !important;
-        line-height: 1.3 !important;
-        margin-bottom: 6px !important;
+        font-size: 0.8rem !important;
+        line-height: 1.25 !important;
+        margin-bottom: 4px !important;
+        height: 2.5em !important;
+        /* Limit to 2 lines */
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        line-clamp: 2 !important;
     }
 
     .product-card-meta {
         flex-direction: column !important;
         gap: 2px !important;
-        margin-bottom: 6px !important;
-        font-size: 0.75rem !important;
+        margin-bottom: 4px !important;
+        font-size: 0.7rem !important;
+        display: none !important;
+        /* Hide meta on grid to save space like Amazon? Or keep minimal? Let's hide origin/material, keep Title + Button */
     }
 
+    /* Re-enable meta if needed via specific selector or keep hidden for cleanliness */
+    /* Let's show just "MOQ" maybe? */
+
     .product-card-moq {
-        font-size: 0.75rem !important;
+        font-size: 0.7rem !important;
+        color: var(--color-gray-500) !important;
+        margin-bottom: 8px !important;
     }
 
     .product-card-footer {
-        padding-top: 8px !important;
-        margin-top: 8px !important;
+        padding-top: 0 !important;
+        margin-top: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6px !important;
+        /* Overriding inline style via !important if possible, but inline style has high specificity. */
+        /* Inline style says gap: 10px. 6px !important works. */
     }
 
     .product-card-link {
+        font-size: 0.75rem !important;
+        padding: 6px 10px !important;
+        min-height: 32px !important;
+    }
+
+    .btn.btn-secondary.btn-sm {
         font-size: 0.7rem !important;
+        padding: 6px 10px !important;
+        min-height: 32px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
     }
 
     .product-card:hover {
