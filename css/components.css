@@ -2457,9 +2457,8 @@
     /* --- Product Cards: Compact Grid --- */
     .grid.grid-cols-4,
     .grid.grid-cols-3 {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 16px !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
     }
 
     .product-card {
