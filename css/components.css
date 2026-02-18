@@ -2457,8 +2457,26 @@
     /* --- Product Cards: Compact Grid --- */
     .grid.grid-cols-4,
     .grid.grid-cols-3 {
-        grid-template-columns: repeat(2, 1fr) !important;
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
         gap: 12px !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        padding-bottom: 8px !important;
+    }
+
+    .grid.grid-cols-4::-webkit-scrollbar,
+    .grid.grid-cols-3::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    .grid.grid-cols-4>*,
+    .grid.grid-cols-3>* {
+        flex: 0 0 75% !important;
+        max-width: 75% !important;
+        scroll-snap-align: start !important;
     }
 
     .product-card {
