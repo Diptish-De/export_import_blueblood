@@ -2563,18 +2563,21 @@
         line-height: 1.6 !important;
     }
 
-    /* --- Countries Grid --- */
+    /* --- Countries Grid: Infinite Marquee --- */
     .countries-grid {
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        gap: 12px !important;
+        overflow: hidden !important;
+        gap: 24px !important;
         margin-top: 1.5rem !important;
-        scroll-snap-type: x mandatory !important;
-        -webkit-overflow-scrolling: touch !important;
-        scrollbar-width: none !important;
         padding-bottom: 8px !important;
+        animation: countries-marquee 15s linear infinite !important;
+    }
+
+    .countries-grid:hover,
+    .countries-grid:active {
+        animation-play-state: paused !important;
     }
 
     .countries-grid::-webkit-scrollbar {
@@ -2584,7 +2587,6 @@
     .country-item {
         flex: 0 0 auto !important;
         min-width: 80px !important;
-        scroll-snap-align: start !important;
         flex-direction: column !important;
         text-align: center !important;
         gap: 4px !important;
@@ -2965,5 +2967,16 @@
 
     .ad-deal .percent {
         font-size: 2rem !important;
+    }
+}
+
+/* Countries Marquee Animation */
+@keyframes countries-marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
     }
 }

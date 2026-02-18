@@ -164,6 +164,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+  // Countries Marquee: duplicate items for seamless infinite loop on mobile
+  if (window.innerWidth <= 768) {
+    const countriesGrid = document.querySelector('.countries-grid');
+    if (countriesGrid && !countriesGrid.dataset.duplicated) {
+      const items = countriesGrid.innerHTML;
+      countriesGrid.innerHTML = items + items; // duplicate for seamless loop
+      countriesGrid.dataset.duplicated = 'true';
+    }
+  }
 });
 
 // Global helpers for cart
