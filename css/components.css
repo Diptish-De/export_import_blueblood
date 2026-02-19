@@ -2489,6 +2489,38 @@
         scroll-snap-type: none !important;
     }
 
+    /* Exception for About Page Grids (Artisans & Quality) - Horizontal Scroll */
+    /* Exception for About Page Grids (Artisans & Quality) - Horizontal Scroll */
+
+    /* We need to target the parent grid of these cards. 
+       Since we can't select parent in CSS easily without :has (which is supported but maybe risky),
+       we'll hopefully use a more specific selector if possible or just use :has if environment allows.
+       Actually, `components.css` handles specific page styles too. 
+       Let's check if we can match the section pattern.
+       About page uses `.section .grid`. 
+    */
+
+    /* Force horizontal scroll for grids containing artisan/quality cards */
+    .section:has(.artisan-card) .grid,
+    .section:has(.quality-card) .grid {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        gap: 12px !important;
+        scroll-snap-type: x mandatory !important;
+        padding-bottom: 12px !important;
+        grid-template-columns: none !important;
+    }
+
+    .section:has(.artisan-card) .grid>*,
+    .section:has(.quality-card) .grid>* {
+        flex: 0 0 85% !important;
+        /* Wider cards for stories */
+        width: auto !important;
+        max-width: 85% !important;
+        scroll-snap-align: start !important;
+    }
+
     .grid.grid-cols-4>*,
     .grid.grid-cols-3>* {
         flex: none !important;
@@ -3049,5 +3081,50 @@
 
     100% {
         transform: translateX(-50%);
+    }
+}
+
+/* ============================================
+   Mobile Row Scroll - Horizontal Scrolling
+   ============================================ */
+@media (max-width: 768px) {
+    .grid.mobile-row-scroll {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        padding-bottom: var(--space-4);
+        scroll-snap-type: x mandatory;
+        gap: var(--space-4) !important;
+        /* Ensure gap is maintained */
+        grid-template-columns: none !important;
+        /* Override grid columns */
+    }
+
+    .mobile-row-scroll::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mobile-row-scroll .feature-card,
+    .mobile-row-scroll .testimonial-card {
+        flex: 0 0 85% !important;
+        width: auto !important;
+        max-width: 85% !important;
+        /* Match Artisan card width */
+        min-width: 280px;
+        /* Keep min-width as fallback, but 85% usually overrides on mobile */
+        scroll-snap-align: center;
+        margin-right: var(--space-4) !important;
+        white-space: normal;
+        /* Ensure text wraps */
+        border-radius: 12px;
+        /* Artisan radius */
+    }
+
+    /* Ensure last item has right padding */
+    .mobile-row-scroll::after {
+        content: '';
+        min-width: var(--space-4);
+        height: 1px;
     }
 }
