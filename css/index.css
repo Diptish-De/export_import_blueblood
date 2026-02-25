@@ -465,7 +465,9 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
+  width: 100vw;
+  max-width: 100%;
 }
 
 body {
@@ -478,7 +480,9 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4a84b' fill-opacity='0.03'%3E%3Cpath d='M40 40c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zm0 0c0 11.046 8.954 20 20 20s20-8.954 20-20-8.954-20-20-20-20 8.954-20 20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
+  width: 100%;
+  max-width: 100%;
 }
 
 img,
@@ -1775,13 +1779,26 @@ p {
 
   /* Footer compact */
   .footer {
-    padding: 3rem 0 2rem !important;
+    padding: 2rem 0 2rem !important;
   }
 
   .footer-grid {
-    grid-template-columns: 1fr !important;
-    gap: 2rem !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1.5rem !important;
+    text-align: left !important;
+    align-items: start !important;
+  }
+
+  /* Full width for Brand and Contact */
+  .footer-brand,
+  .footer-column:nth-child(4) {
+    grid-column: 1 / -1 !important;
     text-align: center !important;
+  }
+
+  /* Ensure Contact links are centered when full width */
+  .footer-column:nth-child(4) .footer-contact-item {
+    justify-content: center !important;
   }
 
   .footer-brand h3 {
@@ -1800,18 +1817,33 @@ p {
 
   .footer-column h4 {
     font-size: 0.9rem !important;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.5rem !important;
+    text-align: left !important;
+    /* Align headers left for links */
   }
 
+  /* Align headers for centered columns back to center */
+  .footer-brand h3,
+  .footer-column:nth-child(4) h4 {
+    text-align: center !important;
+  }
+
+  /* Adjust header underline alignment */
   .footer-column h4::after {
+    left: 0 !important;
+    transform: none !important;
+  }
+
+  .footer-column:nth-child(1) h4::after,
+  .footer-column:nth-child(4) h4::after {
     left: 50% !important;
     transform: translateX(-50%) !important;
   }
 
   .footer-links a {
-    justify-content: center !important;
-    padding: 6px 0 !important;
-    min-height: 40px !important;
+    justify-content: flex-start !important;
+    padding: 4px 0 !important;
+    min-height: 32px !important;
     font-size: 0.85rem !important;
   }
 
