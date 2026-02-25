@@ -66,15 +66,25 @@ export class InquiryCart {
     generateWhatsAppMessage(phoneNumber) {
         if (this.items.length === 0) return null;
 
-        let message = `*Inquiry from Blueblood Exports Website*\n\n`;
-        message += `Hello, I am interested in the following artefacts:\n\n`;
+        const name = document.getElementById('rfqName')?.value || 'Guest';
+        const email = document.getElementById('rfqEmail')?.value || 'Not provided';
+        const userPhone = document.getElementById('rfqWhatsApp')?.value || 'Not provided';
+        const port = document.getElementById('rfqPort')?.value || 'Not provided';
+
+        let message = `*B2B Request For Quote - Blueblood Exports*\n\n`;
+        message += `*Buyer Details*\n`;
+        message += `Company/Name: ${name}\n`;
+        message += `Email: ${email}\n`;
+        message += `WhatsApp: ${userPhone}\n`;
+        message += `Destination Port: ${port}\n\n`;
+        message += `*Requested Catalogue Items*\n`;
 
         this.items.forEach((item, index) => {
             message += `${index + 1}. *${item.name}* (${item.category})\n`;
             message += `   Quantity: ${item.quantity}\n\n`;
         });
 
-        message += `Please provide a quote and estimated delivery timeline.`;
+        message += `Please provide a Proforma Invoice, shipping estimate, and production timeline for the above items.`;
 
         return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     }

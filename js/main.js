@@ -106,11 +106,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (sendInquiry) {
       sendInquiry.addEventListener('click', () => {
+        // Validate required fields
+        const rfqName = document.getElementById('rfqName');
+        const rfqEmail = document.getElementById('rfqEmail');
+
+        if (rfqName && !rfqName.value.trim()) {
+          alert('Please enter your Name or Company Name.');
+          rfqName.focus();
+          return;
+        }
+
+        if (rfqEmail && !rfqEmail.value.trim()) {
+          alert('Please enter your Email Address.');
+          rfqEmail.focus();
+          return;
+        }
+
         const whatsappUrl = window.cart.generateWhatsAppMessage('917812028686');
         if (whatsappUrl) {
           window.open(whatsappUrl, '_blank');
         } else {
-          alert('Your inquiry bag is empty!');
+          alert('Your inquiry bag is empty! Please add some items from the catalogue first.');
         }
       });
     }

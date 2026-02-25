@@ -306,15 +306,24 @@
             </div>
         </div>
         <div class="cart-drawer-footer">
+            <div class="rfq-form">
+                <input type="text" id="rfqName" class="form-control" placeholder="Your Name / Company" required
+                    style="margin-bottom: var(--space-2);">
+                <input type="email" id="rfqEmail" class="form-control" placeholder="Email Address" required
+                    style="margin-bottom: var(--space-2);">
+                <input type="tel" id="rfqWhatsApp" class="form-control" placeholder="WhatsApp Number" required
+                    style="margin-bottom: var(--space-2);">
+                <input type="text" id="rfqPort" class="form-control" placeholder="Destination Port (Optional)"
+                    style="margin-bottom: var(--space-3);">
+            </div>
             <button class="btn btn-whatsapp btn-lg" style="width: 100%;" id="sendInquiry">
-                Send Inquiry via WhatsApp
+                Request Quote via WhatsApp
             </button>
+            <p style="font-size: 0.75rem; text-align: center; margin-top: 1rem; color: var(--color-gray-500);">
+                We'll process your requirements and send a custom Proforma Invoice.
+            </p>
         </div>
     </div>
-
-    <script type="module" src="/js/main.js"></script>
-    <script type="module" src="/js/cart.js"></script>
-
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/917812028686?text=Hello%2C%20I'm%20interested%20in%20your%20artefacts" class="whatsapp-float"
         target="_blank" aria-label="Chat on WhatsApp">
