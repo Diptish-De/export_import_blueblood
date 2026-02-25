@@ -119,23 +119,35 @@
                         </svg><span id="productOrigin"></span></div>
                     <p class="product-description" id="productDesc"></p>
 
-                    <div class="product-specs">
-                        <div class="product-spec">
-                            <div class="product-spec-label">Material</div>
-                            <div class="product-spec-value" id="productMaterial"></div>
-                        </div>
-                        <div class="product-spec">
-                            <div class="product-spec-label">Dimensions</div>
-                            <div class="product-spec-value" id="productDimensions"></div>
-                        </div>
-                        <div class="product-spec">
-                            <div class="product-spec-label">Weight</div>
-                            <div class="product-spec-value" id="productWeight"></div>
-                        </div>
-                        <div class="product-spec">
-                            <div class="product-spec-label">Category</div>
-                            <div class="product-spec-value" id="productCat2"></div>
-                        </div>
+                    <div class="product-specs-container" style="margin: var(--space-6) 0;">
+                        <table class="b2b-specs-table">
+                            <tbody>
+                                <tr>
+                                    <th>Material</th>
+                                    <td id="productMaterial"></td>
+                                </tr>
+                                <tr>
+                                    <th>Dimensions (L x W x H)</th>
+                                    <td id="productDimensions"></td>
+                                </tr>
+                                <tr>
+                                    <th>Gross Weight</th>
+                                    <td id="productWeight"></td>
+                                </tr>
+                                <tr>
+                                    <th>HSN/Category</th>
+                                    <td id="productCat2"></td>
+                                </tr>
+                                <tr>
+                                    <th>Volume (CBM)</th>
+                                    <td id="productCBM">Variable (Calculated on shipping)</td>
+                                </tr>
+                                <tr>
+                                    <th>Packaging</th>
+                                    <td>Export Grade Cardboard & Bubble Wrap</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
                     <div class="product-moq">

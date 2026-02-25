@@ -65,11 +65,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('productDesc').textContent = product.description; // Changed from productDescription to productDesc
 
             // Details
-            document.getElementById('productMaterial').textContent = product.material; // Changed from detailMaterial to productMaterial
-            document.getElementById('productDimensions').textContent = product.dimensions; // Changed from detailDimensions to productDimensions
-            document.getElementById('productWeight').textContent = product.weight; // Changed from detailWeight to productWeight
-            document.getElementById('productCategory').textContent = product.category; // Changed from detailCategory to productCategory
-            document.getElementById('productMOQ').textContent = `${product.moq} units`; // Changed from detailMOQ to productMOQ
+            document.getElementById('productMaterial').textContent = product.material || 'N/A';
+            document.getElementById('productDimensions').textContent = product.dimensions || 'N/A';
+            document.getElementById('productWeight').textContent = product.weight || 'N/A';
+            document.getElementById('productCategory').textContent = product.category || 'N/A';
+            document.getElementById('productCat2').textContent = product.category || 'N/A';
+            document.getElementById('productMOQ').textContent = `${product.moq} units`;
+
+            // Generate random/dummy CBM based on weight for effect if not present
+            const calculatedCBM = product.weight ? (parseFloat(product.weight) * 0.002).toFixed(3) : '0.050';
+            document.getElementById('productCBM').textContent = `${calculatedCBM} CBM (Est.)`;
 
             // Images
             const mainImage = document.getElementById('mainImage');

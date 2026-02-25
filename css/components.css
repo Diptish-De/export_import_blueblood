@@ -1399,6 +1399,65 @@
 }
 
 /* ============================================
+   B2B Specs Table (Product Page)
+   ============================================ */
+.b2b-specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-6) 0;
+    font-size: var(--text-sm);
+    text-align: left;
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.b2b-specs-table th,
+.b2b-specs-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--color-gray-200);
+}
+
+.b2b-specs-table tr:last-child th,
+.b2b-specs-table tr:last-child td {
+    border-bottom: none;
+}
+
+.b2b-specs-table th {
+    background-color: var(--color-cream);
+    color: var(--color-maroon);
+    font-weight: 600;
+    width: 40%;
+    border-right: 1px solid var(--color-gray-200);
+}
+
+.b2b-specs-table td {
+    color: var(--color-gray-700);
+    width: 60%;
+}
+
+[data-theme="dark"] .b2b-specs-table {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+}
+
+[data-theme="dark"] .b2b-specs-table th,
+[data-theme="dark"] .b2b-specs-table td {
+    border-color: var(--color-gray-700);
+}
+
+[data-theme="dark"] .b2b-specs-table th {
+    background-color: var(--color-gray-900);
+    color: var(--color-ivory);
+    border-right-color: var(--color-gray-700);
+}
+
+[data-theme="dark"] .b2b-specs-table td {
+    color: var(--color-gray-300);
+}
+
+/* ============================================
    Page Headers - Traditional
    ============================================ */
 .page-header {
