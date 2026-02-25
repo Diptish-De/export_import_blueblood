@@ -120,13 +120,32 @@
                 </svg>
             </div>
 
-            <div class="category-filter" id="categoryFilter">
-                <button class="filter-btn active" data-category="all">All</button>
-                <button class="filter-btn" data-category="Brass">Brass</button>
-                <button class="filter-btn" data-category="Wood">Wood</button>
-                <button class="filter-btn" data-category="Textile">Textile</button>
-                <button class="filter-btn" data-category="Stone">Stone</button>
-                <button class="filter-btn" data-category="Metal">Metal</button>
+            <div class="filter-controls-wrapper"
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-6); flex-wrap: wrap; gap: var(--space-4);">
+                <div class="category-filter" id="categoryFilter" style="margin-bottom: 0;">
+                    <button class="filter-btn active" data-category="all">All</button>
+                    <button class="filter-btn" data-category="Brass">Brass</button>
+                    <button class="filter-btn" data-category="Wood">Wood</button>
+                    <button class="filter-btn" data-category="Textile">Textile</button>
+                    <button class="filter-btn" data-category="Stone">Stone</button>
+                    <button class="filter-btn" data-category="Metal">Metal</button>
+                </div>
+
+                <div class="material-filter" style="display: flex; align-items: center; gap: var(--space-2);">
+                    <label for="materialSelect"
+                        style="font-size: var(--text-sm); color: var(--color-gray-600); font-weight: 500;">Material:</label>
+                    <select id="materialSelect" class="form-control"
+                        style="padding: 0.5rem 1rem; border-color: var(--color-gray-300); border-radius: var(--radius-md); background: var(--color-white); min-width: 150px; cursor: pointer;">
+                        <option value="all">All Materials</option>
+                        <option value="Bronze">Bronze</option>
+                        <option value="Brass">Brass</option>
+                        <option value="Sandalwood">Sandalwood</option>
+                        <option value="Teak Wood">Teak Wood</option>
+                        <option value="Silk">Silk</option>
+                        <option value="Cotton">Cotton</option>
+                        <option value="Marble">Marble</option>
+                    </select>
+                </div>
             </div>
 
             <div class="grid grid-cols-4 gap-6" id="productGrid">

@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Search and Filter Logic
   let searchQuery = '';
+  let currentMaterial = 'all';
 
   function renderProducts() {
     let filtered = allProducts;
@@ -40,6 +41,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Filter by Category
     if (currentCategory !== 'all') {
       filtered = filtered.filter(p => p.category === currentCategory);
+    }
+
+    // Filter by Material
+    if (currentMaterial !== 'all') {
+      filtered = filtered.filter(p => p.material && p.material.includes(currentMaterial));
     }
 
     // Filter by Search Query
@@ -142,6 +148,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       renderProducts();
     }
   });
+
+  // Handle Material Filter Dropdown
+  const materialSelect = document.getElementById('materialSelect');
+  if (materialSelect) {
+    materialSelect.addEventListener('change', (e) => {
+      currentMaterial = e.target.value;
+      renderProducts();
+    });
+  }
 
   // Handle Search Input
   const searchInput = document.getElementById('searchInput');
