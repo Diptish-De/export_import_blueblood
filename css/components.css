@@ -3,6 +3,12 @@
    Indian Artefact Export Catalogue
    ============================================ */
 
+html,
+body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 /* ============================================
    Navigation - Traditional Style
    ============================================ */
@@ -3013,8 +3019,13 @@
 
     /* --- Cart Drawer Full Width --- */
     .cart-drawer {
-        max-width: 100% !important;
-        width: 100% !important;
+        max-width: 100vw !important;
+        width: 100vw !important;
+        right: -100vw !important;
+    }
+
+    .cart-drawer.active {
+        right: 0 !important;
     }
 
     /* --- WhatsApp Float --- */
