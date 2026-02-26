@@ -47,8 +47,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--space-4) var(--container-padding);
-    max-width: var(--container-max);
+    padding: var(--space-4) var(--space-8);
+    max-width: 1600px;
     margin: 0 auto;
 }
 
@@ -87,6 +87,12 @@ body {
 
 .navbar-logo-text span {
     color: var(--color-gold);
+}
+
+@media (max-width: 768px) {
+    .navbar-logo-text span {
+        display: none !important;
+    }
 }
 
 .navbar-menu {
