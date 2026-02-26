@@ -16,97 +16,147 @@
     <script>(function () { const t = localStorage.getItem("theme") || "light"; document.documentElement.setAttribute("data-theme", t); if (sessionStorage.getItem("blueblood_loaded")) { document.documentElement.classList.add("page-is-loaded"); document.write("<style>.page-loader{display:none!important;}</style>") } }).call(this);</script>
     <script type="module" src="/js/i18n.js"></script>
     <style>
-        .story-hero {
-            padding: var(--space-20) 0 var(--space-12);
-            text-align: center;
-            background: var(--color-white);
-            position: relative;
-        }
+        /* Grid styles */
 
         .story-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: var(--space-8);
-            margin-top: var(--space-8);
+            gap: var(--space-10);
+            margin-top: var(--space-6);
         }
 
         .story-card {
             background: var(--color-white);
-            border-radius: var(--radius-lg);
+            border-radius: var(--radius-xl);
             overflow: hidden;
-            box-shadow: var(--shadow-md);
-            transition: all var(--transition-base);
-            border: 1px solid var(--color-gray-200);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid var(--color-gray-100);
             display: flex;
             flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+
+        .story-card::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            border-radius: var(--radius-xl);
+            box-shadow: 0 15px 40px rgba(212, 168, 75, 0.15);
+            transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .story-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-xl);
+            transform: translateY(-8px);
+            border-color: rgba(212, 168, 75, 0.3);
+        }
+
+        .story-card:hover::after {
+            opacity: 1;
         }
 
         .story-image {
-            height: 250px;
+            height: 280px;
             overflow: hidden;
             position: relative;
+        }
+
+        .story-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 40%);
+            opacity: 0.6;
+            transition: opacity 0.4s ease;
+        }
+
+        .story-card:hover .story-image::after {
+            opacity: 0.2;
         }
 
         .story-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform var(--transition-slow);
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .story-card:hover .story-image img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .story-content {
-            padding: var(--space-6);
+            padding: var(--space-8) var(--space-6) var(--space-6);
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            position: relative;
+            background: var(--color-white);
         }
 
         .story-category {
-            font-size: var(--text-xs);
+            position: absolute;
+            top: -15px;
+            left: var(--space-6);
+            background: var(--color-white);
+            padding: var(--space-1) var(--space-4);
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-sm);
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--color-gold);
-            font-weight: bold;
-            margin-bottom: var(--space-2);
+            letter-spacing: 2px;
+            color: var(--color-maroon);
+            font-weight: 700;
+            border: 1px solid var(--color-gray-100);
+            z-index: 2;
         }
 
         .story-title {
             font-family: var(--font-heading);
-            font-size: var(--text-xl);
-            color: var(--color-maroon);
+            font-size: var(--text-2xl);
+            color: var(--color-maroon-dark);
             margin-bottom: var(--space-3);
             line-height: 1.3;
+            font-weight: 600;
         }
 
         .story-excerpt {
             color: var(--color-gray-600);
-            font-size: var(--text-sm);
-            line-height: 1.6;
-            margin-bottom: var(--space-4);
+            font-size: var(--text-base);
+            line-height: 1.7;
+            margin-bottom: var(--space-6);
             flex-grow: 1;
         }
 
         .read-more {
-            color: var(--color-terracotta);
+            color: var(--color-gold-dark);
             font-weight: 600;
+            font-size: var(--text-sm);
+            text-transform: uppercase;
+            letter-spacing: 1px;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: var(--space-2);
-            transition: gap var(--transition-fast);
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--color-gray-100);
+            transition: all var(--transition-fast);
+        }
+
+        .read-more span {
+            transition: transform var(--transition-fast);
         }
 
         .read-more:hover {
-            gap: var(--space-3);
+            color: var(--color-terracotta);
+        }
+
+        .read-more:hover span {
+            transform: translateX(4px);
         }
     </style>
 </head>
@@ -167,14 +217,17 @@
         </div>
     </nav>
 
-    <section class="story-hero pattern-mandala">
+    <section class="page-header">
         <div class="container">
-            <span class="text-terracotta"
-                style="font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">Heritage & History</span>
-            <h1 class="hero-title" style="color: var(--color-maroon-dark);">The Artisan Chronicles</h1>
-            <p style="max-width: 600px; margin: var(--space-4) auto; color: var(--color-gray-600);">
-                Dive deep into the rich history, mythology, and craftsmanship behind every Blueblood artefact.
-            </p>
+            <div class="page-header-content">
+                <nav class="breadcrumb">
+                    <a href="index.html">Home</a><span>/</span><span class="breadcrumb-current">Stories</span>
+                </nav>
+                <div class="text-terracotta" style="font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">
+                    Heritage & History</div>
+                <h1>The Artisan Chronicles</h1>
+                <p>Dive deep into the rich history, mythology, and craftsmanship behind every Blueblood artefact.</p>
+            </div>
         </div>
     </section>
 
