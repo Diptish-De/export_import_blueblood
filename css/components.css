@@ -2006,7 +2006,7 @@ body {
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-    z-index: 999;
+    z-index: 100002;
     transition: all var(--transition-base);
     animation: pulse-whatsapp 2s infinite;
 }
