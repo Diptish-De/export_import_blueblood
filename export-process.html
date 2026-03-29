@@ -115,6 +115,44 @@
 </head>
 
 <body>
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-ship-container">
+            <div class="speed-lines">
+                <div class="speed-line line-1"></div>
+                <div class="speed-line line-2"></div>
+                <div class="speed-line line-3"></div>
+                <div class="speed-line line-4"></div>
+            </div>
+            <svg class="loader-ship" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Hull -->
+                <path d="M5 45H95L88 65H12L5 45Z" fill="var(--color-gold)"/>
+                <!-- Containers -->
+                <rect x="25" y="30" width="15" height="15" rx="1" fill="#B08930"/>
+                <rect x="25" y="15" width="15" height="15" rx="1" fill="#D4A84B" opacity="0.8"/>
+                <rect x="42" y="20" width="18" height="25" rx="1" fill="#E5C06A"/>
+                <rect x="42" y="-1" width="18" height="21" rx="1" fill="#B8503A" opacity="0.9"/>
+                <rect x="62" y="35" width="12" height="10" rx="1" fill="#9A7B4F"/>
+                <rect x="62" y="25" width="12" height="10" rx="1" fill="#5C1515" opacity="0.8"/>
+                <rect x="15" y="38" width="4" height="4" fill="var(--color-gold)" opacity="0.5"/>
+            </svg>
+            <div class="loader-waves">
+                <svg class="wave-path" viewBox="0 0 100 20">
+                    <path d="M0 10 Q 12.5 0, 25 10 T 50 10 T 75 10 T 100 10" />
+                </svg>
+                <svg class="wave-path" viewBox="0 0 100 20">
+                    <path d="M0 10 Q 12.5 0, 25 10 T 50 10 T 75 10 T 100 10" />
+                </svg>
+                <svg class="wave-path" viewBox="0 0 100 20">
+                    <path d="M0 10 Q 12.5 0, 25 10 T 50 10 T 75 10 T 100 10" />
+                </svg>
+            </div>
+        </div>
+        <div class="loader-brand">
+            <h2>BlueBloodExports</h2>
+            <p>Global Export Excellence</p>
+        </div>
+    </div>
     <!-- Navbar (Simplified clone, ideally shared via JS component but keeping it static for now) -->
     <nav class="navbar" id="navbar">
         <div class="navbar-container">

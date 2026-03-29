@@ -16,225 +16,119 @@
   --color-terracotta-dark: #8B3D2D;
 
   /* ============================================
-  /* ULTRA-PREMIUM CINEMATIC LOADER */
+  /* Dribbble-Inspired Export Ship Loader */
   .page-loader {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, #2e0a0a 0%, #1a0505 100%);
+    background: var(--color-maroon-dark);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 99999;
-    backdrop-filter: blur(15px);
+    overflow: hidden;
   }
 
-  /* Complex Mandala Container */
-  .loader-mandala {
+  .loader-ship-container {
     position: relative;
-    width: 120px;
+    width: 200px;
     height: 120px;
-    margin-bottom: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  /* Outer Glow Ring */
-  .loader-ring {
+  .loader-ship {
+    width: 100px;
+    height: auto;
+    z-index: 2;
+    animation: boat-bob 3s ease-in-out infinite;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+  }
+
+  /* Wavy Water */
+  .loader-waves {
     position: absolute;
-    inset: 0;
-    border: 1px solid rgba(212, 168, 75, 0.15);
-    border-radius: 50%;
-    box-shadow: 0 0 30px rgba(212, 168, 75, 0.05);
-    animation: pulse-ring 3s ease-in-out infinite;
+    bottom: 20px;
+    width: 300%;
+    height: 40px;
+    display: flex;
+    animation: wave-slide 4s linear infinite;
   }
 
-  /* Rotating Gold Arc */
-  .loader-ring::after {
-    content: '';
+  .wave-path {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: rgba(212, 168, 75, 0.3);
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+
+  /* Speed Lines (Exaggerated Movement) */
+  .speed-lines {
     position: absolute;
-    inset: -2px;
-    border: 2px solid transparent;
-    border-top-color: var(--color-gold);
-    border-right-color: transparent;
-    border-radius: 50%;
-    animation: spin 2s cubic-bezier(0.7, 0, 0.3, 1) infinite;
-    filter: drop-shadow(0 0 8px var(--color-gold));
+    width: 100%;
+    height: 60px;
   }
 
-  /* Inner Counter-Rotating Ring */
-  .loader-ring::before {
-    content: '';
+  .speed-line {
     position: absolute;
-    inset: 15px;
-    border: 1px solid rgba(212, 168, 75, 0.3);
-    border-left-color: var(--color-gold);
-    border-radius: 50%;
-    animation: spin 3s linear reverse infinite;
+    background: linear-gradient(to right, transparent, var(--color-gold));
+    height: 2px;
+    width: 40px;
+    opacity: 0.4;
+    border-radius: 2px;
+    animation: speed-streak 1s linear infinite;
   }
 
-  /* Central Lotus Icon */
-  .loader-lotus {
-    font-size: 2.5rem;
-    animation: breathe 4s ease-in-out infinite;
-    filter: drop-shadow(0 0 15px rgba(212, 168, 75, 0.6));
-    z-index: 10;
-    transform-origin: center;
-  }
+  .line-1 { top: 10%; animation-delay: 0s; width: 60px; }
+  .line-2 { top: 40%; animation-delay: 0.3s; width: 30px; }
+  .line-3 { top: 70%; animation-delay: 0.6s; width: 45px; }
+  .line-4 { top: 90%; animation-delay: 0.1s; width: 50px; }
 
-  /* Brand Container */
+  /* Brand Typography */
   .loader-brand {
+    margin-top: 2rem;
     text-align: center;
-    position: relative;
-    overflow: hidden;
+    animation: fade-in-up 1s ease-out;
   }
 
-  /* Main Title with Gold Foil Effect */
   .loader-brand h2 {
     font-family: 'Cinzel', serif;
-    font-size: 2.25rem;
-    font-weight: 600;
-    letter-spacing: 6px;
-    margin-bottom: 0.75rem;
-    text-transform: uppercase;
-    background: linear-gradient(90deg,
-        #9A7B4F 0%,
-        #FFD700 25%,
-        #D4AF37 50%,
-        #FFD700 75%,
-        #9A7B4F 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    animation: shine-foil 4s linear infinite;
+    color: var(--color-gold);
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+    margin-bottom: 0.5rem;
   }
 
-  /* Subtitle with reveal animation */
   .loader-brand p {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.5);
-    letter-spacing: 8px;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.7rem;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    margin: 0;
-    font-weight: 300;
-    display: inline-block;
-    position: relative;
-  }
-
-  .loader-brand p::before,
-  .loader-brand p::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 30px;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(212, 168, 75, 0.5));
-  }
-
-  .loader-brand p::before {
-    right: 100%;
-    margin-right: 15px;
-  }
-
-  .loader-brand p::after {
-    left: 100%;
-    margin-left: 15px;
-    background: linear-gradient(to left, transparent, rgba(212, 168, 75, 0.5));
-  }
-
-
-  /* Minimalist Loading Bar */
-  .loader-dots {
-    width: 60px;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.1);
-    margin-top: 2.5rem;
-    position: relative;
-    overflow: hidden;
-    border-radius: 2px;
-  }
-
-  .loader-dots::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: var(--color-gold);
-    transform: translateX(-100%);
-    animation: load-bar 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-    box-shadow: 0 0 10px var(--color-gold);
-  }
-
-  /* Remove unused dots elements */
-  .loader-dot {
-    display: none;
   }
 
   /* Animations */
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
+  @keyframes boat-bob {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-10px) rotate(2deg); }
   }
 
-  @keyframes pulse-ring {
-
-    0%,
-    100% {
-      transform: scale(1);
-      opacity: 0.3;
-    }
-
-    50% {
-      transform: scale(1.05);
-      opacity: 0.6;
-    }
+  @keyframes wave-slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.33%); }
   }
 
-  @keyframes breathe {
-
-    0%,
-    100% {
-      transform: scale(1);
-      opacity: 1;
-      filter: drop-shadow(0 0 10px rgba(212, 168, 75, 0.4));
-    }
-
-    50% {
-      transform: scale(1.15);
-      opacity: 0.9;
-      filter: drop-shadow(0 0 25px rgba(212, 168, 75, 0.8));
-    }
+  @keyframes speed-streak {
+    0% { transform: translateX(200px); opacity: 0; }
+    50% { opacity: 0.6; }
+    100% { transform: translateX(-200px); opacity: 0; }
   }
 
-  @keyframes shine-foil {
-    to {
-      background-position: 200% center;
-    }
-  }
-
-  @keyframes load-bar {
-    0% {
-      transform: translateX(-100%);
-    }
-
-    50% {
-      transform: translateX(0);
-    }
-
-    100% {
-      transform: translateX(100%);
-    }
-  }
 
   /* Mobile Adjustments */
   @media (max-width: 480px) {
