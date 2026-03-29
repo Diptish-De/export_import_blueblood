@@ -18,6 +18,49 @@
     <!-- CSS injected by Vite via main.js import -->
     <script>(function () { const t = localStorage.getItem("theme") || "light"; document.documentElement.setAttribute("data-theme", t); if (sessionStorage.getItem("blueblood_loaded")) { document.documentElement.classList.add("page-is-loaded"); document.write("<style>.page-loader{display:none!important;}</style>") } }).call(this);</script>
     <script type="module" src="/js/i18n.js"></script>
+    <!-- FAQ Structured Data for Google Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "Do you ship internationally?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, we are a government-registered exporter shipping globally. We partner with trusted logistics providers like DHL, FedEx, and shipping lines to ensure safe delivery to the USA, Europe, Middle East, and beyond."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What is the Minimum Order Quantity (MOQ)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MOQ varies by product, typically ranging from 10 to 50 units for smaller items. For large statement pieces, we can accept lower MOQs."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How long does shipping take?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Air freight typically takes 5-10 business days. Sea freight can take 20-45 days depending on the destination. Production time is usually 2-4 weeks."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Do you offer custom designs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. We work directly with artisans and can customize size, finish, material, and design to meet your specific needs."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How do you ensure product safety during transit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We use export-grade packaging standards, including bubble wrap, foam corner protectors, and sturdy wooden crates for fragile items. Every shipment is insured."
+        }
+      }]
+    }
+    </script>
     <style>
         .accordion {
             background-color: var(--color-white);
