@@ -9,38 +9,47 @@ document.addEventListener('DOMContentLoaded', async () => {
   const emptyState = document.getElementById('emptyState');
 
   let allProducts = [];
-  let currentCategory = 'all';
+  let currentMainCategory = 'all';
+  let currentSubCategory = 'all';
+  let searchQuery = '';
+  let currentMaterial = 'all';
 
-  // Check URL for category parameter
+  const mainCategoryFilter = document.getElementById('mainCategoryFilter');
+  const subCategoryFilter = document.getElementById('subCategoryFilter');
+
+  // Check URL for params
   const urlParams = new URLSearchParams(window.location.search);
-  const categoryParam = urlParams.get('category');
-  if (categoryParam) {
-    currentCategory = categoryParam;
-  }
+  const mainParam = urlParams.get('category'); // Backward compatibility: treat 'category' as main
+  const subParam = urlParams.get('subcategory');
+
+  if (mainParam) currentMainCategory = mainParam;
+  if (subParam) currentSubCategory = subParam;
 
   // Fetch products from JSON
   async function loadProducts() {
     try {
       const response = await fetch('data/products.json');
       allProducts = await response.json();
+      updateSubCategoryButtons();
       renderProducts();
-      updateActiveFilter();
+      updateActiveFilters();
     } catch (error) {
       console.error('Error loading products:', error);
       productGrid.innerHTML = '<p style="text-align:center;color:var(--color-gray-500);grid-column:1/-1;">Unable to load products. Please try again later.</p>';
     }
   }
 
-  // Search and Filter Logic
-  let searchQuery = '';
-  let currentMaterial = 'all';
-
   function renderProducts() {
     let filtered = allProducts;
 
-    // Filter by Category
-    if (currentCategory !== 'all') {
-      filtered = filtered.filter(p => p.category === currentCategory);
+    // Filter by Main Category
+    if (currentMainCategory !== 'all') {
+      filtered = filtered.filter(p => p.category === currentMainCategory);
+    }
+
+    // Filter by Sub-Category
+    if (currentSubCategory !== 'all') {
+      filtered = filtered.filter(p => p.subcategory === currentSubCategory);
     }
 
     // Filter by Material
@@ -54,6 +63,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       filtered = filtered.filter(p =>
         p.name.toLowerCase().includes(lowerQuery) ||
         p.category.toLowerCase().includes(lowerQuery) ||
+        (p.subcategory && p.subcategory.toLowerCase().includes(lowerQuery)) ||
         (p.material && p.material.toLowerCase().includes(lowerQuery)) ||
         (p.origin && p.origin.toLowerCase().includes(lowerQuery))
       );
@@ -118,10 +128,19 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Update active filter button
-  function updateActiveFilter() {
-    categoryFilter.querySelectorAll('.filter-btn').forEach(btn => {
-      const btnCategory = btn.dataset.category;
-      if (btnCategory === currentCategory) {
+  function updateActiveFilters() {
+    mainCategoryFilter.querySelectorAll('.filter-btn').forEach(btn => {
+      const btnCat = btn.dataset.mainCategory;
+      if (btnCat === currentMainCategory) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    subCategoryFilter.querySelectorAll('.filter-btn').forEach(btn => {
+      const btnSub = btn.dataset.subcategory;
+      if (btnSub === currentSubCategory) {
         btn.classList.add('active');
       } else {
         btn.classList.remove('active');
@@ -129,20 +148,64 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Handle filter button clicks
-  categoryFilter.addEventListener('click', (e) => {
+  function updateSubCategoryButtons() {
+    if (currentMainCategory === 'all') {
+      subCategoryFilter.classList.add('hidden');
+      subCategoryFilter.innerHTML = '';
+      currentSubCategory = 'all';
+      return;
+    }
+
+    // Get unique subcategories for this main category
+    const subcats = [...new Set(allProducts
+      .filter(p => p.category === currentMainCategory)
+      .map(p => p.subcategory))]
+      .filter(Boolean);
+
+    if (subcats.length > 0) {
+      subCategoryFilter.classList.remove('hidden');
+      subCategoryFilter.innerHTML = `
+        <button class="filter-btn ${currentSubCategory === 'all' ? 'active' : ''}" data-subcategory="all">All ${currentMainCategory}</button>
+        ${subcats.map(sub => `
+          <button class="filter-btn ${currentSubCategory === sub ? 'active' : ''}" data-subcategory="${sub}">${sub}</button>
+        `).join('')}
+      `;
+    } else {
+      subCategoryFilter.classList.add('hidden');
+      subCategoryFilter.innerHTML = '';
+      currentSubCategory = 'all';
+    }
+  }
+
+  // Handle main Category Selection
+  mainCategoryFilter.addEventListener('click', (e) => {
     if (e.target.classList.contains('filter-btn')) {
-      currentCategory = e.target.dataset.category;
-      searchQuery = ''; // Reset search logic if category changes? Or keep it? Let's keep filters independent for now, but usually clear search or refine.
-      // Let's NOT clear search query to allow "Brass" + "Lamp". But UI might get confusing.
-      // For this simple UI, let's keep them combined.
-      // Update toggle state
-      updateActiveFilter();
+      currentMainCategory = e.target.dataset.mainCategory;
+      currentSubCategory = 'all'; // Reset sub when main changes
+      updateSubCategoryButtons();
+      updateActiveFilters();
+      
+      // Update URL
+      const params = new URLSearchParams();
+      if (currentMainCategory !== 'all') params.set('category', currentMainCategory);
+      const newUrl = params.toString() ? `${window.location.pathname}?${params.toString()}` : window.location.pathname;
+      window.history.pushState({}, '', newUrl);
+
+      renderProducts();
+    }
+  });
+
+  // Handle sub Category Selection
+  subCategoryFilter.addEventListener('click', (e) => {
+    if (e.target.classList.contains('filter-btn')) {
+      currentSubCategory = e.target.dataset.subcategory;
+      updateActiveFilters();
 
       // Update URL
-      const newUrl = currentCategory === 'all'
-        ? window.location.pathname
-        : `${window.location.pathname}?category=${currentCategory}`;
+      const params = new URLSearchParams();
+      if (currentMainCategory !== 'all') params.set('category', currentMainCategory);
+      if (currentSubCategory !== 'all') params.set('subcategory', currentSubCategory);
+      const newUrl = params.toString() ? `${window.location.pathname}?${params.toString()}` : window.location.pathname;
       window.history.pushState({}, '', newUrl);
 
       renderProducts();

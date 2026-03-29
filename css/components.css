@@ -607,6 +607,26 @@ body {
     border-color: rgba(212, 168, 75, 0.3);
 }
 
+.category-filters-container {
+    width: 100%;
+}
+
+.category-filter.sub-categories {
+    border-top: 1px solid var(--color-gray-200);
+    padding-top: var(--space-4);
+    justify-content: flex-start;
+    animation: slideDownFade 0.3s ease-out;
+}
+
+@keyframes slideDownFade {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.category-filter.main-categories {
+    justify-content: flex-start;
+}
+
 /* ============================================
    Hero Section - Traditional Style
    ============================================ */

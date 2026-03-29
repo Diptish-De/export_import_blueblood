@@ -1,159 +1,122 @@
 [
   {
-    "id": "art001",
-    "name": "Brass Nataraja Idol",
-    "category": "Brass",
-    "material": "Pure Brass",
-    "origin": "Tamil Nadu, India",
-    "dimensions": "12 x 8 inches",
-    "weight": "4.5 kg",
-    "moq": 10,
-    "images": [
-      "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=600&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1567361808960-dec9cb578182?w=600&h=600&fit=crop"
-    ],
-    "description": "Handcrafted brass Nataraja idol made by traditional artisans using the ancient lost-wax casting technique. Each piece is unique and represents the cosmic dance of Lord Shiva."
-  },
-  {
-    "id": "art002",
-    "name": "Carved Teak Elephant",
-    "category": "Wood",
-    "material": "Teak Wood",
-    "origin": "Rajasthan, India",
-    "dimensions": "8 x 6 inches",
+    "id": "h-dk-001",
+    "name": "Dhokra Tribal Figurine",
+    "category": "Handicraft",
+    "subcategory": "Dhokra",
+    "material": "Lost-wax casted Brass/Bronze",
+    "origin": "Chhattisgarh, India",
+    "dimensions": "10 x 4 inches",
     "weight": "1.2 kg",
-    "moq": 20,
-    "images": [
-      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&h=600&fit=crop"
-    ],
-    "description": "Intricately hand-carved teak wood elephant with traditional Rajasthani motifs. A symbol of wisdom and good fortune, perfect for home decor."
-  },
-  {
-    "id": "art003",
-    "name": "Banarasi Silk Tapestry",
-    "category": "Textile",
-    "material": "Pure Silk",
-    "origin": "Varanasi, India",
-    "dimensions": "48 x 24 inches",
-    "weight": "0.5 kg",
-    "moq": 15,
-    "images": [
-      "https://images.unsplash.com/photo-1558171813-4c088753af8f?w=600&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=600&h=600&fit=crop"
-    ],
-    "description": "Handwoven Banarasi silk tapestry featuring traditional floral and paisley patterns with gold zari work. A masterpiece representing centuries of weaving tradition."
-  },
-  {
-    "id": "art004",
-    "name": "Brass Diya Lamp",
-    "category": "Brass",
-    "material": "Brass",
-    "origin": "Moradabad, India",
-    "dimensions": "6 x 4 inches",
-    "weight": "0.8 kg",
-    "moq": 50,
-    "images": [
-      "https://images.unsplash.com/photo-1601391605500-111453273e91?w=600&h=600&fit=crop"
-    ],
-    "description": "Traditional brass oil lamp (Diya) with intricate engravings. Perfect for festive lighting and spiritual decor."
-  },
-  {
-    "id": "art005",
-    "name": "Antique Brass Vase",
-    "category": "Brass",
-    "material": "Brass",
-    "origin": "Aligarh, India",
-    "dimensions": "14 x 6 inches",
-    "weight": "1.5 kg",
-    "moq": 25,
-    "images": [
-      "https://images.unsplash.com/photo-1589820296156-2454bb8a6d54?w=600&h=600&fit=crop"
-    ],
-    "description": "Vintage-style brass vase with hammered finish. Adds a touch of royal elegance to any interior space."
-  },
-  {
-    "id": "art006",
-    "name": "Brass Ganesha Statue",
-    "category": "Brass",
-    "material": "Solid Brass",
-    "origin": "Karnataka, India",
-    "dimensions": "10 x 7 inches",
-    "weight": "3.2 kg",
-    "moq": 12,
-    "images": [
-      "https://images.unsplash.com/photo-1567361809025-a7b69324d774?w=600&h=600&fit=crop"
-    ],
-    "description": "Detailed Ganesha statue seated on a lotus. A symbol of new beginnings and prosperity."
-  },
-  {
-    "id": "art007",
-    "name": "Brass Wall Panel",
-    "category": "Brass",
-    "material": "Brass & Wood",
-    "origin": "Kerala, India",
-    "dimensions": "24 x 12 inches",
-    "weight": "5.0 kg",
-    "moq": 8,
-    "images": [
-      "https://images.unsplash.com/photo-1620619767323-b95a89183081?w=600&h=600&fit=crop"
-    ],
-    "description": "Decorative wall panel featuring brass figurines mounted on seasoned wood. A classic piece of Indian heritage."
-  },
-  {
-    "id": "art008",
-    "name": "Sandalwood Carved Panel",
-    "category": "Wood",
-    "material": "Sandalwood",
-    "origin": "Mysore, India",
-    "dimensions": "18 x 12 inches",
-    "weight": "1.1 kg",
     "moq": 5,
     "images": [
-      "https://images.unsplash.com/photo-1615800001854-e054eb903102?w=600&h=600&fit=crop"
+      "images/catalogue/dhokra_1.png"
     ],
-    "description": "Exquisite sandalwood panel deep carved with mythological scenes. Emits a natural, soothing fragrance."
+    "description": "Exquisite Dhokra art figurine handcrafted by tribal artisans. This piece depicts a traditional figure holding a lamp, featuring intricate wire-work details."
   },
   {
-    "id": "art009",
-    "name": "Kashmiri Wool Shawl",
-    "category": "Textile",
-    "material": "Pashmina Wool",
-    "origin": "Kashmir, India",
-    "dimensions": "80 x 40 inches",
-    "weight": "0.3 kg",
-    "moq": 20,
+    "id": "h-tc-001",
+    "name": "Authentic Bankura Horse",
+    "category": "Handicraft",
+    "subcategory": "Terracotta",
+    "material": "Burnt Clay (Terracotta)",
+    "origin": "West Bengal, India",
+    "dimensions": "14 x 6 inches",
+    "weight": "2.5 kg",
+    "moq": 10,
     "images": [
-      "https://images.unsplash.com/photo-1576487248871-369a82cd4d67?w=600&h=600&fit=crop"
+      "images/catalogue/terracotta_1.png"
     ],
-    "description": "Authentic Kashmiri shawl with intricate needle embroidery (Sozni). Soft, warm, and timelessly elegant."
+    "description": "The world-famous Bankura Horse, a symbol of Indian terracotta handicraft. Intricately carved neck and ears with deep burnt-orange hue."
   },
   {
-    "id": "art010",
-    "name": "Marble Inlay Coasters",
-    "category": "Stone",
-    "material": "White Marble",
-    "origin": "Agra, India",
-    "dimensions": "4 x 4 inches",
-    "weight": "0.6 kg (Set of 6)",
-    "moq": 50,
+    "id": "f-ry-001",
+    "name": "Royal Maharaja Armchair",
+    "category": "Furniture",
+    "subcategory": "Royal",
+    "material": "Teak Wood with Gold Leaf",
+    "origin": "Rajasthan, India",
+    "dimensions": "42 x 28 x 26 inches",
+    "weight": "35.0 kg",
+    "moq": 1,
     "images": [
-      "https://images.unsplash.com/photo-1560130958-fcd1983c2331?w=600&h=600&fit=crop"
+      "images/catalogue/royal_1.png"
     ],
-    "description": "Set of 6 marble coasters with semi-precious stone inlay work, inspired by the Taj Mahal."
+    "description": "Luxurious Maharaja armchair handcrafted from seasoned teak wood. Features elaborate carvings, lion-head motifs, and premium velvet upholstery."
   },
   {
-    "id": "art011",
-    "name": "Hand-painted Blue Pottery",
-    "category": "Stone",
-    "material": "Ceramic/Quartz",
-    "origin": "Jaipur, India",
-    "dimensions": "10 x 10 inches",
-    "weight": "0.9 kg",
-    "moq": 30,
+    "id": "f-us-001",
+    "name": "Minimalist Coffee Table",
+    "category": "Furniture",
+    "subcategory": "Usual",
+    "material": "Solid White Oak",
+    "origin": "UP, India",
+    "dimensions": "18 x 32 x 32 inches",
+    "weight": "18.0 kg",
+    "moq": 4,
     "images": [
-      "https://images.unsplash.com/photo-1610738362635-43bbc0c0a87f?w=600&h=600&fit=crop"
+      "images/catalogue/usual_1.png"
     ],
-    "description": "Famous Jaipur Blue Pottery plate featuring geometric and floral patterns in vibrant blue and white."
+    "description": "A sleek, contemporary minimalist side table designed for modern living spaces. Clean lines and a natural oak finish."
+  },
+  {
+    "id": "h-dk-002",
+    "name": "Dhokra Tribal Wall Panel",
+    "category": "Handicraft",
+    "subcategory": "Dhokra",
+    "material": "Brass and Repurposed Wood",
+    "origin": "Odisha, India",
+    "dimensions": "18 x 12 inches",
+    "weight": "4.5 kg",
+    "moq": 3,
+    "images": [
+      "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=600&h=600&fit=crop"
+    ],
+    "description": "A stunning wall-mounted piece featuring multiple Dhokra figurines set against a dark rustic wood background."
+  },
+  {
+    "id": "h-tc-002",
+    "name": "Terracotta Ganesha Plaque",
+    "category": "Handicraft",
+    "subcategory": "Terracotta",
+    "material": "High-fired Clay",
+    "origin": "West Bengal, India",
+    "dimensions": "12 x 10 inches",
+    "weight": "1.8 kg",
+    "moq": 15,
+    "images": [
+      "https://images.unsplash.com/photo-1567361808960-dec9cb578182?w=600&h=600&fit=crop"
+    ],
+    "description": "Hand-molded terracotta plaque of Lord Ganesha in a rustic earth finish. Perfect for traditional home entrances."
+  },
+  {
+    "id": "f-ry-002",
+    "name": "Intricately Carved Wardrobe",
+    "category": "Furniture",
+    "subcategory": "Royal",
+    "material": "Teak Wood",
+    "origin": "Gujarat, India",
+    "dimensions": "72 x 48 x 20 inches",
+    "weight": "120.0 kg",
+    "moq": 1,
+    "images": [
+      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&h=600&fit=crop"
+    ],
+    "description": "A massive royal wardrobe featuring 'jali' work and deep floral relief carvings. A heritage piece for grand interiors."
+  },
+  {
+    "id": "f-us-002",
+    "name": "Solid Wood Dining Chair",
+    "category": "Furniture",
+    "subcategory": "Usual",
+    "material": "Sheesham Wood",
+    "origin": "Saharanpur, India",
+    "dimensions": "40 x 18 x 18 inches",
+    "weight": "8.5 kg",
+    "moq": 12,
+    "images": [
+      "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&h=600&fit=crop"
+    ],
+    "description": "Standard high-back dining chair made of durable Sheesham wood. Ergonomic design with a polished walnut finish."
   }
 ]
