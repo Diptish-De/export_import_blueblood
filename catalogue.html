@@ -145,50 +145,110 @@
                 </svg>
             </div>
 
-            <div class="filter-controls-wrapper"
-                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-6); flex-wrap: wrap; gap: var(--space-4);">
-                <div class="category-filters-container" style="display: flex; flex-direction: column; gap: var(--space-4); margin-bottom: 0;">
-                    <!-- Main Categories -->
-                    <div class="category-filter main-categories" id="mainCategoryFilter" style="margin-bottom: 0;">
-                        <button class="filter-btn active" data-main-category="all">All Items</button>
-                        <button class="filter-btn" data-main-category="Handicraft">Handicrafts</button>
-                        <button class="filter-btn" data-main-category="Furniture">Furniture</button>
+            <div class="catalogue-layout" style="display: flex; gap: var(--space-8); align-items: flex-start; margin-top: var(--space-8);">
+                <!-- LEFT SIDEBAR -->
+                <aside class="catalogue-sidebar" style="flex: 0 0 260px; position: sticky; top: 120px; background: var(--color-white); padding: var(--space-6); border: 1px solid rgba(212, 168, 75, 0.3); box-shadow: var(--shadow-sm); z-index: 10;">
+                    <div class="sidebar-block" style="margin-bottom: var(--space-6);">
+                        <h3 style="font-family: var(--font-heading); font-size: var(--text-lg); margin-bottom: var(--space-4); border-bottom: 2px solid rgba(212, 168, 75, 0.3); padding-bottom: var(--space-2); color: var(--color-maroon); text-transform: uppercase; letter-spacing: 1px;">Categories</h3>
+                        <div class="category-filter main-categories" id="mainCategoryFilter" style="display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: 0; align-items: stretch;">
+                            <button class="filter-btn active" data-main-category="all" style="text-align: left;">All Items</button>
+                            <button class="filter-btn" data-main-category="Handicraft" style="text-align: left;">Handicrafts</button>
+                            <button class="filter-btn" data-main-category="Furniture" style="text-align: left;">Furniture</button>
+                        </div>
                     </div>
 
-                    <!-- Sub Categories (Dynamic based on main) -->
-                    <div class="category-filter sub-categories hidden" id="subCategoryFilter" style="margin-bottom: 0;">
-                        <!-- Buttons will be injected via JS -->
+                    <div class="sidebar-block" style="margin-bottom: var(--space-6);">
+                        <h3 style="font-family: var(--font-heading); font-size: var(--text-lg); margin-bottom: var(--space-4); border-bottom: 2px solid rgba(212, 168, 75, 0.3); padding-bottom: var(--space-2); color: var(--color-maroon); text-transform: uppercase; letter-spacing: 1px;">Subcategories</h3>
+                        <div class="category-filter sub-categories hidden" id="subCategoryFilter" style="display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: 0; border-top: none; padding-top: 0; align-items: stretch;">
+                            <!-- Buttons will be injected via JS -->
+                        </div>
+                    </div>
+
+                    <div class="sidebar-block" style="margin-bottom: var(--space-6);">
+                        <h3 style="font-family: var(--font-heading); font-size: var(--text-lg); margin-bottom: var(--space-4); border-bottom: 2px solid rgba(212, 168, 75, 0.3); padding-bottom: var(--space-2); color: var(--color-maroon); text-transform: uppercase; letter-spacing: 1px;">Price Range</h3>
+                        <div class="price-range-filter" style="padding-top: var(--space-2);">
+                            <input type="range" id="priceRange" min="0" max="100000" step="5000" value="100000" style="width: 100%; accent-color: var(--color-maroon); cursor: pointer;">
+                            <div style="display: flex; justify-content: space-between; margin-top: var(--space-2); font-family: var(--font-body); font-size: var(--text-xs); color: var(--color-gray-600); font-weight: 600;">
+                                <span>₹0</span>
+                                <span id="priceValue">Up to ₹1,00,000+</span>
+                            </div>
+                            <div style="margin-top: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2);">
+                                <label style="display: flex; align-items: center; gap: 8px; font-size: var(--text-sm); color: var(--color-gray-700); cursor: pointer;">
+                                    <input type="radio" name="price_preset" value="all" checked style="accent-color: var(--color-maroon);"> All Prices
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 8px; font-size: var(--text-sm); color: var(--color-gray-700); cursor: pointer;">
+                                    <input type="radio" name="price_preset" value="0-10000" style="accent-color: var(--color-maroon);"> Under ₹10,000
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 8px; font-size: var(--text-sm); color: var(--color-gray-700); cursor: pointer;">
+                                    <input type="radio" name="price_preset" value="10000-30000" style="accent-color: var(--color-maroon);"> ₹10,000 - ₹30,000
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 8px; font-size: var(--text-sm); color: var(--color-gray-700); cursor: pointer;">
+                                    <input type="radio" name="price_preset" value="30000-over" style="accent-color: var(--color-maroon);"> Above ₹30,000
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-block">
+                        <h3 style="font-family: var(--font-heading); font-size: var(--text-lg); margin-bottom: var(--space-4); border-bottom: 2px solid rgba(212, 168, 75, 0.3); padding-bottom: var(--space-2); color: var(--color-maroon); text-transform: uppercase; letter-spacing: 1px;">Material</h3>
+                        <select id="materialSelect" class="form-control" style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-gray-300); background: var(--color-ivory-light); font-family: var(--font-body); font-size: var(--text-sm); font-weight: 500; color: var(--color-gray-700);">
+                            <option value="all">All Materials</option>
+                            <option value="Wood">Wood</option>
+                            <option value="Brass">Brass</option>
+                            <option value="Terracotta">Terracotta</option>
+                            <option value="Bone Inlay">Bone Inlay</option>
+                            <option value="Glass">Glass</option>
+                            <option value="Teak">Teak</option>
+                            <option value="Mango">Mango</option>
+                            <option value="Metal">Metal</option>
+                            <option value="Leather">Leather</option>
+                            <option value="Dokra">Dokra</option>
+                        </select>
+                    </div>
+                </aside>
+
+                <!-- RIGHT CONTENT -->
+                <div class="catalogue-content" style="flex: 1;">
+                    <div id="stickyFilterBar" style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: var(--space-4); background: var(--color-white); padding: var(--space-3) var(--space-4); border: 1px solid var(--color-gray-200); border-radius: var(--radius-sm); box-shadow: var(--shadow-sm); position: sticky; top: 80px; z-index: 5;">
+                        <div style="display: flex; align-items: center; gap: var(--space-4);">
+                            <div class="sort-filter" style="display: flex; align-items: center; gap: var(--space-2);">
+                                <label for="sortSelect" style="font-size: var(--text-xs); color: var(--color-gray-500); text-transform: uppercase; font-weight: 600;">Sort By:</label>
+                                <select id="sortSelect" class="form-control" style="padding: 0.25rem 0.5rem; border: none; border-bottom: 1px solid var(--color-gray-300); background: transparent; font-size: var(--text-sm); cursor: pointer; color: var(--color-gray-700); font-weight: 500;">
+                                    <option value="default">Relevance</option>
+                                    <option value="price-low">Price: Low to High</option>
+                                    <option value="price-high">Price: High to Low</option>
+                                </select>
+                            </div>
+                            
+                            <div class="view-toggles" style="display: flex; gap: var(--space-2); border-left: 1px solid var(--color-gray-200); padding-left: var(--space-4);">
+                                <button id="viewGrid3" class="view-btn active" aria-label="3 Column View" style="padding: 4px; background: none; border: 1px solid var(--color-gray-300); border-radius: 4px; cursor: pointer; color: var(--color-gray-500); transition: all 0.2s;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zM4 10h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 16h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z"/></svg>
+                                </button>
+                                <button id="viewGrid4" class="view-btn" aria-label="4 Column View" style="padding: 4px; background: none; border: 1px solid transparent; border-radius: 4px; cursor: pointer; color: var(--color-gray-400); transition: all 0.2s;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h4v4H3V4zm5 0h4v4H8V4zm5 0h4v4h-4V4zm5 0h4v4h-4V4zM3 10h4v4H3v-4zm5 0h4v4H8v-4zm5 0h4v4h-4v-4zm5 0h4v4h-4v-4zM3 16h4v4H3v-4zm5 0h4v4H8v-4zm5 0h4v4h-4v-4zm5 0h4v4h-4v-4z"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating Bottom Count -->
+                    <div id="floatingCountPill" style="position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--color-maroon); color: var(--color-gold); padding: 10px 25px; border-radius: 50px; font-family: var(--font-heading); font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 999; border: 1px solid var(--color-gold); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); opacity: 0; pointer-events: none; text-transform: uppercase;">
+                        Showing 1 - 24 of 233 Products
+                    </div>
+
+                    <div class="grid gap-6 grid-cols-3" id="productGrid" style="display: grid;">
+                        <!-- Products loaded dynamically -->
+                    </div>
+
+                    <div class="empty-state hidden" id="emptyState" style="text-align: center; padding: var(--space-12); background: var(--color-white); border: 1px solid rgba(212, 168, 75, 0.3); margin-top: var(--space-4);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-gray-400)" stroke-width="2" style="margin: 0 auto var(--space-4);">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <h3 style="color: var(--color-maroon); font-family: var(--font-heading); margin-bottom: var(--space-2);">No products found</h3>
+                        <p style="color: var(--color-gray-500);">Try adjusting the filters to see more results</p>
                     </div>
                 </div>
-
-                <div class="material-filter" style="display: flex; align-items: center; gap: var(--space-2);">
-                    <label for="materialSelect"
-                        style="font-size: var(--text-sm); color: var(--color-gray-600); font-weight: 500;">Material:</label>
-                    <select id="materialSelect" class="form-control"
-                        style="padding: 0.5rem 1rem; border-color: var(--color-gray-300); border-radius: var(--radius-md); background: var(--color-white); min-width: 150px; cursor: pointer;">
-                        <option value="all">All Materials</option>
-                        <option value="Bronze">Bronze</option>
-                        <option value="Brass">Brass</option>
-                        <option value="Sandalwood">Sandalwood</option>
-                        <option value="Teak Wood">Teak Wood</option>
-                        <option value="Silk">Silk</option>
-                        <option value="Cotton">Cotton</option>
-                        <option value="Marble">Marble</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-4 gap-6" id="productGrid">
-                <!-- Products loaded dynamically -->
-            </div>
-
-            <div class="empty-state hidden" id="emptyState">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                        d="M11 9h2V7h-2m1 13c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8m0-18A10 10 0 002 12a10 10 0 0010 10 10 10 0 0010-10A10 10 0 0012 2m-1 15h2v-6h-2v6z" />
-                </svg>
-                <h3>No products found</h3>
-                <p>Try selecting a different category</p>
             </div>
         </div>
     </section>

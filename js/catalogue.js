@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   let currentSubCategory = 'all';
   let searchQuery = '';
   let currentMaterial = 'all';
+  let currentSort = 'default';
+  let minPrice = 0;
+  let maxPrice = 1000000; // Large default
 
   const mainCategoryFilter = document.getElementById('mainCategoryFilter');
   const subCategoryFilter = document.getElementById('subCategoryFilter');
@@ -39,28 +42,42 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  function renderProducts() {
-    let filtered = allProducts;
+  let filteredProducts = [];
+  let visibleCount = 24;
+
+  function applyFilters() {
+    filteredProducts = allProducts;
 
     // Filter by Main Category
     if (currentMainCategory !== 'all') {
-      filtered = filtered.filter(p => p.category === currentMainCategory);
+      filteredProducts = filteredProducts.filter(p => p.category === currentMainCategory);
     }
 
     // Filter by Sub-Category
     if (currentSubCategory !== 'all') {
-      filtered = filtered.filter(p => p.subcategory === currentSubCategory);
+      filteredProducts = filteredProducts.filter(p => p.subcategory === currentSubCategory);
     }
 
     // Filter by Material
     if (currentMaterial !== 'all') {
-      filtered = filtered.filter(p => p.material && p.material.includes(currentMaterial));
+      filteredProducts = filteredProducts.filter(p => p.material && p.material.toLowerCase().includes(currentMaterial.toLowerCase()));
     }
+
+    // Filter by Price Range
+    filteredProducts = filteredProducts.filter(p => {
+        let price = 0;
+        if (p.price_range) {
+            // Take the average or just the lower bound for simple filtering
+            const parts = p.price_range.split('-').map(s => parseFloat(s.replace(/,/g, '')));
+            price = parts[0] || 0;
+        }
+        return price >= minPrice && price <= maxPrice;
+    });
 
     // Filter by Search Query
     if (searchQuery) {
       const lowerQuery = searchQuery.toLowerCase();
-      filtered = filtered.filter(p =>
+      filteredProducts = filteredProducts.filter(p =>
         p.name.toLowerCase().includes(lowerQuery) ||
         p.category.toLowerCase().includes(lowerQuery) ||
         (p.subcategory && p.subcategory.toLowerCase().includes(lowerQuery)) ||
@@ -69,19 +86,79 @@ document.addEventListener('DOMContentLoaded', async () => {
       );
     }
 
-    if (filtered.length === 0) {
+    // Sort Logic
+    if (currentSort === 'price-low') {
+        filteredProducts.sort((a, b) => {
+            let priceA = parseFloat(a.price_range.split('-')[0]) || 0;
+            let priceB = parseFloat(b.price_range.split('-')[0]) || 0;
+            return priceA - priceB;
+        });
+    } else if (currentSort === 'price-high') {
+        filteredProducts.sort((a, b) => {
+            let priceA = parseFloat(a.price_range.split('-')[0]) || 0;
+            let priceB = parseFloat(b.price_range.split('-')[0]) || 0;
+            return priceB - priceA;
+        });
+    } else {
+        filteredProducts.sort((a, b) => a.id.localeCompare(b.id));
+    }
+  }
+
+  function renderProducts(resetCount = false) {
+    if (resetCount) visibleCount = 24;
+
+    applyFilters();
+
+    const productCountEl = document.getElementById('productCount');
+
+    if (filteredProducts.length === 0) {
       productGrid.innerHTML = '';
       emptyState.classList.remove('hidden');
+      if (productCountEl) productCountEl.textContent = `Showing 0 of 0 products`;
       return;
     }
 
     emptyState.classList.add('hidden');
 
-    productGrid.innerHTML = filtered.map(product => `
-      <div class="product-card group" data-category="${product.category}">
-        <div class="product-card-image">
+    const productsToShow = filteredProducts.slice(0, visibleCount);
+    const countText = `Showing <span style="color: var(--color-maroon); font-weight: 700;">1 - ${productsToShow.length}</span> of <strong>${filteredProducts.length}</strong> Products`;
+
+    if (productCountEl) {
+      productCountEl.innerHTML = countText;
+    }
+
+    const floatingPill = document.getElementById('floatingCountPill');
+    if (floatingPill) {
+        floatingPill.innerHTML = `Showing 1 - ${productsToShow.length} of ${filteredProducts.length} Products`;
+        if (window.scrollY > 150) {
+            floatingPill.style.opacity = '1';
+            floatingPill.style.pointerEvents = 'auto';
+            floatingPill.style.bottom = '30px';
+        } else {
+            floatingPill.style.opacity = '0';
+            floatingPill.style.pointerEvents = 'none';
+            floatingPill.style.bottom = '10px';
+        }
+    }
+
+    productGrid.innerHTML = productsToShow.map(product => `
+      <div class="product-card group" id="card-${product.id}" data-category="${product.category}" data-current-index="0">
+        <div class="product-card-image" style="position: relative;">
           <span class="product-card-category">${product.category}</span>
-          <img src="${product.images[0]}" alt="${product.name}" loading="lazy">
+          <img id="img-${product.id}" src="${product.images[0] || 'https://placehold.co/500x500/f5ecd9/5c1515?text=No+Image'}" alt="${product.name}" loading="lazy" onerror="this.src='https://placehold.co/500x500/f5ecd9/5c1515?text=No+Image'">
+          
+          ${product.variants && product.variants.length > 1 ? `
+          <div class="variant-nav" style="position: absolute; top: 50%; left: 0; width: 100%; display: flex; justify-content: space-between; transform: translateY(-50%); padding: 0 8px; pointer-events: none; opacity: 0; transition: opacity 0.3s; box-sizing: border-box; z-index: 2;">
+            <button onclick="slideVariant('${product.id}', -1); event.stopPropagation();" aria-label="Previous Variant" style="pointer-events: auto; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(212, 168, 75, 0.4); background: rgba(255,255,255,0.95); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md); color: var(--color-maroon);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button onclick="slideVariant('${product.id}', 1); event.stopPropagation();" aria-label="Next Variant" style="pointer-events: auto; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(212, 168, 75, 0.4); background: rgba(255,255,255,0.95); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md); color: var(--color-maroon);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
+          <style> .product-card:hover .variant-nav { opacity: 1 !important; visibility: visible !important; } </style>
+          ` : ''}
+
           <button class="wishlist-toggle" data-product-id="${product.id}" aria-label="Add to Wishlist">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
           </button>
@@ -95,37 +172,96 @@ document.addEventListener('DOMContentLoaded', async () => {
         </div>
         <div class="product-card-content">
           <h3 class="product-card-name">${product.name}</h3>
+          <p id="price-${product.id}" style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: bold; color: var(--color-maroon); margin-bottom: 5px;">${product.variants && product.variants[0].price ? '₹' + product.variants[0].price : (product.price_range ? '₹' + product.price_range : 'Contact for Price')}</p>
+          <div style="font-size: 10px; color: var(--color-gray-500); margin-bottom: 8px; display: flex; justify-content: space-between;">
+             <span id="id-${product.id}">ID: ${product.variants && product.variants[0].id ? product.variants[0].id : product.id}</span>
+             <span id="hs-${product.id}">HS: ${product.variants && product.variants[0].hs_code ? product.variants[0].hs_code : (product.hs_code || 'N/A')}</span>
+          </div>
           <div class="product-card-meta">
             <span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
               </svg>
-              ${product.origin}
+              ${product.origin || 'India'}
             </span>
             <span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H8v-2h4v2zm3-4H8v-2h7v2zm0-4H8V7h7v2z"/>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
               </svg>
-              ${product.material}
+              ${product.material || 'Mixed'}
             </span>
           </div>
-          <p class="product-card-moq">MOQ: ${product.moq} units</p>
-          <div class="product-card-footer" style="flex-direction: column; gap: 10px;">
-            <a href="product.html?id=${product.id}" class="product-card-link" style="width: 100%; justify-content: center;">
-              View Details
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </a>
-            <button class="btn btn-secondary btn-sm" style="width: 100%;" onclick="event.preventDefault(); window.cart.addItem({id: '${product.id}', name: '${product.name.replace(/'/g, "\\'")}', category: '${product.category}'})">
-              Add to Inquiry Bag
-            </button>
+
+          ${product.variants && product.variants.length > 1 ? `
+          <div class="product-variants" style="display: flex; gap: 8px; margin-top: 10px;">
+             ${product.variants.map((v, i) => `
+                <button aria-label="Variant ${v.color}" onclick="changeVariant('${product.id}', ${i})" title="${v.color}" style="width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid ${i===0?'var(--color-maroon)':'#ddd'}; background: var(--color-gray-200); background-image: url('${v.image}'); background-size: cover; background-position: center; cursor: pointer; transition: transform 0.2s;"></button>
+             `).join('')}
           </div>
+          ` : '<div style="height: 30px;"></div>'}
+
+          <p class="product-card-moq">MOQ: ${product.moq || 1} UNITS</p>
+          <hr class="product-card-divider">
+          <a href="product.html?id=${product.id}" class="product-card-link">
+            VIEW DETAILS
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+          <button class="btn product-card-btn" onclick="event.preventDefault(); window.cart.addItem({id: '${product.id}', name: '${product.name.replace(/'/g, "\\'")}', category: '${product.category}'})">
+            ADD TO INQUIRY BAG
+          </button>
         </div>
       </div>
     `).join('');
   }
+
+  // Infinite Scroll Hook
+  window.addEventListener('scroll', () => {
+    // Update Floating Pill Visibility & Row-Based Count
+    const floatingPill = document.getElementById('floatingCountPill');
+    const productCountEl = document.getElementById('productCount');
+    const cards = document.querySelectorAll('.product-card');
+    
+    let lastVisibleIndex = 0;
+    cards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        // If the top of the card has entered the viewport
+        if (rect.top < window.innerHeight - 100) { 
+            lastVisibleIndex = index + 1;
+        }
+    });
+
+    if (lastVisibleIndex > 0) {
+        const currentBatchMax = Math.max(lastVisibleIndex, visibleCount / visibleCount); // Default to at least visibleCount if wanted, but user asked for "per row"
+        const countDisplay = `Showing 1 - ${lastVisibleIndex} of ${filteredProducts.length} Products`;
+        const htmlDisplay = `Showing <span style="color: var(--color-maroon); font-weight: 700;">1 - ${lastVisibleIndex}</span> of <strong>${filteredProducts.length}</strong> Products`;
+        
+        if (floatingPill) floatingPill.innerHTML = countDisplay;
+        if (productCountEl) productCountEl.innerHTML = htmlDisplay;
+    }
+
+    if (floatingPill) {
+        if (window.scrollY > 150) {
+            floatingPill.style.opacity = '1';
+            floatingPill.style.pointerEvents = 'auto';
+            floatingPill.style.bottom = '30px';
+        } else {
+            floatingPill.style.opacity = '0';
+            floatingPill.style.pointerEvents = 'none';
+            floatingPill.style.bottom = '10px';
+        }
+    }
+
+    if (visibleCount < filteredProducts.length) {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 300) {
+        visibleCount += 24;
+        renderProducts(false);
+      }
+    }
+  });
 
   // Update active filter button
   function updateActiveFilters() {
@@ -165,9 +301,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (subcats.length > 0) {
       subCategoryFilter.classList.remove('hidden');
       subCategoryFilter.innerHTML = `
-        <button class="filter-btn ${currentSubCategory === 'all' ? 'active' : ''}" data-subcategory="all">All ${currentMainCategory}</button>
+        <button class="filter-btn ${currentSubCategory === 'all' ? 'active' : ''}" data-subcategory="all" style="text-align: left;">All ${currentMainCategory}</button>
         ${subcats.map(sub => `
-          <button class="filter-btn ${currentSubCategory === sub ? 'active' : ''}" data-subcategory="${sub}">${sub}</button>
+          <button class="filter-btn ${currentSubCategory === sub ? 'active' : ''}" data-subcategory="${sub}" style="text-align: left;">${sub}</button>
         `).join('')}
       `;
     } else {
@@ -191,7 +327,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const newUrl = params.toString() ? `${window.location.pathname}?${params.toString()}` : window.location.pathname;
       window.history.pushState({}, '', newUrl);
 
-      renderProducts();
+      renderProducts(true);
     }
   });
 
@@ -208,7 +344,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const newUrl = params.toString() ? `${window.location.pathname}?${params.toString()}` : window.location.pathname;
       window.history.pushState({}, '', newUrl);
 
-      renderProducts();
+      renderProducts(true);
     }
   });
 
@@ -217,7 +353,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (materialSelect) {
     materialSelect.addEventListener('change', (e) => {
       currentMaterial = e.target.value;
-      renderProducts();
+      renderProducts(true);
     });
   }
 
@@ -226,9 +362,127 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       searchQuery = e.target.value.trim();
-      renderProducts();
+      renderProducts(true);
     });
   }
+
+  // Variant Click Handler
+  window.changeVariant = (productId, index) => {
+     const product = allProducts.find(p => p.id === productId);
+     if (!product || !product.variants) return;
+     const variant = product.variants[index];
+     if (!variant) return;
+
+     const card = document.getElementById(`card-${productId}`);
+     if (card) card.dataset.currentIndex = index;
+
+     const img = document.getElementById(`img-${productId}`);
+     if (img && variant.image) img.src = variant.image;
+
+     const priceEl = document.getElementById(`price-${productId}`);
+     if (priceEl) priceEl.textContent = variant.price ? `₹${variant.price}` : 'Contact for Price';
+
+     const idEl = document.getElementById(`id-${productId}`);
+     if (idEl) idEl.textContent = `ID: ${variant.id}`;
+
+     const hsEl = document.getElementById(`hs-${productId}`);
+     if (hsEl) hsEl.textContent = `HS: ${variant.hs_code || 'N/A'}`;
+
+     // Update variant button styles
+     const variantBtns = card.querySelectorAll('.product-variants button');
+     variantBtns.forEach((btn, i) => {
+         btn.style.borderColor = (i === index) ? 'var(--color-maroon)' : '#ddd';
+     });
+  };
+
+  // Slider Navigation
+  window.slideVariant = (productId, direction) => {
+      const product = allProducts.find(p => p.id === productId);
+      if (!product || !product.variants) return;
+      
+      const card = document.getElementById(`card-${productId}`);
+      let currentIndex = parseInt(card.dataset.currentIndex || 0);
+      let newIndex = currentIndex + direction;
+
+      if (newIndex < 0) newIndex = product.variants.length - 1;
+      if (newIndex >= product.variants.length) newIndex = 0;
+
+      window.changeVariant(productId, newIndex);
+  };
+
+  // View Toggles
+  const viewGrid3 = document.getElementById('viewGrid3');
+  const viewGrid4 = document.getElementById('viewGrid4');
+  if (viewGrid3 && viewGrid4) {
+      viewGrid3.addEventListener('click', () => {
+          productGrid.className = 'grid gap-6 grid-cols-3';
+          viewGrid3.classList.add('active');
+          viewGrid4.classList.remove('active');
+          viewGrid3.style.color = 'var(--color-gray-700)';
+          viewGrid4.style.color = 'var(--color-gray-400)';
+          viewGrid3.style.borderColor = 'var(--color-gray-300)';
+          viewGrid4.style.borderColor = 'transparent';
+      });
+      viewGrid4.addEventListener('click', () => {
+          productGrid.className = 'grid gap-6 grid-cols-4';
+          viewGrid4.classList.add('active');
+          viewGrid3.classList.remove('active');
+          viewGrid4.style.color = 'var(--color-gray-700)';
+          viewGrid3.style.color = 'var(--color-gray-400)';
+          viewGrid4.style.borderColor = 'var(--color-gray-300)';
+          viewGrid3.style.borderColor = 'transparent';
+      });
+  }
+
+  // Sort Filter
+  const sortSelect = document.getElementById('sortSelect');
+  if (sortSelect) {
+      sortSelect.addEventListener('change', (e) => {
+          currentSort = e.target.value;
+          renderProducts(true);
+      });
+  }
+
+  // Price Filtering Init
+  const priceRange = document.getElementById('priceRange');
+  const priceValueLabel = document.getElementById('priceValue');
+  const pricePresets = document.getElementsByName('price_preset');
+
+  if (priceRange) {
+      priceRange.addEventListener('input', (e) => {
+          maxPrice = parseInt(e.target.value);
+          if (maxPrice === 100000) {
+              maxPrice = 1000000; // All if maxed
+              priceValueLabel.textContent = "Up to ₹1,00,000+";
+          } else {
+              priceValueLabel.textContent = `Up to ₹${maxPrice.toLocaleString()}`;
+          }
+          renderProducts(true);
+
+          // Uncheck presets if slider moved
+          pricePresets.forEach(p => p.checked = false);
+      });
+  }
+
+  pricePresets.forEach(preset => {
+      preset.addEventListener('change', (e) => {
+          const val = e.target.value;
+          if (val === 'all') {
+              minPrice = 0;
+              maxPrice = 1000000;
+          } else if (val === '0-10000') {
+              minPrice = 0;
+              maxPrice = 10000;
+          } else if (val === '10000-30000') {
+              minPrice = 10000;
+              maxPrice = 30000;
+          } else if (val === '30000-over') {
+              minPrice = 30000;
+              maxPrice = 1000000;
+          }
+          renderProducts(true);
+      });
+  });
 
   // Quick View Logic
   // Expose to global scope for inline onclick handler
@@ -251,9 +505,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <div class="quick-view-details">
                         <span id="qvCategory" class="text-terracotta" style="font-size:0.9rem; font-weight:600; text-transform:uppercase; letter-spacing:1px;"></span>
                         <h2 id="qvName" style="margin-top:var(--space-2); margin-bottom:var(--space-4);"></h2>
+                        <p id="qvPrice" style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: bold; color: var(--color-maroon); margin-bottom: 5px;"></p>
                         <p id="qvDesc" style="color:var(--color-gray-600); font-size:0.95rem; line-height:1.6;"></p>
                         
+                        <div id="qvVariantsContainer" style="margin-top: var(--space-4);"></div>
+
                         <div style="margin: var(--space-6) 0; padding: var(--space-4); background: var(--color-gray-100); border-radius: var(--radius-md);">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                                <strong>ID:</strong> <span id="qvId"></span>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                                <strong>HS Code:</strong> <span id="qvHs"></span>
+                            </div>
                             <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
                                 <strong>Material:</strong> <span id="qvMaterial"></span>
                             </div>
@@ -284,14 +547,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Populate Data
-    document.getElementById('qvImage').src = product.images[0];
+    document.getElementById('qvImage').src = product.images[0] || 'https://placehold.co/500x500/f5ecd9/5c1515?text=No+Image';
     document.getElementById('qvCategory').textContent = product.category;
     document.getElementById('qvName').textContent = product.name;
+    document.getElementById('qvPrice').textContent = product.price_range ? '₹' + product.price_range : 'Contact for Price';
     document.getElementById('qvDesc').textContent = product.description;
+    document.getElementById('qvId').textContent = product.id;
+    document.getElementById('qvHs').textContent = product.hs_code || 'N/A';
     document.getElementById('qvMaterial').textContent = product.material;
     document.getElementById('qvOrigin').textContent = product.origin;
     document.getElementById('qvMoq').textContent = product.moq + ' units';
     document.getElementById('qvLink').href = `product.html?id=${product.id}`;
+    
+    const variantsContainer = document.getElementById('qvVariantsContainer');
+    if (product.variants && product.variants.length > 1) {
+        variantsContainer.innerHTML = `
+            <p style="font-size: 0.9rem; font-weight: 600; margin-bottom: 5px;">Available Variants:</p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                ${product.variants.map((v, i) => `
+                    <button class="qv-variant-btn" onclick="document.getElementById('qvImage').src='${v.image}'; document.getElementById('qvPrice').textContent='${v.price ? "₹"+v.price : "Contact for Price"}'; document.getElementById('qvId').textContent='${v.id}'; document.getElementById('qvHs').textContent='${v.hs_code || "N/A"}'; document.querySelectorAll('.qv-variant-btn').forEach(b => b.style.borderColor='#ccc'); this.style.borderColor='var(--color-maroon)';" title="${v.color}" style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid ${i===0?'var(--color-maroon)':'#ccc'}; background: var(--color-gray-200); background-image: url('${v.image}'); background-size: cover; background-position: center; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></button>
+                `).join('')}
+            </div>
+        `;
+        variantsContainer.style.display = 'block';
+    } else {
+        variantsContainer.style.display = 'none';
+        variantsContainer.innerHTML = '';
+    }
 
     // Update Add to Cart Button
     const addBtn = document.getElementById('qvAdd');
