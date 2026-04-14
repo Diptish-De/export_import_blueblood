@@ -143,23 +143,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     productGrid.innerHTML = productsToShow.map(product => `
       <div class="product-card group" id="card-${product.id}" data-category="${product.category}" data-current-index="0">
-        <div class="product-card-image" style="position: relative;">
+        <div class="product-card-image" style="position: relative; cursor: pointer;" onclick="openQuickView('${product.id}')">
           <span class="product-card-category">${product.category}</span>
           <img id="img-${product.id}" src="${product.images[0] || 'https://placehold.co/500x500/f5ecd9/5c1515?text=No+Image'}" alt="${product.name}" loading="lazy" onerror="this.src='https://placehold.co/500x500/f5ecd9/5c1515?text=No+Image'">
           
           ${product.variants && product.variants.length > 1 ? `
           <div class="variant-nav" style="position: absolute; top: 50%; left: 0; width: 100%; display: flex; justify-content: space-between; transform: translateY(-50%); padding: 0 8px; pointer-events: none; opacity: 0; transition: opacity 0.3s; box-sizing: border-box; z-index: 2;">
-            <button onclick="slideVariant('${product.id}', -1); event.stopPropagation();" aria-label="Previous Variant" style="pointer-events: auto; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(212, 168, 75, 0.4); background: rgba(255,255,255,0.95); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md); color: var(--color-maroon);">
+            <button onclick="event.stopPropagation(); slideVariant('${product.id}', -1);" aria-label="Previous Variant" style="pointer-events: auto; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(212, 168, 75, 0.4); background: rgba(255,255,255,0.95); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md); color: var(--color-maroon);">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
             </button>
-            <button onclick="slideVariant('${product.id}', 1); event.stopPropagation();" aria-label="Next Variant" style="pointer-events: auto; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(212, 168, 75, 0.4); background: rgba(255,255,255,0.95); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md); color: var(--color-maroon);">
+            <button onclick="event.stopPropagation(); slideVariant('${product.id}', 1);" aria-label="Next Variant" style="pointer-events: auto; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(212, 168, 75, 0.4); background: rgba(255,255,255,0.95); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md); color: var(--color-maroon);">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </button>
           </div>
           <style> .product-card:hover .variant-nav { opacity: 1 !important; visibility: visible !important; } </style>
           ` : ''}
 
-          <button class="wishlist-toggle" data-product-id="${product.id}" aria-label="Add to Wishlist">
+          <button class="wishlist-toggle" data-product-id="${product.id}" aria-label="Add to Wishlist" onclick="event.stopPropagation();">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
           </button>
           <button class="quick-view-btn" onclick="openQuickView('${product.id}')">
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           </button>
         </div>
         <div class="product-card-content">
-          <h3 class="product-card-name">${product.name}</h3>
+          <h3 class="product-card-name" style="cursor: pointer;" onclick="openQuickView('${product.id}')">${product.name}</h3>
           <p id="price-${product.id}" style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: bold; color: var(--color-maroon); margin-bottom: 5px;">${product.variants && product.variants[0].price ? '₹' + product.variants[0].price : (product.price_range ? '₹' + product.price_range : 'Contact for Price')}</p>
           <div class="product-card-meta">
             <span>
@@ -193,16 +193,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
           <p class="product-card-moq">MOQ: ${product.moq || 1} UNITS</p>
           <hr class="product-card-divider">
-          <a href="product.html?id=${product.id}" class="product-card-link">
-            VIEW DETAILS
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14"></path>
-              <path d="m12 5 7 7-7 7"></path>
-            </svg>
-          </a>
-          <button class="btn product-card-btn" onclick="event.preventDefault(); window.cart.addItem({id: '${product.id}', name: '${product.name.replace(/'/g, "\\'")}', category: '${product.category}'})">
-            ADD TO INQUIRY BAG
-          </button>
+          <div style="display: flex; gap: 8px; flex-direction: column;">
+            <button class="btn btn-secondary" style="width: 100%; padding: 8px; font-size: 0.75rem; background: var(--color-ivory); border-color: var(--color-maroon); color: var(--color-maroon);" onclick="openQuickView('${product.id}')">VIEW MORE DETAILS</button>
+            <button class="btn product-card-btn" style="width: 100%;" onclick="event.preventDefault(); event.stopPropagation(); window.cart.addItem({id: '${product.id}', name: '${product.name.replace(/'/g, "\\'")}', category: '${product.category}'})">
+                ADD TO INQUIRY BAG
+            </button>
+          </div>
         </div>
       </div>
     `).join('');
