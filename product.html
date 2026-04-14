@@ -273,27 +273,51 @@
             #productContainer {
                 grid-template-columns: 1fr !important;
                 gap: var(--space-6) !important;
+                padding: 0 !important;
             }
 
             .product-info {
                 padding-left: 0;
                 padding-top: var(--space-4);
+                width: 100%;
             }
             
             .breadcrumb {
                 font-size: 0.75rem;
                 overflow-x: auto;
                 white-space: nowrap;
-                padding-bottom: 5px;
+                padding: 10px 0;
+                width: 100%;
+                -webkit-overflow-scrolling: touch;
             }
             
             .product-title {
-                font-size: 1.75rem !important;
+                font-size: 1.5rem !important;
                 line-height: 1.2;
+                word-wrap: break-word;
+                margin-top: var(--space-2);
             }
             
             .product-main-image {
-                height: 350px !important;
+                height: 300px !important;
+                width: 100%;
+                object-fit: contain;
+                border: none;
+            }
+
+            .b2b-specs-table {
+                width: 100%;
+                table-layout: fixed;
+            }
+
+            .b2b-specs-table td {
+                word-wrap: break-word;
+                font-size: 0.85rem;
+            }
+            
+            #productActions {
+                width: 100%;
+                margin: 0;
             }
         }
     </style>

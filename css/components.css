@@ -152,6 +152,11 @@ body {
 }
 
 @media (max-width: 1024px) {
+    .navbar-container {
+        padding: var(--space-3) var(--space-4);
+        gap: var(--space-2);
+    }
+
     .navbar-toggle {
         display: flex;
     }
@@ -171,12 +176,37 @@ body {
         opacity: 0;
         visibility: hidden;
         transition: all var(--transition-base);
+        z-index: 1000;
     }
 
     .navbar-menu.active {
         transform: translateY(0);
         opacity: 1;
         visibility: visible;
+    }
+    
+    .navbar-logo-text {
+        font-size: var(--text-base) !important;
+    }
+    
+    .navbar-controls {
+        gap: var(--space-2) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-logo-icon {
+        width: 35px;
+        height: 35px;
+    }
+    .navbar-logo-text {
+        font-size: 0.85rem !important;
+    }
+    .navbar-controls {
+        gap: 5px !important;
+    }
+    .theme-toggle, .lang-selector {
+        transform: scale(0.9);
     }
 }
 
