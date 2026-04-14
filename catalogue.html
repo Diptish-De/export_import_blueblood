@@ -36,6 +36,102 @@
       }]
     }
     </script>
+    <style>
+        .catalogue-layout {
+            display: flex;
+            gap: var(--space-8);
+            align-items: flex-start;
+            margin-top: var(--space-8);
+        }
+        .catalogue-sidebar {
+            flex: 0 0 260px;
+            position: sticky;
+            top: 120px;
+            background: var(--color-white);
+            padding: var(--space-6);
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            box-shadow: var(--shadow-sm);
+            z-index: 10;
+        }
+        .mobile-filter-toggle {
+            display: none;
+            width: 100%;
+            padding: var(--space-3);
+            background: var(--color-maroon);
+            color: var(--color-white);
+            border: none;
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--space-4);
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+        }
+        
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1999;
+            backdrop-filter: blur(2px);
+        }
+
+        @media (max-width: 1024px) {
+            .grid.grid-cols-3 { grid-template-columns: repeat(2, 1fr) !important; }
+            .grid.grid-cols-4 { grid-template-columns: repeat(3, 1fr) !important; }
+            .catalogue-sidebar { flex: 0 0 220px; }
+        }
+
+        @media (max-width: 768px) {
+            .catalogue-layout { flex-direction: column; gap: var(--space-4); margin-top: var(--space-4) !important; padding: 0 var(--space-4); }
+            .catalogue-sidebar { 
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 280px;
+                height: 100vh;
+                overflow-y: auto;
+                transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 2000;
+                padding-top: 80px !important;
+                flex: none !important;
+            }
+            .catalogue-sidebar.active { left: 0; box-shadow: 10px 0 30px rgba(0,0,0,0.3); }
+            .sidebar-overlay.active { display: block; }
+            .mobile-filter-toggle { display: flex; align-items: center; justify-content: center; gap: 10px; }
+            
+            #stickyFilterBar { 
+                top: 70px !important; 
+                padding: var(--space-2) var(--space-3) !important;
+            }
+            .grid.gap-6 { gap: var(--space-3) !important; }
+            .grid.grid-cols-3, .grid.grid-cols-4 { grid-template-columns: repeat(2, 1fr) !important; }
+            
+            #floatingCountPill { 
+                bottom: 20px !important; 
+                left: 20px !important;
+                transform: none !important;
+                padding: 6px 12px !important; 
+                font-size: 0.65rem !important;
+                white-space: nowrap;
+            }
+            .sort-filter label { display: none !important; }
+            .view-toggles { display: none !important; }
+            .variant-nav button { width: 30px !important; height: 30px !important; }
+            .variant-nav svg { width: 16px !important; height: 16px !important; }
+            .product-card-content { padding: 8px !important; }
+            .product-card-moq { margin-bottom: 5px !important; }
+        }
+
+        @media (max-width: 480px) {
+            .grid.grid-cols-3, .grid.grid-cols-4 { grid-template-columns: repeat(2, 1fr) !important; gap: var(--space-2) !important; }
+            .product-card-name { font-size: 0.85rem !important; }
+            .product-card-moq { font-size: 0.7rem !important; }
+            .product-card-btn { font-size: 0.7rem !important; padding: 10px 5px !important; }
+        }
+    </style>
 </head>
 
 
@@ -145,9 +241,16 @@
                 </svg>
             </div>
 
-            <div class="catalogue-layout" style="display: flex; gap: var(--space-8); align-items: flex-start; margin-top: var(--space-8);">
+            <button id="mobileFilterToggle" class="mobile-filter-toggle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2L10 12.46V19L14 21V12.46L22 3Z"/></svg>
+                Show Filters
+            </button>
+
+            <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+            <div class="catalogue-layout">
                 <!-- LEFT SIDEBAR -->
-                <aside class="catalogue-sidebar" style="flex: 0 0 260px; position: sticky; top: 120px; background: var(--color-white); padding: var(--space-6); border: 1px solid rgba(212, 168, 75, 0.3); box-shadow: var(--shadow-sm); z-index: 10;">
+                <aside class="catalogue-sidebar">
                     <div class="sidebar-block" style="margin-bottom: var(--space-6);">
                         <h3 style="font-family: var(--font-heading); font-size: var(--text-lg); margin-bottom: var(--space-4); border-bottom: 2px solid rgba(212, 168, 75, 0.3); padding-bottom: var(--space-2); color: var(--color-maroon); text-transform: uppercase; letter-spacing: 1px;">Categories</h3>
                         <div class="category-filter main-categories" id="mainCategoryFilter" style="display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: 0; align-items: stretch;">

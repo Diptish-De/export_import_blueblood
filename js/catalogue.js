@@ -173,10 +173,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="product-card-content">
           <h3 class="product-card-name">${product.name}</h3>
           <p id="price-${product.id}" style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: bold; color: var(--color-maroon); margin-bottom: 5px;">${product.variants && product.variants[0].price ? '₹' + product.variants[0].price : (product.price_range ? '₹' + product.price_range : 'Contact for Price')}</p>
-          <div style="font-size: 10px; color: var(--color-gray-500); margin-bottom: 8px; display: flex; justify-content: space-between;">
-             <span id="id-${product.id}">ID: ${product.variants && product.variants[0].id ? product.variants[0].id : product.id}</span>
-             <span id="hs-${product.id}">HS: ${product.variants && product.variants[0].hs_code ? product.variants[0].hs_code : (product.hs_code || 'N/A')}</span>
-          </div>
           <div class="product-card-meta">
             <span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -184,12 +180,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <circle cx="12" cy="10" r="3"></circle>
               </svg>
               ${product.origin || 'India'}
-            </span>
-            <span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
-              </svg>
-              ${product.material || 'Mixed'}
             </span>
           </div>
 
@@ -382,12 +372,6 @@ document.addEventListener('DOMContentLoaded', async () => {
      const priceEl = document.getElementById(`price-${productId}`);
      if (priceEl) priceEl.textContent = variant.price ? `₹${variant.price}` : 'Contact for Price';
 
-     const idEl = document.getElementById(`id-${productId}`);
-     if (idEl) idEl.textContent = `ID: ${variant.id}`;
-
-     const hsEl = document.getElementById(`hs-${productId}`);
-     if (hsEl) hsEl.textContent = `HS: ${variant.hs_code || 'N/A'}`;
-
      // Update variant button styles
      const variantBtns = card.querySelectorAll('.product-variants button');
      variantBtns.forEach((btn, i) => {
@@ -483,6 +467,25 @@ document.addEventListener('DOMContentLoaded', async () => {
           renderProducts(true);
       });
   });
+
+  // Mobile Filter Drawer Toggle
+  const mobileToggle = document.getElementById('mobileFilterToggle');
+  const sidebar = document.querySelector('.catalogue-sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+
+  if (mobileToggle && sidebar && overlay) {
+      mobileToggle.addEventListener('click', () => {
+          sidebar.classList.add('active');
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+      });
+
+      overlay.addEventListener('click', () => {
+          sidebar.classList.remove('active');
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+      });
+  }
 
   // Quick View Logic
   // Expose to global scope for inline onclick handler
