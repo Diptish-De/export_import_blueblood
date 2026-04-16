@@ -1,82 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.bluebloodexports.com/</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.bluebloodexports.com/pictures/sitting-ganesha-brass.jpg</image:loc>
+      <image:title>Sitting Ganesha Brass Idol - Handmade Dhokra Art Hindu God Statue for Export</image:title>
+      <image:caption>Premium handcrafted sitting Ganesha brass idol made using traditional lost-wax Dhokra casting technique by Indian artisans. Wholesale export from Blueblood Exports India.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.bluebloodexports.com/pictures/dancing-ganesha-brass.jpg</image:loc>
+      <image:title>Dancing Ganesha Brass Sculpture - Dhokra Art Nataraja from India</image:title>
+      <image:caption>Exquisite dancing Ganesha brass sculpture handcrafted by tribal artisans using ancient Dhokra lost-wax casting. Buy wholesale from India.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.bluebloodexports.com/pictures/warli-dhokra-peacock-frame.jpg</image:loc>
+      <image:title>Warli Dhokra Peacock Frame - Traditional Indian Tribal Wall Art</image:title>
+      <image:caption>Hand-painted Warli tribal art combined with Dhokra brass peacock motif in a decorative wall frame. Indian handicraft export.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.bluebloodexports.com/pictures/ashoka-pillar-standalone.jpg</image:loc>
+      <image:title>Ashoka Pillar Brass Replica - Indian Heritage Sculpture Export</image:title>
+      <image:caption>Handcrafted brass replica of the Ashoka Pillar, a symbol of Indian heritage. Premium export quality by Blueblood Exports.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.bluebloodexports.com/pictures/durga-statue-brass.jpg</image:loc>
+      <image:title>Durga Brass Statue - Hindu Goddess Idol Handmade in India</image:title>
+      <image:caption>Traditional handcrafted brass Durga statue for home decor and temple use. Export quality Hindu goddess idol from India.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.bluebloodexports.com/pictures/dhokra-boat-jute-frame.jpg</image:loc>
+      <image:title>Dhokra Boat Art with Jute Frame - Indian Tribal Metal Craft</image:title>
+      <image:caption>Dhokra brass boat sculpture mounted on jute frame. Traditional Indian tribal metal art for wall decor and gifting.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.bluebloodexports.com/pictures/warli-dhokra-village-sun.jpg</image:loc>
+      <image:title>Warli Dhokra Village Scene with Sun - Indian Tribal Art</image:title>
+      <image:caption>Large Warli art painting featuring village life with Dhokra brass elements and sun motif. Indian tribal wall decor for export.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.bluebloodexports.com/pictures/warli-dhokra-mandala-purple.jpg</image:loc>
+      <image:title>Warli Dhokra Mandala Purple Art - Indian Spiritual Wall Decor</image:title>
+      <image:caption>Warli art mandala design in purple with Dhokra brass accents. Indian spiritual wall art for home and office decor.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.bluebloodexports.com/pictures/warli-dhokra-concentric-circle.jpg</image:loc>
+      <image:title>Warli Dhokra Concentric Circle Art - Indian Tribal Wall Frame</image:title>
+      <image:caption>Circular Warli tribal art with Dhokra brass concentric circle design. Premium Indian wall frame for global buyers.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.bluebloodexports.com/pictures/bulk-packaging-frames.jpg</image:loc>
+      <image:title>Export Grade Bulk Packaging - Indian Handicraft Wholesale Shipping</image:title>
+      <image:caption>Secure export-grade packaging of handcrafted Indian art frames for bulk wholesale shipping worldwide by Blueblood Exports.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://www.bluebloodexports.com/index.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.bluebloodexports.com/catalogue.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.bluebloodexports.com/services.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://www.bluebloodexports.com/stories.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.bluebloodexports.com/about.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.bluebloodexports.com/export-process.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.bluebloodexports.com/contact.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.bluebloodexports.com/services.html</loc>
-    <lastmod>2026-03-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://www.bluebloodexports.com/faq.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.bluebloodexports.com/product.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.bluebloodexports.com/privacy-policy.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://www.bluebloodexports.com/terms-conditions.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://www.bluebloodexports.com/shipping-policy.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 </urlset>
-

@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Render product details
     function renderProduct() {
         if (!currentProduct) return;
-        document.title = `${currentProduct.name} | Blueblood Exports`;
+        document.title = `${currentProduct.name} - Handcrafted Indian ${currentProduct.category || 'Artefact'} | Blueblood Exports`;
 
         // Text Content
         document.getElementById('breadcrumbName').textContent = currentProduct.name;
@@ -81,14 +81,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         const mImg = document.getElementById('mainImage');
         const firstImg = currentProduct.images ? currentProduct.images[0] : (currentProduct.image || '');
         mImg.src = firstImg;
-        mImg.alt = currentProduct.name;
+        mImg.alt = `${currentProduct.name} - Handcrafted ${currentProduct.material || 'Indian'} ${currentProduct.category || 'Artefact'} for Wholesale Export | Blueblood Exports India`;
+        mImg.title = `${currentProduct.name} - Buy Premium Indian ${currentProduct.category || 'Handicraft'} from Blueblood Exports`;
         mImg.onclick = () => showLightbox(mImg.src);
 
         const thumbs = document.getElementById('thumbnails');
         if (currentProduct.images && currentProduct.images.length > 1) {
             thumbs.innerHTML = currentProduct.images.map((img, index) => `
                 <div class="product-thumbnail ${index === 0 ? 'active' : ''}" onclick="updateMainImage('${img}', this)">
-                    <img src="${img}" alt="${currentProduct.name} ${index + 1}">
+                    <img src="${img}" alt="${currentProduct.name} - View ${index + 1} - Indian ${currentProduct.material || currentProduct.category} Handcrafted Artefact" title="${currentProduct.name} Image ${index + 1}">
                 </div>
             `).join('');
         } else {
@@ -196,7 +197,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 grid.innerHTML = related.map(prod => `
                     <div class="product-card" style="border: 1px solid var(--color-gray-200); border-radius: 12px; overflow: hidden; background: var(--color-white); transition: all 0.3s; height: 100%; display: flex; flex-direction: column;">
                         <div class="product-card-image" style="position: relative; height: 200px; overflow: hidden;">
-                            <img src="${prod.images ? prod.images[0] : prod.image}" alt="${prod.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="${prod.images ? prod.images[0] : prod.image}" alt="${prod.name} - Handcrafted Indian ${prod.category || 'Artefact'} for Export | Blueblood Exports" title="${prod.name} - Indian Handicraft" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
                         </div>
                         <div class="product-card-content" style="padding: 15px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
                             <h3 style="font-family: var(--font-heading); font-size: 0.9rem; color: var(--color-gray-800); margin-bottom: 10px;">${prod.name}</h3>

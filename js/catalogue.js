@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       <div class="product-card group" id="card-${product.id}" data-category="${product.category}" data-current-index="0">
         <div class="product-card-image" style="position: relative; cursor: pointer;" onclick="openQuickView('${product.id}')">
           <span class="product-card-category">${product.category}</span>
-          <img id="img-${product.id}" src="${product.images[0] || 'https://placehold.co/500x500/f5ecd9/5c1515?text=No+Image'}" alt="${product.name}" loading="lazy" onerror="this.src='https://placehold.co/500x500/f5ecd9/5c1515?text=No+Image'">
+          <img id="img-${product.id}" src="${product.images[0] || 'https://placehold.co/500x500/f5ecd9/5c1515?text=No+Image'}" alt="${product.name} - Handcrafted ${product.material || product.category} Indian Artefact for Export | Blueblood Exports" title="${product.name} - Buy Wholesale Indian ${product.category} from Blueblood Exports" loading="lazy" onerror="this.src='https://placehold.co/500x500/f5ecd9/5c1515?text=No+Image'">
           
           ${product.variants && product.variants.length > 1 ? `
           <div class="variant-nav" style="position: absolute; top: 50%; left: 0; width: 100%; display: flex; justify-content: space-between; transform: translateY(-50%); padding: 0 8px; pointer-events: none; opacity: 0; transition: opacity 0.3s; box-sizing: border-box; z-index: 2;">
@@ -499,7 +499,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <button class="modal-close" onclick="closeQuickView()">&times;</button>
                 <div class="quick-view-grid">
                     <div class="quick-view-image">
-                        <img id="qvImage" src="" alt="">
+                        <img id="qvImage" src="" alt="Indian Handcrafted Artefact - Premium Export Quality Product" title="Handcrafted Indian Art - Blueblood Exports">
                     </div>
                     <div class="quick-view-details">
                         <span id="qvCategory" class="text-terracotta" style="font-size:0.9rem; font-weight:600; text-transform:uppercase; letter-spacing:1px;"></span>
@@ -547,6 +547,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Populate Data
     document.getElementById('qvImage').src = product.images[0] || 'https://placehold.co/500x500/f5ecd9/5c1515?text=No+Image';
+    document.getElementById('qvImage').alt = `${product.name} - Handcrafted ${product.material || product.category} Indian Artefact for Wholesale Export | Blueblood Exports`;
+    document.getElementById('qvImage').title = `${product.name} - Premium Indian ${product.category} by Blueblood Exports`;
     document.getElementById('qvCategory').textContent = product.category;
     document.getElementById('qvName').textContent = product.name;
     document.getElementById('qvPrice').textContent = product.price_range ? '₹' + product.price_range : 'Contact for Price';

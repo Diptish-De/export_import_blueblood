@@ -1,4 +1,23 @@
 User-agent: *
 Allow: /
+Allow: /pictures/
+Allow: /images/
+Allow: /public/images/
+
+# Allow Image Crawlers
+User-agent: Googlebot-Image
+Allow: /pictures/
+Allow: /images/
+Allow: /public/images/
+
+User-agent: Bingbot
+Allow: /pictures/
+Allow: /images/
+
+# Disallow admin and API
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+Disallow: /node_modules/
 
 Sitemap: https://www.bluebloodexports.com/sitemap.xml
