@@ -1880,53 +1880,52 @@ body {
 }
 
 /* ============================================
-   Countries Grid - Traditional
+   Countries Grid - Infinite Scrolling Marquee
    ============================================ */
 .countries-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-6);
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: var(--space-8) 0;
+    /* Gradient mask for smooth edge transitions */
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .countries-track {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-6);
-    width: 100%;
-}
-
-/* Hide duplicate items on desktop */
-.countries-track .country-item:nth-child(n+9) {
-    display: none;
+    width: max-content;
+    animation: marquee 40s linear infinite;
+    gap: var(--space-8);
 }
 
 .country-item {
+    flex: 0 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--space-3);
-    padding: var(--space-5);
+    padding: var(--space-6);
     background: var(--color-white);
     border: 1px solid rgba(212, 168, 75, 0.2);
     box-shadow: var(--shadow-sm);
     transition: all var(--transition-fast);
-    min-width: 130px;
+    min-width: 150px;
+    border-radius: var(--radius-md);
 }
 
 .country-item:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
     border-color: var(--color-gold);
 }
 
 .country-flag {
-    width: 55px;
+    width: 60px;
     height: 40px;
     overflow: hidden;
-    border: 2px solid var(--color-gold);
-    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-gold);
+    box-shadow: var(--shadow-xs);
 }
 
 .country-flag img {
@@ -1937,11 +1936,42 @@ body {
 
 .country-name {
     font-family: var(--font-heading);
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
     color: var(--color-gray-700);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        /* Content is duplicated 1:1 in HTML, so -50% creates a seamless loop */
+        transform: translateX(-50%);
+    }
+}
+
+/* Pause animation on hover */
+.countries-track:hover {
+    animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+    .countries-grid {
+        padding: var(--space-4) 0;
+    }
+    
+    .countries-track {
+        animation-duration: 25s;
+        gap: var(--space-4);
+    }
+    
+    .country-item {
+        min-width: 120px;
+        padding: var(--space-4);
+    }
 }
 
 /* ============================================
