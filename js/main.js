@@ -6,7 +6,6 @@ import '../css/theme-toggle.css';
 import '../css/extra-features.css';
 
 // Cart instance is already global from cart.js
-// Language instance is already global from i18n.js
 
 // Mobile Navigation Toggle
 document.addEventListener('DOMContentLoaded', () => {
@@ -185,16 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // Global helpers for cart
 window.updateCartItem = (id, q) => window.cart.updateQuantity(id, q);
 
-// Language Switcher Helpers
-window.toggleLanguageDropdown = () => {
-  document.querySelector('.lang-dropdown').classList.toggle('active');
-};
-
-window.switchLanguage = (lang) => {
-  // Basic implementation for now
-  localStorage.setItem('language', lang);
-  location.reload(); // Refresh to apply for now, or use i18n logic if complex
-};
 
 // Utility: Format number with commas
 function formatNumber(num) {

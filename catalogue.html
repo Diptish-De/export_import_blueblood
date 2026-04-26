@@ -35,7 +35,6 @@
     <link rel='stylesheet' href='css/extra-features.css'>
     <!-- CSS injected by Vite via main.js import -->
     <script>(function () { const t = localStorage.getItem("theme") || "light"; document.documentElement.setAttribute("data-theme", t); if (sessionStorage.getItem("blueblood_loaded")) { document.documentElement.classList.add("page-is-loaded"); document.write("<style>.page-loader{display:none!important;}</style>") } }).call(this);</script>
-    <script type="module" src="/js/i18n.js"></script>
     <!-- Breadcrumb Structured Data -->
     <script type="application/ld+json">
     {
@@ -379,21 +378,6 @@
                 <a href="contact.html" class="navbar-link">Contact</a>
             </div>
             <div class="navbar-controls">
-                <div class="lang-selector">
-                    <button class="lang-btn" id="langToggle" onclick="toggleLanguageDropdown()">
-                        <span class="lang-flag">🇬🇧</span>
-                        <span class="lang-name">EN</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M6 9l6 6 6-6"></path>
-                        </svg>
-                    </button>
-                    <div class="lang-dropdown">
-                        <button class="lang-option" onclick="switchLanguage('en')"><span>🇬🇧</span> English</button>
-                        <button class="lang-option" onclick="switchLanguage('hi')"><span>🇮🇳</span> हिन्दी</button>
-                        <button class="lang-option" onclick="switchLanguage('ar')"><span>🇦🇪</span> العربية</button>
-                    </div>
-                </div>
                 <button class="cart-toggle" id="cartToggle" aria-label="View Inquiry Bag">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path>

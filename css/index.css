@@ -1760,19 +1760,6 @@ p {
     font-size: 0.75rem !important;
   }
 
-  /* Language selector compact */
-  .lang-selector {
-    margin-right: 4px !important;
-  }
-
-  .lang-btn {
-    padding: 4px 8px !important;
-    font-size: 0.75rem !important;
-  }
-
-  .lang-name {
-    display: none !important;
-  }
 
   /* Theme toggle compact */
   .theme-toggle {

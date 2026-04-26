@@ -8,7 +8,7 @@
         content="Learn about Bluebloodexports (OPC) Private Limited - our heritage and commitment to excellence. We partner with master artisans from Sridha Collections (Dhokra Art), Suman Enterprises (Sheesham Furniture), and Mukund Craft House (Bone Inlay).">
     <meta name="keywords"
         content="about blueblood exports, bluebloodexports, blueblood export, Indian artisan heritage, Sridha Collections Bankura, Suman Enterprises Jodhpur, Mukund Craft House Jodhpur, Dhokra Art, Bone Inlay furniture, Sheesham furniture exporter India, export quality artefacts, buy Indian handicrafts wholesale">
-    <title>About Blueblood Exports | Heritage & Indian Artisan Craftsmanship Since 1985</title>
+    <title>About Blueblood Exports | Heritage & Indian Artisan Craftsmanship Since 2026</title>
     <link rel="icon" type="image/png" href="favicon.png">
 
     <!-- Open Graph / Facebook -->
@@ -22,7 +22,7 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="About Blueblood Exports | Premium Indian Handicraft Exporter">
-    <meta name="twitter:description" content="Discover our heritage - 200+ artisan families, 15 states, 50+ countries served. Authentic Indian craftsmanship since 1985.">
+    <meta name="twitter:description" content="Discover our heritage - 200+ artisan families, 15 states, 50+ countries served. Authentic Indian craftsmanship since 2026.">
     <meta name="twitter:image" content="https://www.bluebloodexports.com/images/og-image.jpg">
 
     <!-- SEO -->
@@ -35,7 +35,8 @@
     <link rel='stylesheet' href='css/extra-features.css'>
     <!-- CSS injected by Vite via main.js import -->
     <script>(function () { const t = localStorage.getItem("theme") || "light"; document.documentElement.setAttribute("data-theme", t); if (sessionStorage.getItem("blueblood_loaded")) { document.documentElement.classList.add("page-is-loaded"); document.write("<style>.page-loader{display:none!important;}</style>") } }).call(this);</script>
-    <script type="module" src="/js/i18n.js"></script>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
         .artisan-card {
             background: var(--color-white);
@@ -164,6 +165,39 @@
                 font-size: var(--text-4xl)
             }
         }
+
+        /* About Page Swiper Styles */
+        .about-swiper-container {
+            width: 100%;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            border: 3px solid var(--color-gold);
+            overflow: hidden;
+            background: var(--color-ivory-light);
+            aspect-ratio: 4/3;
+        }
+
+        .about-swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .about-swiper .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-swiper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--color-gold) !important;
+        }
     </style>
 </head>
 
@@ -217,21 +251,6 @@
                 <a href="contact.html" class="navbar-link">Contact</a>
             </div>
             <div class="navbar-controls">
-                <div class="lang-selector">
-                    <button class="lang-btn" id="langToggle" onclick="toggleLanguageDropdown()">
-                        <span class="lang-flag">🇬🇧</span>
-                        <span class="lang-name">EN</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M6 9l6 6 6-6"></path>
-                        </svg>
-                    </button>
-                    <div class="lang-dropdown">
-                        <button class="lang-option" onclick="switchLanguage('en')"><span>🇬🇧</span> English</button>
-                        <button class="lang-option" onclick="switchLanguage('hi')"><span>🇮🇳</span> हिन्दी</button>
-                        <button class="lang-option" onclick="switchLanguage('ar')"><span>🇦🇪</span> العربية</button>
-                    </div>
-                </div>
                 <button class="cart-toggle" id="cartToggle" aria-label="View Inquiry Bag">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path>
@@ -263,11 +282,31 @@
     <section class="section bg-white">
         <div class="container">
             <div class="grid" style="grid-template-columns:1fr 1fr;gap:var(--space-12);align-items:center">
-                <div><img src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=600&h=400&fit=crop"
-                        alt="Traditional Indian Craftsmanship - Handmade Brass Wood Stone Artefacts Heritage Art Making Process" title="Indian Artisan Craftsmanship - Blueblood Exports Heritage"
-                        style="border-radius:var(--radius-xl);box-shadow:var(--shadow-xl);width:100%" width="600" height="400" loading="lazy"></div>
+                <div class="about-swiper-container">
+                    <div class="swiper about-swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="brass_ganesha_idol_1777228073814.png" alt="Premium Handcrafted Brass Ganesha Idol" title="Traditional Brass Artistry">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="dhokra_horse_sculpture_1777228087702.png" alt="Traditional Dhokra Horse Sculpture" title="Tribal Lost-Wax Casting Heritage">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="bone_inlay_tray_1777228102542.png" alt="Luxury Bone Inlay Decorative Tray" title="Intricate Bone Inlay Craftsmanship">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="sheesham_wood_box_1777228116389.png" alt="Hand-carved Sheesham Wood Jewelry Box" title="Rajasthani Wooden Legacy">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="warli_art_frame_1777228130429.png" alt="Traditional Warli Tribal Art Painting" title="Cultural Heritage Art">
+                            </div>
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
                 <div class="about-content">
-                    <span class="hero-tagline">Established 1985</span>
+                    <span class="hero-tagline">Established 2026</span>
                     <h2 style="margin-bottom:var(--space-6)">A Legacy of Craftsmanship</h2>
                     <p style="font-size:var(--text-lg);line-height:1.8">Blueblood Exports was founded to bring India's
                         extraordinary artistic heritage to the global stage while ensuring prosperity for artisan
@@ -369,121 +408,59 @@
                 <h2>Certifications & Compliance</h2>
                 <p>Authorized and Recognized by the Government of India</p>
             </div>
-            <div class="certifications-marquee">
-                <div class="certifications-track">
-                    <!-- First Set -->
-                    <div class="document-card">
-                        <div class="document-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
-                        </div>
-                        <h4>INCORPORATION</h4>
-                        <p>Certificate of Incorporation (OPC Private Limited)</p>
-                        <a href="documents/Certificate_of_Incorporation.pdf" target="_blank" class="btn-document">VIEW CERTIFICATE →</a>
+            <div class="document-grid">
+                <div class="document-card">
+                    <div class="document-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
                     </div>
+                    <h4>INCORPORATION</h4>
+                    <p>Certificate of Incorporation (OPC Private Limited)</p>
+                    <a href="documents/Certificate_of_Incorporation.pdf" target="_blank" class="btn-document">VIEW CERTIFICATE →</a>
+                </div>
 
-                    <div class="document-card">
-                        <div class="document-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                        </div>
-                        <h4>GST REGISTRATION</h4>
-                        <p>Goods & Services Tax Certificate</p>
-                        <a href="documents/GST_CERTIFICATE.pdf" target="_blank" class="btn-document">VIEW CERTIFICATE →</a>
+                <div class="document-card">
+                    <div class="document-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                     </div>
+                    <h4>GST REGISTRATION</h4>
+                    <p>Goods & Services Tax Certificate</p>
+                    <a href="documents/GST_CERTIFICATE.pdf" target="_blank" class="btn-document">VIEW CERTIFICATE →</a>
+                </div>
 
-                    <div class="document-card">
-                        <div class="document-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                        </div>
-                        <h4>IEC CODE</h4>
-                        <p>Import Export Code</p>
-                        <a href="documents/IEC.pdf" target="_blank" class="btn-document">VIEW CERTIFICATE →</a>
+                <div class="document-card">
+                    <div class="document-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                     </div>
+                    <h4>IEC CODE</h4>
+                    <p>Import Export Code</p>
+                    <a href="documents/IEC.pdf" target="_blank" class="btn-document">VIEW CERTIFICATE →</a>
+                </div>
 
-                    <div class="document-card">
-                        <div class="document-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
-                        </div>
-                        <h4>MSME REGISTERED</h4>
-                        <p>Micro, Small & Medium Enterprises</p>
-                        <a href="documents/MSME_BBE.pdf" target="_blank" class="btn-document">VIEW CERTIFICATE →</a>
+                <div class="document-card">
+                    <div class="document-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
                     </div>
+                    <h4>MSME REGISTERED</h4>
+                    <p>Micro, Small & Medium Enterprises</p>
+                    <a href="documents/MSME_BBE.pdf" target="_blank" class="btn-document">VIEW CERTIFICATE →</a>
+                </div>
 
-                    <div class="document-card">
-                        <div class="document-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        </div>
-                        <h4>STARTUP INDIA</h4>
-                        <p>Recognized by DIPP</p>
-                        <a href="documents/Startup_India_certificate.pdf" target="_blank" class="btn-document">VIEW CERTIFICATE →</a>
+                <div class="document-card">
+                    <div class="document-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     </div>
+                    <h4>STARTUP INDIA</h4>
+                    <p>Recognized by DIPP</p>
+                    <a href="documents/Startup_India_certificate.pdf" target="_blank" class="btn-document">VIEW CERTIFICATE →</a>
+                </div>
 
-
-
-                    <div class="document-card">
-                        <div class="document-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12.5 13.5h.01"/><path d="m15.5 16.5-1-1"/></svg>
-                        </div>
-                        <h4>TRADE LICENSE</h4>
-                        <p>e-Trade License</p>
-                        <a href="documents/e-trade_license.png" target="_blank" class="btn-document">VIEW LICENSE →</a>
+                <div class="document-card">
+                    <div class="document-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12.5 13.5h.01"/><path d="m15.5 16.5-1-1"/></svg>
                     </div>
-
-                    <!-- Duplicate Set for Endless Loop -->
-                    <div class="document-card">
-                        <div class="document-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
-                        </div>
-                        <h4>INCORPORATION</h4>
-                        <p>Certificate of Incorporation (OPC Private Limited)</p>
-                        <a href="documents/Certificate_of_Incorporation.pdf" target="_blank" class="btn-document">VIEW CERTIFICATE →</a>
-                    </div>
-
-                    <div class="document-card">
-                        <div class="document-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                        </div>
-                        <h4>GST REGISTRATION</h4>
-                        <p>Goods & Services Tax Certificate</p>
-                        <a href="documents/GST_CERTIFICATE.pdf" target="_blank" class="btn-document">VIEW CERTIFICATE →</a>
-                    </div>
-
-                    <div class="document-card">
-                        <div class="document-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                        </div>
-                        <h4>IEC CODE</h4>
-                        <p>Import Export Code</p>
-                        <a href="documents/IEC.pdf" target="_blank" class="btn-document">VIEW CERTIFICATE →</a>
-                    </div>
-
-                    <div class="document-card">
-                        <div class="document-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
-                        </div>
-                        <h4>MSME REGISTERED</h4>
-                        <p>Micro, Small & Medium Enterprises</p>
-                        <a href="documents/MSME_BBE.pdf" target="_blank" class="btn-document">VIEW CERTIFICATE →</a>
-                    </div>
-
-                    <div class="document-card">
-                        <div class="document-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        </div>
-                        <h4>STARTUP INDIA</h4>
-                        <p>Recognized by DIPP</p>
-                        <a href="documents/Startup_India_certificate.pdf" target="_blank" class="btn-document">VIEW CERTIFICATE →</a>
-                    </div>
-
-
-
-                    <div class="document-card">
-                        <div class="document-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12.5 13.5h.01"/><path d="m15.5 16.5-1-1"/></svg>
-                        </div>
-                        <h4>TRADE LICENSE</h4>
-                        <p>e-Trade License</p>
-                        <a href="documents/e-trade_license.png" target="_blank" class="btn-document">VIEW LICENSE →</a>
-                    </div>
+                    <h4>TRADE LICENSE</h4>
+                    <p>e-Trade License</p>
+                    <a href="documents/e-trade_license.png" target="_blank" class="btn-document">VIEW LICENSE →</a>
                 </div>
             </div>
         </div>
@@ -583,6 +560,29 @@
     <script type="module" src="/js/wishlist.js"></script>
     <script type="module" src="/js/engagement.js"></script>
     <script type="module" src="/js/contact.js"></script>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const aboutSwiper = new Swiper('.about-swiper', {
+                loop: true,
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
+                },
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                speed: 1000, // Smooth transition
+            });
+        });
+    </script>
 </body>
 
 </html>

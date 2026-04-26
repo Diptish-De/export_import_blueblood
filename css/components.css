@@ -197,7 +197,7 @@ body {
     .navbar-controls {
         gap: 5px !important;
     }
-    .theme-toggle, .lang-selector {
+    .theme-toggle {
         transform: scale(0.9);
     }
 }
@@ -2026,7 +2026,10 @@ body {
     align-items: center;
     position: relative;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-    height: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    max-width: 300px;
+    margin: 0 auto;
 }
 
 .document-card:hover {
@@ -2095,67 +2098,6 @@ body {
     box-shadow: 0 4px 15px rgba(212, 168, 75, 0.3);
 }
 
-/* ============================================
-   Certifications Marquee
-   ============================================ */
-.certifications-marquee {
-    width: 100%;
-    overflow: hidden;
-    padding: var(--space-4) 0; /* Smaller vertical space */
-    position: relative;
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-}
-
-.certifications-track {
-    display: flex;
-    width: max-content;
-    animation: marquee-cert 40s linear infinite;
-    gap: var(--space-8);
-}
-
-.certifications-marquee:hover .certifications-track {
-    animation-play-state: paused;
-}
-
-.certifications-track .document-card {
-    flex: 0 0 auto;
-    width: 300px;
-    height: 300px; /* Square box */
-    padding: var(--space-6); /* Smaller vertical space */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.document-card p {
-    font-size: 0.85rem;
-    line-height: 1.4;
-    margin-bottom: var(--space-4);
-}
-
-@keyframes marquee-cert {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-@media (max-width: 768px) {
-    .certifications-track {
-        animation-duration: 30s;
-        gap: var(--space-4);
-    }
-    .certifications-track .document-card {
-        width: 250px;
-        height: 250px; /* Square box on mobile */
-        padding: var(--space-4);
-    }
-}
 
 /* ============================================
    Floating WhatsApp Button - Mobile CTA
