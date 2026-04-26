@@ -62,7 +62,7 @@
             margin-top: var(--space-8);
         }
         .catalogue-sidebar {
-            flex: 0 0 260px;
+            flex: 0 0 280px;
             position: sticky;
             top: 120px;
             background: var(--color-white);
@@ -70,7 +70,144 @@
             border: 1px solid rgba(212, 168, 75, 0.3);
             box-shadow: var(--shadow-sm);
             z-index: 10;
+            border-radius: var(--radius-md);
         }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-6);
+            border-bottom: 2px solid var(--color-gold-light);
+            padding-bottom: var(--space-3);
+        }
+
+        .sidebar-title {
+            font-family: var(--font-heading);
+            font-size: var(--text-base);
+            color: var(--color-maroon);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .clear-all-btn {
+            font-size: var(--text-xs);
+            color: var(--color-gray-500);
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.2s;
+            font-weight: 600;
+        }
+
+        .clear-all-btn:hover {
+            color: var(--color-maroon);
+        }
+
+        .sidebar-block {
+            margin-bottom: var(--space-6);
+            border-bottom: 1px solid var(--color-gray-200);
+            padding-bottom: var(--space-4);
+        }
+
+        .sidebar-block:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-bottom: var(--space-4);
+        }
+
+        .sidebar-block-header h3 {
+            font-family: var(--font-heading);
+            font-size: var(--text-sm);
+            margin: 0;
+            color: var(--color-maroon);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-block-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            color: var(--color-gold-dark);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar-block.collapsed .sidebar-block-toggle {
+            transform: rotate(-180deg);
+        }
+
+        .sidebar-block.collapsed .sidebar-block-content {
+            display: none;
+        }
+
+        .active-filters-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: var(--space-6);
+            min-height: 38px; /* Maintain space even when empty */
+        }
+
+        .filter-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, var(--color-ivory-light) 0%, var(--color-cream) 100%);
+            border: 1px solid var(--color-gold-light);
+            border-radius: 50px;
+            font-size: var(--text-xs);
+            font-weight: 600;
+            color: var(--color-maroon);
+            box-shadow: var(--shadow-sm);
+            cursor: default;
+            animation: badgeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
+        }
+
+        .filter-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--color-gold);
+        }
+
+        @keyframes badgeIn {
+            from { opacity: 0; transform: scale(0.8) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .filter-badge-remove {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--color-white);
+            color: var(--color-maroon);
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.2s;
+            box-shadow: inset 0 0 4px rgba(0,0,0,0.1);
+        }
+
+        .filter-badge-remove:hover {
+            background: var(--color-maroon);
+            color: var(--color-white);
+            transform: rotate(90deg);
+        }
+
         .mobile-filter-toggle {
             display: none;
             width: 100%;
@@ -94,6 +231,29 @@
             background: rgba(0,0,0,0.5);
             z-index: 1999;
             backdrop-filter: blur(2px);
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: var(--space-6);
+        }
+
+        .search-clear-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--color-gray-400);
+            display: none;
+            transition: color 0.2s;
+            font-size: 1.5rem;
+            line-height: 1;
+            z-index: 2;
+        }
+
+        .search-clear-btn:hover {
+            color: var(--color-maroon);
         }
 
         @media (max-width: 1024px) {
@@ -267,6 +427,7 @@
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Search for artefacts (e.g. Brass, Lamp, Ganesh)..."
                     aria-label="Search products">
+                <div id="searchClear" class="search-clear-btn" title="Clear Search">&times;</div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="search-icon">
@@ -285,67 +446,166 @@
             <div class="catalogue-layout">
                 <!-- LEFT SIDEBAR -->
                 <aside class="catalogue-sidebar">
-                    <div class="sidebar-block" style="margin-bottom: var(--space-6);">
-                        <h3 style="font-family: var(--font-heading); font-size: var(--text-lg); margin-bottom: var(--space-4); border-bottom: 2px solid rgba(212, 168, 75, 0.3); padding-bottom: var(--space-2); color: var(--color-maroon); text-transform: uppercase; letter-spacing: 1px;">Categories</h3>
-                        <div class="category-filter main-categories" id="mainCategoryFilter" style="display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: 0; align-items: stretch;">
-                            <button class="filter-btn active" data-main-category="all" style="text-align: left;">All Items</button>
-                            <button class="filter-btn" data-main-category="Handicraft" style="text-align: left;">Handicrafts</button>
-                            <button class="filter-btn" data-main-category="Furniture" style="text-align: left;">Furniture</button>
-                        </div>
+                    <div class="sidebar-header">
+                        <h2 class="sidebar-title">Filters</h2>
+                        <span id="clearAllFilters" class="clear-all-btn">Clear All</span>
                     </div>
 
-                    <div class="sidebar-block" style="margin-bottom: var(--space-6);">
-                        <h3 style="font-family: var(--font-heading); font-size: var(--text-lg); margin-bottom: var(--space-4); border-bottom: 2px solid rgba(212, 168, 75, 0.3); padding-bottom: var(--space-2); color: var(--color-maroon); text-transform: uppercase; letter-spacing: 1px;">Subcategories</h3>
-                        <div class="category-filter sub-categories hidden" id="subCategoryFilter" style="display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: 0; border-top: none; padding-top: 0; align-items: stretch;">
-                            <!-- Buttons will be injected via JS -->
+                    <div class="sidebar-block">
+                        <div class="sidebar-block-header">
+                            <h3>Categories</h3>
+                            <span class="sidebar-block-toggle">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                            </span>
                         </div>
-                    </div>
-
-                    <div class="sidebar-block" style="margin-bottom: var(--space-6);">
-                        <h3 style="font-family: var(--font-heading); font-size: var(--text-lg); margin-bottom: var(--space-4); border-bottom: 2px solid rgba(212, 168, 75, 0.3); padding-bottom: var(--space-2); color: var(--color-maroon); text-transform: uppercase; letter-spacing: 1px;">Price Range</h3>
-                        <div class="price-range-filter" style="padding-top: var(--space-2);">
-                            <input type="range" id="priceRange" min="0" max="100000" step="5000" value="100000" style="width: 100%; accent-color: var(--color-maroon); cursor: pointer;">
-                            <div style="display: flex; justify-content: space-between; margin-top: var(--space-2); font-family: var(--font-body); font-size: var(--text-xs); color: var(--color-gray-600); font-weight: 600;">
-                                <span>₹0</span>
-                                <span id="priceValue">Up to ₹1,00,000+</span>
+                        <div class="sidebar-block-content">
+                            <div class="category-filter main-categories" id="mainCategoryFilter" style="display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: 0; align-items: stretch;">
+                                <button class="filter-btn active" data-main-category="all" style="text-align: left;">All Items</button>
+                                <button class="filter-btn" data-main-category="Handicraft" style="text-align: left;">Handicrafts</button>
+                                <button class="filter-btn" data-main-category="Furniture" style="text-align: left;">Furniture</button>
                             </div>
-                            <div style="margin-top: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2);">
-                                <label style="display: flex; align-items: center; gap: 8px; font-size: var(--text-sm); color: var(--color-gray-700); cursor: pointer;">
-                                    <input type="radio" name="price_preset" value="all" checked style="accent-color: var(--color-maroon);"> All Prices
+                        </div>
+                    </div>
+
+                    <div class="sidebar-block">
+                        <div class="sidebar-block-header">
+                            <h3>Subcategories</h3>
+                            <span class="sidebar-block-toggle">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                            </span>
+                        </div>
+                        <div class="sidebar-block-content">
+                            <div class="category-filter sub-categories hidden" id="subCategoryFilter" style="display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: 0; border-top: none; padding-top: 0; align-items: stretch;">
+                                <!-- Buttons will be injected via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-block">
+                        <div class="sidebar-block-header">
+                            <h3>Price Range</h3>
+                            <span class="sidebar-block-toggle">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                            </span>
+                        </div>
+                        <div class="sidebar-block-content">
+                            <div class="price-range-filter" style="padding-top: var(--space-2);">
+                                <input type="range" id="priceRange" min="0" max="100000" step="5000" value="100000" style="width: 100%; accent-color: var(--color-maroon); cursor: pointer;">
+                                <div style="display: flex; justify-content: space-between; margin-top: var(--space-2); font-family: var(--font-body); font-size: var(--text-xs); color: var(--color-gray-600); font-weight: 600;">
+                                    <span>₹0</span>
+                                    <span id="priceValue">Up to ₹1,00,000+</span>
+                                </div>
+                                <div style="margin-top: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2);">
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: var(--text-sm); color: var(--color-gray-700); cursor: pointer;">
+                                        <input type="radio" name="price_preset" value="all" checked style="accent-color: var(--color-maroon);"> All Prices
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: var(--text-sm); color: var(--color-gray-700); cursor: pointer;">
+                                        <input type="radio" name="price_preset" value="0-10000" style="accent-color: var(--color-maroon);"> Under ₹10,000
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: var(--text-sm); color: var(--color-gray-700); cursor: pointer;">
+                                        <input type="radio" name="price_preset" value="10000-30000" style="accent-color: var(--color-maroon);"> ₹10,000 - ₹30,000
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: var(--text-sm); color: var(--color-gray-700); cursor: pointer;">
+                                        <input type="radio" name="price_preset" value="30000-over" style="accent-color: var(--color-maroon);"> Above ₹30,000
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="sidebar-block">
+                        <div class="sidebar-block-header">
+                            <h3>Material</h3>
+                            <span class="sidebar-block-toggle">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                            </span>
+                        </div>
+                        <div class="sidebar-block-content">
+                            <select id="materialSelect" class="form-control" style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-gray-300); background: var(--color-ivory-light); font-family: var(--font-body); font-size: var(--text-sm); font-weight: 500; color: var(--color-gray-700);">
+                                <option value="all">All Materials</option>
+                                <option value="Wood">Wood</option>
+                                <option value="Bone Inlay">Bone Inlay</option>
+                                <option value="Brass">Brass</option>
+                                <option value="Terracotta">Terracotta</option>
+                                <option value="Glass">Glass</option>
+                                <option value="Teak">Teak</option>
+                                <option value="Mango">Mango</option>
+                                <option value="Metal">Metal</option>
+                                <option value="Stone">Stone</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-block">
+                        <div class="sidebar-block-header">
+                            <h3>Region</h3>
+                            <span class="sidebar-block-toggle">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                            </span>
+                        </div>
+                        <div class="sidebar-block-content">
+                            <select id="regionSelect" class="form-control" style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-gray-300); background: var(--color-ivory-light); font-family: var(--font-body); font-size: var(--text-sm); font-weight: 500; color: var(--color-gray-700);">
+                                <option value="all">All Regions</option>
+                                <option value="Jaipur">Jaipur (Rajasthan)</option>
+                                <option value="Jodhpur">Jodhpur (Rajasthan)</option>
+                                <option value="Moradabad">Moradabad (UP)</option>
+                                <option value="Sahranpur">Sahranpur (UP)</option>
+                                <option value="Varanasi">Varanasi (UP)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-block">
+                        <div class="sidebar-block-header">
+                            <h3>MOQ Range</h3>
+                            <span class="sidebar-block-toggle">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                            </span>
+                        </div>
+                        <div class="sidebar-block-content">
+                            <div class="checkbox-filters" id="moqFilter">
+                                <label class="checkbox-container">MOQ 1-5 Units
+                                    <input type="checkbox" name="moq_range" value="1-5">
+                                    <span class="checkmark"></span>
                                 </label>
-                                <label style="display: flex; align-items: center; gap: 8px; font-size: var(--text-sm); color: var(--color-gray-700); cursor: pointer;">
-                                    <input type="radio" name="price_preset" value="0-10000" style="accent-color: var(--color-maroon);"> Under ₹10,000
+                                <label class="checkbox-container">MOQ 6-20 Units
+                                    <input type="checkbox" name="moq_range" value="6-20">
+                                    <span class="checkmark"></span>
                                 </label>
-                                <label style="display: flex; align-items: center; gap: 8px; font-size: var(--text-sm); color: var(--color-gray-700); cursor: pointer;">
-                                    <input type="radio" name="price_preset" value="10000-30000" style="accent-color: var(--color-maroon);"> ₹10,000 - ₹30,000
-                                </label>
-                                <label style="display: flex; align-items: center; gap: 8px; font-size: var(--text-sm); color: var(--color-gray-700); cursor: pointer;">
-                                    <input type="radio" name="price_preset" value="30000-over" style="accent-color: var(--color-maroon);"> Above ₹30,000
+                                <label class="checkbox-container">Bulk Only (21+)
+                                    <input type="checkbox" name="moq_range" value="21-above">
+                                    <span class="checkmark"></span>
                                 </label>
                             </div>
                         </div>
                     </div>
 
                     <div class="sidebar-block">
-                        <h3 style="font-family: var(--font-heading); font-size: var(--text-lg); margin-bottom: var(--space-4); border-bottom: 2px solid rgba(212, 168, 75, 0.3); padding-bottom: var(--space-2); color: var(--color-maroon); text-transform: uppercase; letter-spacing: 1px;">Material</h3>
-                        <select id="materialSelect" class="form-control" style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-gray-300); background: var(--color-ivory-light); font-family: var(--font-body); font-size: var(--text-sm); font-weight: 500; color: var(--color-gray-700);">
-                            <option value="all">All Materials</option>
-                            <option value="Wood">Wood</option>
-                            <option value="Brass">Brass</option>
-                            <option value="Terracotta">Terracotta</option>
-                            <option value="Bone Inlay">Bone Inlay</option>
-                            <option value="Glass">Glass</option>
-                            <option value="Teak">Teak</option>
-                            <option value="Mango">Mango</option>
-                            <option value="Metal">Metal</option>
-                            <option value="Leather">Leather</option>
-                            <option value="Dokra">Dokra</option>
-                        </select>
+                        <div class="sidebar-block-header">
+                            <h3>Availability</h3>
+                            <span class="sidebar-block-toggle">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                            </span>
+                        </div>
+                        <div class="sidebar-block-content">
+                            <div class="checkbox-filters" id="availabilityFilter">
+                                <label class="checkbox-container">Ready to Ship
+                                    <input type="checkbox" name="availability" value="ready" checked>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="checkbox-container">Custom Orders
+                                    <input type="checkbox" name="availability" value="custom">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </aside>
 
                 <!-- RIGHT CONTENT -->
                 <div class="catalogue-content" style="flex: 1;">
+                    <div id="activeFilters" class="active-filters-container">
+                        <!-- Filter badges will be injected here -->
+                    </div>
+
                     <div id="stickyFilterBar" style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: var(--space-4); background: var(--color-white); padding: var(--space-3) var(--space-4); border: 1px solid var(--color-gray-200); border-radius: var(--radius-sm); box-shadow: var(--shadow-sm); position: sticky; top: 80px; z-index: 5;">
                         <div style="display: flex; align-items: center; gap: var(--space-4);">
                             <div class="sort-filter" style="display: flex; align-items: center; gap: var(--space-2);">

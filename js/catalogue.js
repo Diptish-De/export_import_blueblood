@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   let currentSort = 'default';
   let minPrice = 0;
   let maxPrice = 1000000; // Large default
+  let currentRegion = 'all';
+  let selectedMOQRanges = [];
+  let selectedAvailabilities = ['ready']; // Default to ready
 
   const mainCategoryFilter = document.getElementById('mainCategoryFilter');
   const subCategoryFilter = document.getElementById('subCategoryFilter');
@@ -36,6 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       updateSubCategoryButtons();
       renderProducts();
       updateActiveFilters();
+      updateActiveFilterBadges();
     } catch (error) {
       console.error('Error loading products:', error);
       productGrid.innerHTML = '<p style="text-align:center;color:var(--color-gray-500);grid-column:1/-1;">Unable to load products. Please try again later.</p>';
@@ -84,6 +88,34 @@ document.addEventListener('DOMContentLoaded', async () => {
         (p.material && p.material.toLowerCase().includes(lowerQuery)) ||
         (p.origin && p.origin.toLowerCase().includes(lowerQuery))
       );
+    }
+
+    // Filter by Region
+    if (currentRegion !== 'all') {
+        filteredProducts = filteredProducts.filter(p => p.region === currentRegion || (currentRegion === 'Jaipur' && p.origin === 'India')); // Mocking Jaime for India for now
+    }
+
+    // Filter by MOQ
+    if (selectedMOQRanges.length > 0) {
+        filteredProducts = filteredProducts.filter(p => {
+            const moq = p.moq || 1;
+            return selectedMOQRanges.some(range => {
+                if (range === '1-5') return moq >= 1 && moq <= 5;
+                if (range === '6-20') return moq >= 6 && moq <= 20;
+                if (range === '21-above') return moq >= 21;
+                return false;
+            });
+        });
+    }
+
+    // Filter by Availability
+    if (selectedAvailabilities.length > 0) {
+        filteredProducts = filteredProducts.filter(p => {
+            // Mocking availability: even IDs are ready, odd are custom for demo
+            const isReady = (parseInt(p.id.split('-').pop()) % 2 === 0);
+            return (selectedAvailabilities.includes('ready') && isReady) || 
+                   (selectedAvailabilities.includes('custom') && !isReady);
+        });
     }
 
     // Sort Logic
@@ -202,6 +234,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         </div>
       </div>
     `).join('');
+
+    updateActiveFilterBadges();
   }
 
   // Infinite Scroll Hook
@@ -345,11 +379,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Handle Search Input
   const searchInput = document.getElementById('searchInput');
+  const searchClear = document.getElementById('searchClear');
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       searchQuery = e.target.value.trim();
+      if (searchClear) {
+        searchClear.style.display = searchQuery ? 'block' : 'none';
+      }
       renderProducts(true);
     });
+
+    if (searchClear) {
+        searchClear.addEventListener('click', () => {
+            searchInput.value = '';
+            searchQuery = '';
+            searchClear.style.display = 'none';
+            renderProducts(true);
+        });
+    }
   }
 
   // Variant Click Handler
@@ -427,6 +474,30 @@ document.addEventListener('DOMContentLoaded', async () => {
   const priceRange = document.getElementById('priceRange');
   const priceValueLabel = document.getElementById('priceValue');
   const pricePresets = document.getElementsByName('price_preset');
+  const regionSelect = document.getElementById('regionSelect');
+  const moqCheckboxes = document.querySelectorAll('input[name="moq_range"]');
+  const availabilityCheckboxes = document.querySelectorAll('input[name="availability"]');
+
+  if (regionSelect) {
+      regionSelect.addEventListener('change', (e) => {
+          currentRegion = e.target.value;
+          renderProducts(true);
+      });
+  }
+
+  moqCheckboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
+          selectedMOQRanges = Array.from(moqCheckboxes).filter(i => i.checked).map(i => i.value);
+          renderProducts(true);
+      });
+  });
+
+  availabilityCheckboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
+          selectedAvailabilities = Array.from(availabilityCheckboxes).filter(i => i.checked).map(i => i.value);
+          renderProducts(true);
+      });
+  });
 
   if (priceRange) {
       priceRange.addEventListener('input', (e) => {
@@ -598,6 +669,149 @@ document.addEventListener('DOMContentLoaded', async () => {
       modal.classList.remove('active');
       document.body.style.overflow = '';
     }
+  };
+
+  // Collapsible Sidebar Blocks
+  document.querySelectorAll('.sidebar-block-header').forEach(header => {
+      header.addEventListener('click', () => {
+          header.parentElement.classList.toggle('collapsed');
+      });
+  });
+
+  // Reset All Filters
+  function resetAllFilters() {
+      currentMainCategory = 'all';
+      currentSubCategory = 'all';
+      currentMaterial = 'all';
+      searchQuery = '';
+      minPrice = 0;
+      maxPrice = 1000000;
+      currentSort = 'default';
+
+      // Reset UI Elements
+      if (searchInput) {
+          searchInput.value = '';
+          if (searchClear) searchClear.style.display = 'none';
+      }
+      if (materialSelect) materialSelect.value = 'all';
+      if (priceRange) {
+          priceRange.value = 100000;
+          const priceVal = document.getElementById('priceValue');
+          if (priceVal) priceVal.textContent = "Up to ₹1,00,000+";
+      }
+      pricePresets.forEach(p => {
+          p.checked = (p.value === 'all');
+      });
+      if (sortSelect) sortSelect.value = 'default';
+      if (regionSelect) regionSelect.value = 'all';
+      moqCheckboxes.forEach(cb => cb.checked = false);
+      availabilityCheckboxes.forEach(cb => cb.checked = (cb.value === 'ready'));
+      selectedMOQRanges = [];
+      selectedAvailabilities = ['ready'];
+      currentRegion = 'all';
+
+      updateSubCategoryButtons();
+      updateActiveFilters();
+      
+      // Clear URL
+      window.history.pushState({}, '', window.location.pathname);
+      
+      renderProducts(true);
+  }
+
+  const clearAllBtn = document.getElementById('clearAllFilters');
+  if (clearAllBtn) {
+      clearAllBtn.addEventListener('click', resetAllFilters);
+  }
+
+  // Active Filter Badges Logic
+  function updateActiveFilterBadges() {
+      const container = document.getElementById('activeFilters');
+      if (!container) return;
+
+      let badges = [];
+
+      if (currentMainCategory !== 'all') {
+          badges.push({ type: 'category', label: `Category: ${currentMainCategory}`, value: currentMainCategory });
+      }
+      if (currentSubCategory !== 'all') {
+          badges.push({ type: 'subcategory', label: `Sub: ${currentSubCategory}`, value: currentSubCategory });
+      }
+      if (currentMaterial !== 'all') {
+          badges.push({ type: 'material', label: `Material: ${currentMaterial}`, value: currentMaterial });
+      }
+      if (currentRegion !== 'all') {
+          badges.push({ type: 'region', label: `Region: ${currentRegion}`, value: currentRegion });
+      }
+      if (selectedMOQRanges.length > 0) {
+          badges.push({ type: 'moq', label: `MOQ: ${selectedMOQRanges.join(', ')}`, value: 'moq' });
+      }
+      if (selectedAvailabilities.length > 0) {
+          badges.push({ type: 'availability', label: `Status: ${selectedAvailabilities.join(', ')}`, value: 'availability' });
+      }
+      if (searchQuery) {
+          badges.push({ type: 'search', label: `Search: "${searchQuery}"`, value: searchQuery });
+      }
+      if (maxPrice < 1000000 || minPrice > 0) {
+          let label = `Price: `;
+          if (minPrice === 0) label += `Up to ₹${maxPrice.toLocaleString()}`;
+          else if (maxPrice >= 1000000) label += `Above ₹${minPrice.toLocaleString()}`;
+          else label += `₹${minPrice.toLocaleString()} - ₹${maxPrice.toLocaleString()}`;
+          badges.push({ type: 'price', label: label, value: 'price' });
+      }
+
+      if (badges.length === 0) {
+          container.innerHTML = '';
+          return;
+      }
+
+      container.innerHTML = badges.map(badge => `
+          <div class="filter-badge">
+              <span>${badge.label}</span>
+              <span class="filter-badge-remove" onclick="removeFilter('${badge.type}', '${badge.value}')">&times;</span>
+          </div>
+      `).join('');
+  }
+
+  window.removeFilter = (type, value) => {
+      if (type === 'category') {
+          currentMainCategory = 'all';
+          currentSubCategory = 'all';
+          updateSubCategoryButtons();
+          updateActiveFilters();
+      } else if (type === 'subcategory') {
+          currentSubCategory = 'all';
+          updateActiveFilters();
+      } else if (type === 'material') {
+          currentMaterial = 'all';
+          if (materialSelect) materialSelect.value = 'all';
+      } else if (type === 'region') {
+          currentRegion = 'all';
+          if (regionSelect) regionSelect.value = 'all';
+      } else if (type === 'moq') {
+          selectedMOQRanges = [];
+          moqCheckboxes.forEach(cb => cb.checked = false);
+      } else if (type === 'availability') {
+          selectedAvailabilities = ['ready'];
+          availabilityCheckboxes.forEach(cb => cb.checked = (cb.value === 'ready'));
+      } else if (type === 'search') {
+          searchQuery = '';
+          if (searchInput) {
+              searchInput.value = '';
+              if (searchClear) searchClear.style.display = 'none';
+          }
+      } else if (type === 'price') {
+          minPrice = 0;
+          maxPrice = 1000000;
+          if (priceRange) {
+              priceRange.value = 100000;
+              const label = document.getElementById('priceValue');
+              if (label) label.textContent = "Up to ₹1,00,000+";
+          }
+          pricePresets.forEach(p => p.checked = (p.value === 'all'));
+      }
+
+      renderProducts(true);
   };
 
   // Load products on page load
