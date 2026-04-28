@@ -17,6 +17,35 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Variables
     let currentProduct = null;
+    let currentCurrency = localStorage.getItem('blueblood_currency') || 'INR';
+
+    const exchangeRates = {
+        'INR': { rate: 1, symbol: '₹' },
+        'USD': { rate: 0.012, symbol: '$' },
+        'EUR': { rate: 0.011, symbol: '€' },
+        'GBP': { rate: 0.0094, symbol: '£' },
+        'AED': { rate: 0.044, symbol: 'د.إ ' }
+    };
+
+    function formatPrice(priceInINR) {
+        if (!priceInINR && priceInINR !== 0) return 'Contact for Price';
+        const currency = exchangeRates[currentCurrency] || exchangeRates['INR'];
+        
+        if (typeof priceInINR === 'string' && priceInINR.includes('-')) {
+            return priceInINR.split('-').map(p => {
+                const converted = (parseFloat(p.replace(/,/g, '')) * currency.rate).toFixed(currentCurrency === 'INR' ? 0 : 2);
+                return `${currency.symbol}${converted}`;
+            }).join(' - ');
+        }
+        
+        const converted = (parseFloat(priceInINR.toString().replace(/,/g, '')) * currency.rate).toFixed(currentCurrency === 'INR' ? 0 : 2);
+        return `${currency.symbol}${converted}`;
+    }
+
+    document.addEventListener('currencyChanged', (e) => {
+        currentCurrency = e.detail;
+        if (currentProduct) renderProduct();
+    });
 
     // Load product data
     async function loadProduct() {
@@ -68,9 +97,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Specs Table
         document.getElementById('productMaterial').textContent = currentProduct.material || 'Premium Brass/Wood';
+        document.getElementById('productHsCode').textContent = currentProduct.hs_code || 'N/A';
         document.getElementById('productDimensions').textContent = currentProduct.dimensions || 'Standard Export Size';
         document.getElementById('productWeight').textContent = currentProduct.weight || 'Contact for Weight';
         document.getElementById('productCat2').textContent = currentProduct.category || 'Handicrafts';
+        
+        // Price
+        const priceEl = document.getElementById('productPrice');
+        if (priceEl) {
+            priceEl.textContent = currentProduct.price ? formatPrice(currentProduct.price) : (currentProduct.price_range ? formatPrice(currentProduct.price_range) : 'Contact for Price');
+        }
         
         const weightNum = currentProduct.weight ? parseFloat(currentProduct.weight.toString().replace(/[^0-9.]/g, '')) : 0;
         const calculatedCBM = weightNum > 0 ? (weightNum * 0.002).toFixed(3) : '0.050';

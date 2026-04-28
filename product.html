@@ -81,6 +81,13 @@
                 <a href="contact.html" class="navbar-link">Contact</a>
             </div>
             <div class="navbar-controls">
+                <select id="globalCurrencySelector" class="currency-selector" aria-label="Select Currency" style="background: transparent; border: 1px solid var(--color-gold-light); color: var(--color-maroon); padding: 4px 8px; border-radius: 4px; cursor: pointer; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; margin-right: 10px;">
+                    <option value="INR">₹ INR</option>
+                    <option value="USD">$ USD</option>
+                    <option value="EUR">€ EUR</option>
+                    <option value="GBP">£ GBP</option>
+                    <option value="AED">د.إ AED</option>
+                </select>
                 <button class="cart-toggle" id="cartToggle" aria-label="View Inquiry Bag">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path>
@@ -116,6 +123,7 @@
                 <div class="product-info">
                     <span class="product-category-badge" id="productCategory"></span>
                     <h1 class="product-title" id="productName"></h1>
+                    <p id="productPrice" style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: bold; color: var(--color-maroon); margin-bottom: 10px;"></p>
                     <div class="product-origin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                             fill="currentColor">
                             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
@@ -128,6 +136,10 @@
                                 <tr style="border-bottom: 1px solid var(--color-gray-100);">
                                     <th style="padding: 12px 15px; text-align: left; background: var(--color-gray-50); width: 40%; font-size: 0.9rem; color: var(--color-maroon);">Material</th>
                                     <td id="productMaterial" style="padding: 12px 15px; font-size: 0.9rem; color: var(--color-gray-700);"></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--color-gray-100);">
+                                    <th style="padding: 12px 15px; text-align: left; background: var(--color-gray-50); width: 40%; font-size: 0.9rem; color: var(--color-maroon);">HS Code</th>
+                                    <td id="productHsCode" style="padding: 12px 15px; font-size: 0.9rem; color: var(--color-gray-700);"></td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid var(--color-gray-100);">
                                     <th style="padding: 12px 15px; text-align: left; background: var(--color-gray-50); font-size: 0.9rem; color: var(--color-maroon);">Dimensions</th>
@@ -325,6 +337,20 @@
     <script type="module" src="/js/wishlist.js"></script>
     <script type="module" src="/js/engagement.js"></script>
     <script type="module" src="/js/contact.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const selector = document.getElementById('globalCurrencySelector');
+                    const savedCurrency = localStorage.getItem('blueblood_currency') || 'INR';
+                    if (selector) {
+                        selector.value = savedCurrency;
+                        selector.addEventListener('change', (e) => {
+                            const newCurrency = e.target.value;
+                            localStorage.setItem('blueblood_currency', newCurrency);
+                            document.dispatchEvent(new CustomEvent('currencyChanged', { detail: newCurrency }));
+                        });
+                    }
+                });
+            </script>
 </body>
 
 </html>

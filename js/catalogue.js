@@ -23,6 +23,39 @@ document.addEventListener('DOMContentLoaded', async () => {
   const mainCategoryFilter = document.getElementById('mainCategoryFilter');
   const subCategoryFilter = document.getElementById('subCategoryFilter');
 
+  // Currency configuration
+  const exchangeRates = {
+      'INR': { rate: 1, symbol: '₹' },
+      'USD': { rate: 0.012, symbol: '$' },
+      'EUR': { rate: 0.011, symbol: '€' },
+      'GBP': { rate: 0.0094, symbol: '£' },
+      'AED': { rate: 0.044, symbol: 'د.إ ' }
+  };
+  let currentCurrency = localStorage.getItem('blueblood_currency') || 'INR';
+
+  function formatPrice(priceInINR) {
+      if (!priceInINR && priceInINR !== 0) return 'Contact for Price';
+      const currency = exchangeRates[currentCurrency] || exchangeRates['INR'];
+      
+      // If it's a range like "10000-20000"
+      if (typeof priceInINR === 'string' && priceInINR.includes('-')) {
+          return priceInINR.split('-').map(p => {
+              const converted = (parseFloat(p.replace(/,/g, '')) * currency.rate).toFixed(currentCurrency === 'INR' ? 0 : 2);
+              return `${currency.symbol}${converted}`;
+          }).join(' - ');
+      }
+      
+      // Single price
+      const converted = (parseFloat(priceInINR.toString().replace(/,/g, '')) * currency.rate).toFixed(currentCurrency === 'INR' ? 0 : 2);
+      return `${currency.symbol}${converted}`;
+  }
+
+  // Handle global currency change event from navbar
+  document.addEventListener('currencyChanged', (e) => {
+      currentCurrency = e.detail;
+      renderProducts(true);
+  });
+
   // Check URL for params
   const urlParams = new URLSearchParams(window.location.search);
   const mainParam = urlParams.get('category'); // Backward compatibility: treat 'category' as main
@@ -203,8 +236,11 @@ document.addEventListener('DOMContentLoaded', async () => {
           </button>
         </div>
         <div class="product-card-content">
-          <h3 class="product-card-name" style="cursor: pointer;" onclick="openQuickView('${product.id}')">${product.name}</h3>
-          <p id="price-${product.id}" style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: bold; color: var(--color-maroon); margin-bottom: 5px;">${product.variants && product.variants[0].price ? '₹' + product.variants[0].price : (product.price_range ? '₹' + product.price_range : 'Contact for Price')}</p>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+              <h3 class="product-card-name" style="cursor: pointer; margin-bottom: 5px;" onclick="openQuickView('${product.id}')">${product.name}</h3>
+              ${product.hs_code ? `<span style="font-size: 0.7rem; color: var(--color-gray-500); border: 1px solid var(--color-gray-200); padding: 2px 4px; border-radius: 4px; white-space: nowrap;" title="HS Code">HS: ${product.hs_code}</span>` : ''}
+          </div>
+          <p id="price-${product.id}" style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: bold; color: var(--color-maroon); margin-bottom: 5px;">${product.variants && product.variants[0].price ? formatPrice(product.variants[0].price) : (product.price_range ? formatPrice(product.price_range) : 'Contact for Price')}</p>
           <div class="product-card-meta">
             <span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -413,7 +449,7 @@ document.addEventListener('DOMContentLoaded', async () => {
      if (img && variant.image) img.src = variant.image;
 
      const priceEl = document.getElementById(`price-${productId}`);
-     if (priceEl) priceEl.textContent = variant.price ? `₹${variant.price}` : 'Contact for Price';
+     if (priceEl) priceEl.textContent = variant.price ? formatPrice(variant.price) : 'Contact for Price';
 
      // Update variant button styles
      const variantBtns = card.querySelectorAll('.product-variants button');
@@ -622,7 +658,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('qvImage').title = `${product.name} - Premium Indian ${product.category} by Blueblood Exports`;
     document.getElementById('qvCategory').textContent = product.category;
     document.getElementById('qvName').textContent = product.name;
-    document.getElementById('qvPrice').textContent = product.price_range ? '₹' + product.price_range : 'Contact for Price';
+    document.getElementById('qvPrice').textContent = product.price_range ? formatPrice(product.price_range) : 'Contact for Price';
     document.getElementById('qvDesc').textContent = product.description;
     document.getElementById('qvId').textContent = product.id;
     document.getElementById('qvHs').textContent = product.hs_code || 'N/A';
@@ -637,7 +673,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <p style="font-size: 0.9rem; font-weight: 600; margin-bottom: 5px;">Available Variants:</p>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                 ${product.variants.map((v, i) => `
-                    <button class="qv-variant-btn" onclick="document.getElementById('qvImage').src='${v.image}'; document.getElementById('qvPrice').textContent='${v.price ? "₹"+v.price : "Contact for Price"}'; document.getElementById('qvId').textContent='${v.id}'; document.getElementById('qvHs').textContent='${v.hs_code || "N/A"}'; document.querySelectorAll('.qv-variant-btn').forEach(b => b.style.borderColor='#ccc'); this.style.borderColor='var(--color-maroon)';" title="${v.color}" style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid ${i===0?'var(--color-maroon)':'#ccc'}; background: var(--color-gray-200); background-image: url('${v.image}'); background-size: cover; background-position: center; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></button>
+                    <button class="qv-variant-btn" onclick="document.getElementById('qvImage').src='${v.image}'; document.getElementById('qvPrice').textContent='${v.price ? formatPrice(v.price) : "Contact for Price"}'; document.getElementById('qvId').textContent='${v.id}'; document.getElementById('qvHs').textContent='${v.hs_code || "N/A"}'; document.querySelectorAll('.qv-variant-btn').forEach(b => b.style.borderColor='#ccc'); this.style.borderColor='var(--color-maroon)';" title="${v.color}" style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid ${i===0?'var(--color-maroon)':'#ccc'}; background: var(--color-gray-200); background-image: url('${v.image}'); background-size: cover; background-position: center; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></button>
                 `).join('')}
             </div>
         `;

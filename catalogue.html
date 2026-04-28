@@ -378,6 +378,13 @@
                 <a href="contact.html" class="navbar-link">Contact</a>
             </div>
             <div class="navbar-controls">
+                <select id="globalCurrencySelector" class="currency-selector" aria-label="Select Currency" style="background: transparent; border: 1px solid var(--color-gold-light); color: var(--color-maroon); padding: 4px 8px; border-radius: 4px; cursor: pointer; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; margin-right: 10px;">
+                    <option value="INR">₹ INR</option>
+                    <option value="USD">$ USD</option>
+                    <option value="EUR">€ EUR</option>
+                    <option value="GBP">£ GBP</option>
+                    <option value="AED">د.إ AED</option>
+                </select>
                 <button class="cart-toggle" id="cartToggle" aria-label="View Inquiry Bag">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path>
@@ -713,6 +720,21 @@
             <script type="module" src="/js/wishlist.js"></script>
             <script type="module" src="/js/engagement.js"></script>
             <script type="module" src="/js/contact.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const selector = document.getElementById('globalCurrencySelector');
+                    const savedCurrency = localStorage.getItem('blueblood_currency') || 'INR';
+                    if (selector) {
+                        selector.value = savedCurrency;
+                        selector.addEventListener('change', (e) => {
+                            const newCurrency = e.target.value;
+                            localStorage.setItem('blueblood_currency', newCurrency);
+                            // Dispatch custom event so other scripts (like catalogue.js) can react
+                            document.dispatchEvent(new CustomEvent('currencyChanged', { detail: newCurrency }));
+                        });
+                    }
+                });
+            </script>
 </body>
 
 </html>
