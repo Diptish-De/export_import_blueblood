@@ -2098,6 +2098,63 @@ body {
     box-shadow: 0 4px 15px rgba(212, 168, 75, 0.3);
 }
 
+/* ============================================
+   Certifications Marquee - Right to Left Carousel
+   ============================================ */
+.certifications-marquee {
+    width: 100%;
+    overflow: hidden;
+    padding: var(--space-4) 0;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+.certifications-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-cert 35s linear infinite;
+    gap: var(--space-6);
+}
+
+.certifications-marquee:hover .certifications-track {
+    animation-play-state: paused;
+}
+
+.certifications-track .document-card {
+    flex: 0 0 auto;
+    width: 260px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: none;
+    margin: 0;
+}
+
+@keyframes marquee-cert {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .certifications-track {
+        animation-duration: 25s;
+        gap: var(--space-4);
+    }
+    .certifications-track .document-card {
+        width: 220px;
+        padding: var(--space-4);
+    }
+}
 
 /* ============================================
    Floating WhatsApp Button - Mobile CTA
