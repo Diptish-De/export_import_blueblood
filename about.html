@@ -35,8 +35,7 @@
     <link rel='stylesheet' href='css/extra-features.css'>
     <!-- CSS injected by Vite via main.js import -->
     <script>(function () { const t = localStorage.getItem("theme") || "light"; document.documentElement.setAttribute("data-theme", t); if (sessionStorage.getItem("blueblood_loaded")) { document.documentElement.classList.add("page-is-loaded"); document.write("<style>.page-loader{display:none!important;}</style>") } }).call(this);</script>
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- About Carousel (no external dependency) -->
     <style>
         .artisan-card {
             background: var(--color-white);
@@ -166,8 +165,8 @@
             }
         }
 
-        /* About Page Swiper Styles */
-        .about-swiper-container {
+        /* About Page Crossfade Carousel — Pure CSS/JS, zero dependencies */
+        .about-carousel {
             width: 100%;
             border-radius: var(--radius-xl);
             box-shadow: var(--shadow-xl);
@@ -178,40 +177,54 @@
             position: relative;
         }
 
-        .about-swiper-container .swiper.about-swiper {
-            width: 100% !important;
-            height: 100% !important;
-            position: absolute !important;
+        .about-carousel .carousel-slide {
+            position: absolute;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            z-index: 0;
         }
 
-        .about-swiper-container .swiper-wrapper {
-            width: 100% !important;
-            height: 100% !important;
+        .about-carousel .carousel-slide.active {
+            opacity: 1;
+            z-index: 1;
         }
 
-        .about-swiper-container .swiper-slide {
-            width: 100% !important;
-            height: 100% !important;
-            opacity: 0 !important;
-            transition: opacity 1s ease-in-out !important;
+        .about-carousel .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        .about-swiper-container .swiper-slide-active {
-            opacity: 1 !important;
-            z-index: 1 !important;
+        .about-carousel .carousel-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 5;
         }
 
-        .about-swiper-container .swiper-slide img {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover !important;
-            display: block !important;
+        .about-carousel .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.45);
+            border: 1px solid rgba(212,168,75,0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
         }
 
-        .about-swiper-container .swiper-pagination-bullet-active {
-            background: var(--color-gold) !important;
+        .about-carousel .carousel-dot.active {
+            background: var(--color-gold);
+            border-color: var(--color-gold);
+            transform: scale(1.2);
         }
     </style>
 </head>
@@ -297,27 +310,28 @@
     <section class="section bg-white">
         <div class="container">
             <div class="grid" style="grid-template-columns:1fr 1fr;gap:var(--space-12);align-items:center">
-                <div class="about-swiper-container">
-                    <div class="swiper about-swiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <img src="brass_ganesha_idol_1777228073814.png" alt="Premium Handcrafted Brass Ganesha Idol" title="Traditional Brass Artistry">
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="dhokra_horse_sculpture_1777228087702.png" alt="Traditional Dhokra Horse Sculpture" title="Tribal Lost-Wax Casting Heritage">
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="bone_inlay_tray_1777228102542.png" alt="Luxury Bone Inlay Decorative Tray" title="Intricate Bone Inlay Craftsmanship">
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="sheesham_wood_box_1777228116389.png" alt="Hand-carved Sheesham Wood Jewelry Box" title="Rajasthani Wooden Legacy">
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="warli_art_frame_1777228130429.png" alt="Traditional Warli Tribal Art Painting" title="Cultural Heritage Art">
-                            </div>
-                        </div>
-                        <!-- Add Pagination -->
-                        <div class="swiper-pagination"></div>
+                <div class="about-carousel" id="aboutCarousel">
+                    <div class="carousel-slide active">
+                        <img src="brass_ganesha_idol_1777228073814.png" alt="Premium Handcrafted Brass Ganesha Idol" title="Traditional Brass Artistry">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="dhokra_horse_sculpture_1777228087702.png" alt="Traditional Dhokra Horse Sculpture" title="Tribal Lost-Wax Casting Heritage">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="bone_inlay_tray_1777228102542.png" alt="Luxury Bone Inlay Decorative Tray" title="Intricate Bone Inlay Craftsmanship">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="sheesham_wood_box_1777228116389.png" alt="Hand-carved Sheesham Wood Jewelry Box" title="Rajasthani Wooden Legacy">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="warli_art_frame_1777228130429.png" alt="Traditional Warli Tribal Art Painting" title="Cultural Heritage Art">
+                    </div>
+                    <div class="carousel-dots">
+                        <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
+                        <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
+                        <button class="carousel-dot" data-index="2" aria-label="Slide 3"></button>
+                        <button class="carousel-dot" data-index="3" aria-label="Slide 4"></button>
+                        <button class="carousel-dot" data-index="4" aria-label="Slide 5"></button>
                     </div>
                 </div>
                 <div class="about-content">
@@ -576,26 +590,38 @@
     <script type="module" src="/js/engagement.js"></script>
     <script type="module" src="/js/contact.js"></script>
 
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- About Carousel — Pure JS -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const aboutSwiper = new Swiper('.about-swiper', {
-                loop: true,
-                effect: 'fade',
-                fadeEffect: {
-                    crossFade: true
-                },
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                speed: 1000, // Smooth transition
+            const carousel = document.getElementById('aboutCarousel');
+            if (!carousel) return;
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const dots = carousel.querySelectorAll('.carousel-dot');
+            let current = 0;
+            let timer;
+
+            function goTo(index) {
+                slides[current].classList.remove('active');
+                dots[current].classList.remove('active');
+                current = index % slides.length;
+                slides[current].classList.add('active');
+                dots[current].classList.add('active');
+            }
+
+            function next() { goTo(current + 1); }
+
+            function startAutoplay() { timer = setInterval(next, 5000); }
+            function stopAutoplay() { clearInterval(timer); }
+
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    stopAutoplay();
+                    goTo(parseInt(dot.dataset.index));
+                    startAutoplay();
+                });
             });
+
+            startAutoplay();
         });
     </script>
 </body>
