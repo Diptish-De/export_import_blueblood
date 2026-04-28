@@ -179,6 +179,61 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+  // =============================================
+  // Currency Auto-Detection via IP Geolocation
+  // =============================================
+  const COUNTRY_CURRENCY_MAP = {
+    'US': 'USD', 'CA': 'USD',
+    'GB': 'GBP', 'UK': 'GBP',
+    'DE': 'EUR', 'FR': 'EUR', 'IT': 'EUR', 'ES': 'EUR', 'NL': 'EUR', 'BE': 'EUR', 'AT': 'EUR', 'PT': 'EUR', 'IE': 'EUR', 'FI': 'EUR', 'GR': 'EUR',
+    'AE': 'AED', 'SA': 'AED', 'QA': 'AED', 'KW': 'AED', 'BH': 'AED', 'OM': 'AED',
+    'IN': 'INR', 'LK': 'INR', 'NP': 'INR', 'BD': 'INR'
+  };
+
+  async function detectCurrencyFromLocation() {
+    // Only auto-detect if user hasn't manually chosen a currency
+    if (localStorage.getItem('blueblood_currency_manual')) return;
+    // Only call API once — check if we already cached a geo result
+    if (localStorage.getItem('blueblood_currency')) return;
+
+    try {
+      const response = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) });
+      if (!response.ok) return;
+      const data = await response.json();
+      const countryCode = data.country_code || data.country;
+      if (!countryCode) return;
+
+      const detectedCurrency = COUNTRY_CURRENCY_MAP[countryCode] || 'USD';
+      localStorage.setItem('blueblood_currency', detectedCurrency);
+
+      // Update selector if present
+      const selector = document.getElementById('globalCurrencySelector');
+      if (selector) selector.value = detectedCurrency;
+
+      // Notify other scripts
+      document.dispatchEvent(new CustomEvent('currencyChanged', { detail: detectedCurrency }));
+    } catch (e) {
+      // Silently fail — default to INR
+      console.log('Currency geo-detection skipped:', e.message);
+    }
+  }
+
+  // Init currency selector (works on any page that has the dropdown)
+  const currencySelector = document.getElementById('globalCurrencySelector');
+  const savedCurrency = localStorage.getItem('blueblood_currency') || 'INR';
+  if (currencySelector) {
+    currencySelector.value = savedCurrency;
+    currencySelector.addEventListener('change', (e) => {
+      const newCurrency = e.target.value;
+      localStorage.setItem('blueblood_currency', newCurrency);
+      localStorage.setItem('blueblood_currency_manual', 'true'); // Mark as manual choice
+      document.dispatchEvent(new CustomEvent('currencyChanged', { detail: newCurrency }));
+    });
+  }
+
+  // Run geo-detection
+  detectCurrencyFromLocation();
 });
 
 // Global helpers for cart

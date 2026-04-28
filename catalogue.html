@@ -720,21 +720,6 @@
             <script type="module" src="/js/wishlist.js"></script>
             <script type="module" src="/js/engagement.js"></script>
             <script type="module" src="/js/contact.js"></script>
-            <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    const selector = document.getElementById('globalCurrencySelector');
-                    const savedCurrency = localStorage.getItem('blueblood_currency') || 'INR';
-                    if (selector) {
-                        selector.value = savedCurrency;
-                        selector.addEventListener('change', (e) => {
-                            const newCurrency = e.target.value;
-                            localStorage.setItem('blueblood_currency', newCurrency);
-                            // Dispatch custom event so other scripts (like catalogue.js) can react
-                            document.dispatchEvent(new CustomEvent('currencyChanged', { detail: newCurrency }));
-                        });
-                    }
-                });
-            </script>
 </body>
 
 </html>
