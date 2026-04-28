@@ -2008,8 +2008,9 @@ body {
    Document/Certification Cards (Premium)
    ============================================ */
 .document-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: var(--space-8);
     margin-top: var(--space-10);
 }
@@ -2024,12 +2025,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center; /* Center content vertically */
     position: relative;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-    height: auto;
+    width: 280px;
+    max-width: 100%;
     aspect-ratio: 1 / 1;
-    max-width: 300px;
-    margin: 0 auto;
+    margin: 0;
 }
 
 .document-card:hover {
