@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const weightNum = currentProduct.weight ? parseFloat(currentProduct.weight.toString().replace(/[^0-9.]/g, '')) : 0;
         const calculatedCBM = weightNum > 0 ? (weightNum * 0.002).toFixed(3) : '0.050';
         document.getElementById('productCBM').textContent = `${calculatedCBM} CBM (Est.)`;
-        document.getElementById('productMOQ').textContent = `${currentProduct.moq || 1} units`;
+        document.getElementById('productMOQ').textContent = `${(!currentProduct.moq || currentProduct.moq === 1) ? 50 : currentProduct.moq} units`;
 
         // Images
         const mImg = document.getElementById('mainImage');
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Actions
         const actionsDiv = document.getElementById('productActions');
         if (actionsDiv) {
-            const moq = currentProduct.moq || 1;
+            const moq = (!currentProduct.moq || currentProduct.moq === 1) ? 50 : currentProduct.moq;
             actionsDiv.innerHTML = `
                 <div class="quantity-selector" style="display: flex; align-items: center; justify-content: space-between; background: var(--color-white); border: 1px solid var(--color-gray-200); padding: 10px 15px; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); margin-bottom: var(--space-2);">
                     <label style="font-family: var(--font-heading); font-size: 0.9rem; font-weight: 700; color: var(--color-gray-700); text-transform: uppercase; letter-spacing: 0.5px;">Quantity:</label>
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Detailed Page specific functions
         window.updateDetailedQty = (val) => {
             const input = document.getElementById('detailQtyInput');
-            const moq = currentProduct.moq || 1;
+            const moq = (!currentProduct.moq || currentProduct.moq === 1) ? 50 : currentProduct.moq;
             input.value = Math.max(moq, parseInt(input.value) + val);
         };
 

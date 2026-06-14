@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Filter by MOQ
     if (selectedMOQRanges.length > 0) {
         filteredProducts = filteredProducts.filter(p => {
-            const moq = p.moq || 1;
+            const moq = (!p.moq || p.moq === 1) ? 50 : p.moq;
             return selectedMOQRanges.some(range => {
                 if (range === '1-5') return moq >= 1 && moq <= 5;
                 if (range === '6-20') return moq >= 6 && moq <= 20;
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           </div>
           ` : '<div style="height: 30px;"></div>'}
 
-          <p class="product-card-moq">MOQ: ${product.moq || 1} UNITS</p>
+          <p class="product-card-moq">MOQ: ${(!product.moq || product.moq === 1) ? 50 : product.moq} UNITS</p>
           <hr class="product-card-divider">
           <div style="display: flex; gap: 8px; flex-direction: column;">
             <button class="btn btn-secondary" style="width: 100%; padding: 8px; font-size: 0.75rem; background: var(--color-ivory); border-color: var(--color-maroon); color: var(--color-maroon);" onclick="openQuickView('${product.id}')">VIEW MORE DETAILS</button>
@@ -671,7 +671,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('qvHs').textContent = product.hs_code || 'N/A';
     document.getElementById('qvMaterial').textContent = product.material;
     document.getElementById('qvOrigin').textContent = product.origin;
-    document.getElementById('qvMoq').textContent = product.moq + ' units';
+    document.getElementById('qvMoq').textContent = ((!product.moq || product.moq === 1) ? 50 : product.moq) + ' units';
     document.getElementById('qvLink').href = `product.html?id=${product.id}`;
     
     const variantsContainer = document.getElementById('qvVariantsContainer');
