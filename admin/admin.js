@@ -170,7 +170,7 @@ function getProductCosts(productId) {
     return {
         procCost: Number(custom.procCost !== undefined ? custom.procCost : defaultProcCost),
         pkgCost: Number(custom.pkgCost !== undefined ? custom.pkgCost : 800), // default packaging cost INR
-        moq: Number(custom.moq !== undefined ? custom.moq : (product.moq || 10)),
+        moq: Number(custom.moq !== undefined ? custom.moq : (product.moq || 50)),
         weight: Number(custom.weight !== undefined ? custom.weight : 15), // default kg
         dimensions: custom.dimensions || product.dimensions || '60x60x75 cm',
         uom: custom.uom || 'Unit'
@@ -310,7 +310,7 @@ function setupQuoteGenerator() {
         }
 
         updateQuoteCalculations();
-        qtyInput.value = 10;
+        qtyInput.value = 50;
         select.value = '';
     });
 
