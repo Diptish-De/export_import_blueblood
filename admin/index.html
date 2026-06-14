@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blueblood Admin Portal</title>
+    <title>Blueblood Admin Portal - Export Costing & Quotations</title>
     <!-- Chart.js for Analytics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -17,11 +17,11 @@
         <div class="login-card">
             <div class="login-logo">
                 <h2>Blueblood</h2>
-                <span class="badge">ADMIN</span>
+                <span class="badge">ADMIN PORTAL</span>
             </div>
             <p>Enter your access PIN to continue.</p>
             <form id="loginForm">
-                <input type="password" id="adminPin" placeholder="Enter PIN" autocomplete="off">
+                <input type="password" id="adminPin" placeholder="Enter PIN" autocomplete="off" required>
                 <button type="submit">Access Portal</button>
             </form>
             <p id="loginError" class="error-msg"></p>
@@ -31,23 +31,29 @@
     <!-- Main App Container (Hidden by default) -->
     <div id="adminApp" class="admin-app hidden">
 
-        <!-- Sidebar -->
+        <!-- Sidebar (Dark) -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h2>Admin<span class="highlight">Portal</span></h2>
+                <h2>Blueblood <span class="highlight">Admin</span></h2>
             </div>
             <nav class="sidebar-nav">
                 <button class="nav-btn active" data-view="dashboard">
-                    <span class="icon">📊</span> Dashboard
+                    <span class="icon">📈</span> Dashboard
                 </button>
-                <button class="nav-btn" data-view="inquiries">
-                    <span class="icon">📩</span> Inquiries <span class="badge-count" id="navInquiryCount">0</span>
+                <button class="nav-btn" data-view="quote-generator">
+                    <span class="icon">📝</span> Create Quote
                 </button>
-                <button class="nav-btn" data-view="products">
-                    <span class="icon">📦</span> Products
+                <button class="nav-btn" data-view="quote-history">
+                    <span class="icon">📁</span> Quotation History
                 </button>
-                <button class="nav-btn" data-view="settings">
-                    <span class="icon">⚙️</span> Settings
+                <button class="nav-btn" data-view="product-master">
+                    <span class="icon">📦</span> Product Master
+                </button>
+                <button class="nav-btn" data-view="freight-costing">
+                    <span class="icon">⚓</span> Costing & Freight
+                </button>
+                <button class="nav-btn" data-view="currency-mgr">
+                    <span class="icon">💵</span> Currency Management
                 </button>
             </nav>
             <div class="sidebar-footer">
@@ -55,87 +61,292 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Main Content Workspace (Light) -->
         <main class="main-content">
             <header class="top-bar">
-                <h1 id="pageTitle">Overview</h1>
+                <h1 id="pageTitle">Dashboard Overview</h1>
                 <div class="user-profile">
-                    <div class="avatar">CEO</div>
+                    <div class="avatar">CB</div>
                     <div class="user-info">
-                        <span class="name">DIPTISH</span>
-                        <span class="role">Administrator</span>
+                        <span class="name">CRAZY_BBE</span>
+                        <span class="role">Export Manager</span>
                     </div>
                 </div>
             </header>
 
             <div class="content-area">
 
-                <!-- DASHBOARD VIEW -->
+                <!-- DASHBOARD / OVERVIEW VIEW -->
                 <section id="view-dashboard" class="view-section active">
-                    <!-- KPI Cards -->
                     <div class="kpi-grid">
                         <div class="kpi-card">
-                            <div class="kpi-icon blue">👥</div>
+                            <div class="kpi-icon blue">📋</div>
                             <div class="kpi-info">
-                                <span class="label">Total Inquiries</span>
-                                <h3 id="kpiInquiries">0</h3>
-                                <span class="trend up">Waitlist Active</span>
+                                <span class="label">Total Quotes Created</span>
+                                <h3 id="kpiTotalQuotes">0</h3>
+                                <span class="trend neutral">All countries</span>
                             </div>
                         </div>
                         <div class="kpi-card">
                             <div class="kpi-icon gold">💰</div>
                             <div class="kpi-info">
-                                <span class="label">Est. Pipeline Value</span>
-                                <h3 id="kpiPipeline">$0</h3>
-                                <span class="trend up">+12% this month</span>
+                                <span class="label">Avg FOB Value</span>
+                                <h3 id="kpiAvgFob">$0.00</h3>
+                                <span class="trend up">Based on saved quotes</span>
                             </div>
                         </div>
                         <div class="kpi-card">
-                            <div class="kpi-icon green">🌍</div>
+                            <div class="kpi-icon green">🚢</div>
                             <div class="kpi-info">
-                                <span class="label">Top Region</span>
-                                <h3 id="kpiRegion">-</h3>
-                                <span class="trend">High Demand</span>
+                                <span class="label">Avg CIF Value</span>
+                                <h3 id="kpiAvgCif">$0.00</h3>
+                                <span class="trend up">Including freight/insurance</span>
                             </div>
                         </div>
                         <div class="kpi-card">
-                            <div class="kpi-icon purple">💱</div>
+                            <div class="kpi-icon purple">🏆</div>
                             <div class="kpi-info">
-                                <span class="label">USD / INR</span>
-                                <h3 id="kpiForex">83.12</h3>
-                                <span class="trend neutral">Live Rate</span>
+                                <span class="label">Top Quoted SKU</span>
+                                <h3 id="kpiTopProduct">-</h3>
+                                <span class="trend">High demand</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Charts Row -->
-                    <div class="charts-grid">
-                        <div class="chart-card">
-                            <h3>Inquiry Trends (Last 6 Months)</h3>
-                            <canvas id="trendChart"></canvas>
+                    <!-- Recent Quotes -->
+                    <div class="recent-activity card">
+                        <div class="card-header">
+                            <h3>Recent Quotations</h3>
                         </div>
-                        <div class="chart-card">
-                            <h3>Interest by Category</h3>
-                            <canvas id="categoryChart"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Recent Activity Table -->
-                    <div class="recent-activity">
-                        <h3>Recent Inquiries</h3>
                         <div class="table-container">
                             <table class="data-table">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Country</th>
-                                        <th>Product Interest</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th>Date</th>
+                                        <th>Quote Ref</th>
+                                        <th>Buyer / Company</th>
+                                        <th>Incoterm</th>
+                                        <th>Total Value</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="dashboardRecentTable">
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted">No quotations created yet.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- QUOTATION GENERATOR VIEW -->
+                <section id="view-quote-generator" class="view-section">
+                    <div class="grid-2-columns">
+                        <!-- Left: Quotation Details -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Quotation Details</h3>
+                            </div>
+                            <div class="card-body">
+                                <form id="quoteForm">
+                                    <input type="hidden" id="editQuoteId" value="">
+                                    <div class="grid-2-inputs">
+                                        <div class="form-group">
+                                            <label for="quoteBuyerName">Buyer Name *</label>
+                                            <input type="text" id="quoteBuyerName" required placeholder="e.g. John Peterson">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="quoteCompanyName">Company Name *</label>
+                                            <input type="text" id="quoteCompanyName" required placeholder="e.g. Peterson Art Gallery">
+                                        </div>
+                                    </div>
+                                    <div class="grid-2-inputs">
+                                        <div class="form-group">
+                                            <label for="quoteCountry">Destination Country *</label>
+                                            <select id="quoteCountry" required>
+                                                <option value="USA">United States</option>
+                                                <option value="UK">United Kingdom</option>
+                                                <option value="Germany">Germany</option>
+                                                <option value="UAE">United Arab Emirates</option>
+                                                <option value="Australia">Australia</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="quotePort">Destination Port *</label>
+                                            <input type="text" id="quotePort" required placeholder="e.g. Port of New York">
+                                        </div>
+                                    </div>
+                                    <div class="grid-3-inputs">
+                                        <div class="form-group">
+                                            <label for="quoteCurrency">Quote Currency *</label>
+                                            <select id="quoteCurrency" required>
+                                                <option value="USD">USD ($)</option>
+                                                <option value="INR">INR (₹)</option>
+                                                <option value="EUR">EUR (€)</option>
+                                                <option value="GBP">GBP (£)</option>
+                                                <option value="AED">AED (Dh)</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="quoteIncoterm">Incoterm *</label>
+                                            <select id="quoteIncoterm" required>
+                                                <option value="FOB">FOB (Free on Board)</option>
+                                                <option value="CIF">CIF (Cost, Insurance & Freight)</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="quoteFreightMode">Freight Mode (for CIF) *</label>
+                                            <select id="quoteFreightMode">
+                                                <option value="LCL">LCL (Less than Container Load)</option>
+                                                <option value="20FT">20FT Container</option>
+                                                <option value="40FT">40FT Container</option>
+                                                <option value="40HQ">40HQ Container</option>
+                                                <option value="Air">Air Shipment</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="grid-2-inputs">
+                                        <div class="form-group">
+                                            <label for="quotePaymentTerms">Payment Terms</label>
+                                            <input type="text" id="quotePaymentTerms" value="30% advance, 70% against BL scan">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="quoteValidity">Validity Period (Days)</label>
+                                            <input type="number" id="quoteValidity" value="30" min="1">
+                                        </div>
+                                    </div>
+
+                                    <!-- Add Product to Quote Selector -->
+                                    <div class="product-selector-box">
+                                        <h4>Add Product Items</h4>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+                                            <select id="quoteProductSelect" style="flex: 2; min-width: 150px; width: 100%;">
+                                                <option value="">-- Select Product --</option>
+                                            </select>
+                                            <input type="number" id="quoteProductQty" placeholder="Qty" min="1" value="10" style="flex: 0.5; min-width: 60px;">
+                                            <button type="button" id="addProductBtn" class="action-btn primary" style="flex: 1; min-width: 80px;">+ Add</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Right: Dynamic Real-time Quotation Calculations Summary -->
+                        <div class="card invoice-preview-card">
+                            <div class="card-header" style="display:flex; justify-content:space-between; align-items:center;">
+                                <h3>Calculation & Pricing Summary</h3>
+                                <div id="calcIndicator" class="badge-status">Instant updates enabled</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-container" style="max-height: 250px; overflow-y: auto; margin-bottom: 20px;">
+                                    <table class="data-table small">
+                                        <thead>
+                                            <tr>
+                                                <th>Product SKU</th>
+                                                <th>Qty</th>
+                                                <th>Unit Base</th>
+                                                <th>Unit FOB</th>
+                                                <th>Unit CIF</th>
+                                                <th>Subtotal</th>
+                                                <th>Remove</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="quoteSelectedItems">
+                                            <tr>
+                                                <td colspan="7" class="text-center text-muted">No items added yet. Choose a product above.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="costing-summary-breakdown">
+                                    <div class="pricing-row">
+                                        <span>Total Base Product Cost (INR):</span>
+                                        <span id="summaryBaseCost">₹0.00</span>
+                                    </div>
+                                    <div class="pricing-row">
+                                        <span>Total Handling & Export Clearance (INR):</span>
+                                        <span id="summaryHandlingCost">₹0.00</span>
+                                    </div>
+                                    <div class="pricing-row">
+                                        <span>Total Freight Costs (Converted):</span>
+                                        <span id="summaryFreightCost">0.00</span>
+                                    </div>
+                                    <div class="pricing-row">
+                                        <span>Total Insurance Cost (Converted):</span>
+                                        <span id="summaryInsuranceCost">0.00</span>
+                                    </div>
+                                    <hr>
+                                    <div class="pricing-row grand-total">
+                                        <span style="font-weight: 700;">Grand Total (<span class="currency-label">USD</span>):</span>
+                                        <span id="summaryGrandTotal" style="color: var(--accent-hover); font-weight: 700;">$0.00</span>
+                                    </div>
+                                </div>
+
+                                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                                    <button type="button" id="saveQuoteBtn" class="action-btn primary" style="flex: 1; padding: 12px;">💾 Save Quotation</button>
+                                    <button type="button" id="printQuoteBtn" class="action-btn" style="flex: 1; padding: 12px;" disabled>🖨️ Export PDF / Print</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- QUOTATION HISTORY VIEW -->
+                <section id="view-quote-history" class="view-section">
+                    <div class="card">
+                        <div class="card-header section-actions">
+                            <input type="text" id="searchQuoteInput" placeholder="Search by Buyer, Company, or Port..." class="search-input">
+                            <button id="clearSearchBtn" class="action-btn">Reset</button>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Reference</th>
+                                        <th>Buyer Name</th>
+                                        <th>Company</th>
+                                        <th>Country</th>
+                                        <th>Incoterm</th>
+                                        <th>Total Value</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="historyTableBody">
+                                    <tr>
+                                        <td colspan="8" class="text-center text-muted">No saved quotations found.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PRODUCT COST MASTER VIEW -->
+                <section id="view-product-master" class="view-section">
+                    <div class="card">
+                        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>Listed Products Costs and Packaging</h3>
+                            <button id="resetProductsBtn" class="action-btn">Reset Costs to Default</button>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Product (SKU)</th>
+                                        <th>Base Proc. Cost (INR) *</th>
+                                        <th>UOM</th>
+                                        <th>Dimensions</th>
+                                        <th>Weight (Kg)</th>
+                                        <th>Pkg Cost (INR)</th>
+                                        <th>MOQ</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productMasterTableBody">
                                     <!-- Populated by JS -->
                                 </tbody>
                             </table>
@@ -143,61 +354,118 @@
                     </div>
                 </section>
 
-                <!-- INQUIRIES VIEW -->
-                <section id="view-inquiries" class="view-section">
-                    <div class="section-actions">
-                        <input type="text" placeholder="Search inquiries..." class="search-input">
-                        <select id="statusFilter" class="search-input" style="width: 150px;">
-                            <option value="all">All Status</option>
-                            <option value="New">New</option>
-                            <option value="Processed">Processed</option>
-                            <option value="Negotiating">Negotiating</option>
-                        </select>
-                        <button class="action-btn">Export CSV</button>
-                    </div>
-                    <div class="table-container">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Client</th>
-                                    <th>Email</th>
-                                    <th>Interest</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="inquiriesTableBody">
-                                <!-- Populated by JS -->
-                            </tbody>
-                        </table>
+                <!-- FREIGHT & COSTING MASTER VIEW -->
+                <section id="view-freight-costing" class="view-section">
+                    <div class="grid-2-columns">
+                        <!-- Costing Fees -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Inland Handling & Documentation Fees (INR)</h3>
+                            </div>
+                            <div class="card-body">
+                                <form id="costingFeesForm">
+                                    <div class="form-group">
+                                        <label for="feeInlandTransport">Inland Transport (per CBM/Tonne)</label>
+                                        <input type="number" id="feeInlandTransport" value="3500">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="feePortHandling">Port Handling Charges</label>
+                                        <input type="number" id="feePortHandling" value="4500">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="feeDocumentation">Documentation Charges</label>
+                                        <input type="number" id="feeDocumentation" value="2500">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="feeClearance">Customs Clearance Charges</label>
+                                        <input type="number" id="feeClearance" value="6000">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="feeMisc">Miscellaneous/Other Charges</label>
+                                        <input type="number" id="feeMisc" value="1500">
+                                    </div>
+                                    <div class="grid-2-inputs">
+                                        <div class="form-group">
+                                            <label for="feeProfitMargin">Default Profit Margin %</label>
+                                            <input type="number" id="feeProfitMargin" value="15" min="0" max="100">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="feeMarkup">Default Markup %</label>
+                                            <input type="number" id="feeMarkup" value="10" min="0" max="100">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="action-btn primary" style="width:100%">Save Costing Defaults</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Freight Matrix & Insurance -->
+                        <div class="card">
+                            <div class="card-header" style="display:flex; justify-content:space-between; align-items:center;">
+                                <h3>Freight Rates (in USD) & Insurance</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="insurancePercent">Marine Insurance Rate (%)</label>
+                                    <input type="number" id="insurancePercent" value="0.25" step="0.01" min="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="insuranceMinAmount">Min Insurance Value (USD)</label>
+                                    <input type="number" id="insuranceMinAmount" value="50" min="0">
+                                </div>
+                                <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ddd;">
+                                <h4>International Freight Matrix (per route/mode)</h4>
+                                <div class="table-container" style="max-height: 250px; overflow-y: auto; margin-top: 10px;">
+                                    <table class="data-table small" id="freightMatrixTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Country</th>
+                                                <th>Port</th>
+                                                <th>LCL (per CBM)</th>
+                                                <th>20FT</th>
+                                                <th>40FT</th>
+                                                <th>40HQ</th>
+                                                <th>Air (per kg)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="freightMatrixBody">
+                                            <!-- Dynamically filled -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
-                <!-- PRODUCTS VIEW -->
-                <section id="view-products" class="view-section">
-                    <div class="products-grid" id="productsGrid">
-                        <!-- Populated by JS -->
-                    </div>
-                </section>
-
-                <!-- SETTINGS VIEW -->
-                <section id="view-settings" class="view-section">
-                    <div class="settings-card">
-                        <h3>System Configuration</h3>
-                        <div class="form-group">
-                            <label>Admin Email</label>
-                            <input type="email" value="admin@blueblood.com" disabled>
+                <!-- CURRENCY MANAGEMENT VIEW -->
+                <section id="view-currency-mgr" class="view-section">
+                    <div class="card" style="max-width: 600px;">
+                        <div class="card-header">
+                            <h3>Base Exchange Rates (Relative to USD)</h3>
+                            <p class="text-muted" style="font-size:0.85rem; margin-top:5px;">Manual adjustments will instantly recompute all quotations.</p>
                         </div>
-                        <div class="form-group">
-                            <label>Currency Base</label>
-                            <select id="currencySelector">
-                                <option value="USD">USD ($)</option>
-                                <option value="INR">INR (₹)</option>
-                                <option value="EUR">EUR (€)</option>
-                            </select>
+                        <div class="card-body">
+                            <form id="currencyExchangeForm">
+                                <div class="form-group">
+                                    <label>1 USD equivalent in INR (₹)</label>
+                                    <input type="number" id="rateINR" value="83.35" step="0.01">
+                                </div>
+                                <div class="form-group">
+                                    <label>1 USD equivalent in EUR (€)</label>
+                                    <input type="number" id="rateEUR" value="0.92" step="0.01">
+                                </div>
+                                <div class="form-group">
+                                    <label>1 USD equivalent in GBP (£)</label>
+                                    <input type="number" id="rateGBP" value="0.79" step="0.01">
+                                </div>
+                                <div class="form-group">
+                                    <label>1 USD equivalent in AED (Dh)</label>
+                                    <input type="number" id="rateAED" value="3.67" step="0.01">
+                                </div>
+                                <button type="submit" class="action-btn primary" style="width: 100%;">Update Exchange Rates</button>
+                            </form>
                         </div>
-                        <button class="action-btn primary" onclick="alert('Settings saved!')">Save Changes</button>
                     </div>
                 </section>
 
@@ -205,31 +473,9 @@
         </main>
     </div>
 
-    <!-- Inquiry Details Modal -->
-    <div id="inquiryModal" class="login-overlay hidden">
-        <div class="login-card" style="text-align: left; max-width: 500px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-                <h3 id="modalClientName">Client Name</h3>
-                <span class="badge" id="modalStatusBadge">New</span>
-            </div>
-
-            <div class="form-group">
-                <label>Interest</label>
-                <input type="text" id="modalInterest" disabled>
-            </div>
-
-            <div class="form-group">
-                <label>Admin Notes</label>
-                <textarea id="modalNotes" rows="4"
-                    style="width:100%; padding:0.75rem; background:var(--bg-darker); border:1px solid rgba(255,255,255,0.1); border-radius:6px; color:white; font-family:inherit;"></textarea>
-            </div>
-
-            <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:1.5rem;">
-                <button class="action-btn"
-                    onclick="document.getElementById('inquiryModal').classList.add('hidden')">Close</button>
-                <button class="action-btn primary" id="saveNoteBtn">Save Note</button>
-            </div>
-        </div>
+    <!-- PDF Quotation Print Wrapper (Hidden on screen, styled specifically for printable layout) -->
+    <div id="printQuotationLayout" class="print-quotation-layout">
+        <!-- Rendered by Javascript when print is clicked -->
     </div>
 
     <script type="module" src="admin.js"></script>
