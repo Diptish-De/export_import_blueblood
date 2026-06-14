@@ -26,6 +26,7 @@
   "homepage": "https://github.com/Diptish-De/export_import_blueblood#readme",
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "@supabase/supabase-js": "^2.108.1",
     "vite": "^6.0.0"
   }
 }

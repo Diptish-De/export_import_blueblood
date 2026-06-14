@@ -3,6 +3,8 @@
  * Handles product data loading and WhatsApp integration
  */
 
+import { supabase } from './supabase.js';
+
 // WhatsApp Configuration - Update this number for production
 const WHATSAPP_NUMBER = '917812028686';
 
@@ -47,17 +49,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (currentProduct) renderProduct();
     });
 
-    // Load product data
+    // Load product data from Supabase
     async function loadProduct() {
         try {
-            const response = await fetch('public/data/products.json');
-            if(!response.ok) throw new Error("Could not load products");
-            const products = await response.json();
-            currentProduct = products.find(p => p.id === productId);
+            const { data, error } = await supabase
+                .from('products')
+                .select('*')
+                .eq('id', productId)
+                .maybeSingle();
+
+            if (error) throw error;
+            currentProduct = data;
 
             if (!currentProduct) {
                 // Try searching in grouped variants
-                currentProduct = products.find(p => p.variants && p.variants.find(v => v.id === productId));
+                const { data: variantData, error: variantError } = await supabase
+                    .from('products')
+                    .select('*')
+                    .filter('variants', 'cs', `[{"id": "${productId}"}]`)
+                    .maybeSingle();
+
+                if (variantError) throw variantError;
+                currentProduct = variantData;
+
                 if (currentProduct) {
                     const variant = currentProduct.variants.find(v => v.id === productId);
                     // Merge variant data into a flat object for simpler rendering
@@ -73,14 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             renderProduct();
             await loadRelatedProducts();
         } catch (error) {
-            console.error('Error loading product:', error);
-            // Fallback for relative paths
-            try {
-                const response = await fetch('data/products.json');
-                const products = await response.json();
-                currentProduct = products.find(p => p.id === productId);
-                if (currentProduct) renderProduct();
-            } catch(e2) {}
+            console.error('Error loading product from Supabase:', error);
         }
     }
 
@@ -209,24 +216,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Start loading
     await loadProduct();
 
-    // Load Related Products
+    // Load Related Products from Supabase
     async function loadRelatedProducts() {
         try {
             if (!currentProduct) return;
-            // Try both paths
-            let allProducts = [];
-            try {
-                const r = await fetch('public/data/products.json');
-                allProducts = await r.json();
-            } catch(e) {
-                const r = await fetch('data/products.json');
-                allProducts = await r.json();
-            }
+            
+            const { data, error } = await supabase
+                .from('products')
+                .select('*')
+                .eq('category', currentProduct.category)
+                .neq('id', currentProduct.id)
+                .limit(4);
 
-            // Filter by same category, exclude current, limit to 4
-            const related = allProducts
-                .filter(p => (p.category === currentProduct.category || p.mainCategory === currentProduct.category) && p.id !== currentProduct.id)
-                .slice(0, 4);
+            if (error) throw error;
+            const related = data || [];
 
             const grid = document.getElementById('relatedProductsGrid');
             if (grid && related.length > 0) {

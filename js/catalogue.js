@@ -3,6 +3,8 @@
  * Handles product loading and category filtering
  */
 
+import { supabase } from './supabase.js';
+
 document.addEventListener('DOMContentLoaded', async () => {
   const productGrid = document.getElementById('productGrid');
   const categoryFilter = document.getElementById('categoryFilter');
@@ -64,17 +66,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (mainParam) currentMainCategory = mainParam;
   if (subParam) currentSubCategory = subParam;
 
-  // Fetch products from JSON
+  // Fetch products from Supabase
   async function loadProducts() {
     try {
-      const response = await fetch('data/products.json');
-      allProducts = await response.json();
+      const { data, error } = await supabase
+        .from('products')
+        .select('*');
+      
+      if (error) throw error;
+      
+      allProducts = data || [];
       updateSubCategoryButtons();
       renderProducts();
       updateActiveFilters();
       updateActiveFilterBadges();
     } catch (error) {
-      console.error('Error loading products:', error);
+      console.error('Error loading products from Supabase:', error);
       productGrid.innerHTML = '<p style="text-align:center;color:var(--color-gray-500);grid-column:1/-1;">Unable to load products. Please try again later.</p>';
     }
   }
