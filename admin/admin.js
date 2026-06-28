@@ -4,6 +4,10 @@
 
 import './admin.css';
 import { supabase } from '../js/supabase.js';
+import {
+    buildCatalogIndex,
+    clearCatalogCache
+} from './imageHash.js';
 
 // --- STATE MANAGEMENT ---
 let state = {
@@ -48,6 +52,7 @@ function init() {
     setupCostingForms();
     setupQuoteGenerator();
     setupCurrencyForm();
+    setupScanner();
     loadProducts();
     renderDashboard();
     renderQuoteHistory();
@@ -107,6 +112,7 @@ function setupNavigation() {
             if (target === 'quote-history') renderQuoteHistory();
             if (target === 'product-master') renderProductMaster();
             if (target === 'freight-costing') renderFreightMatrix();
+            if (target === 'ai-scanner') resetScannerUI();
         });
     });
 }
@@ -964,9 +970,352 @@ document.getElementById('clearSearchBtn')?.addEventListener('click', () => {
     renderQuoteHistory();
 });
 
+// --- VISUAL PRODUCT SCANNER ENGINE (Gemini AI-based) ---
+
+import { matchAgainstCatalogGemini } from './imageHash.js';
+
+let scannerState = {
+    catalogIndex: null,    // Pre-computed fingerprint index
+    isIndexing: false,     // Whether indexing is in progress
+    matches: []            // Holds matched product info: { fileId, product, score }
+};
+
+function setupScanner() {
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('scannerFileInput');
+    const addAllBtn = document.getElementById('addAllToQuoteBtn');
+    const rebuildBtn = document.getElementById('rebuildIndexBtn');
+
+    if (!dropZone || !fileInput) return;
+
+    // Trigger click on click dropzone
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    // Highlight drop area when dragging file over
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+        }, false);
+    });
+
+    // Handle dropped files
+    dropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files.length > 0) {
+            handleScannerFiles(files);
+        }
+    });
+
+    // Handle selected files
+    fileInput.addEventListener('change', (e) => {
+        if (fileInput.files.length > 0) {
+            handleScannerFiles(fileInput.files);
+            // Reset input so same files can be selected again
+            fileInput.value = '';
+        }
+    });
+
+    // Add all matches to quote button handler
+    addAllBtn?.addEventListener('click', () => {
+        let addedCount = 0;
+        scannerState.matches.forEach(m => {
+            if (m.product && m.score >= 50) {
+                const existing = state.currentQuoteItems.find(item => item.id === m.product.id);
+                if (existing) {
+                    existing.quantity += (m.product.moq || 50);
+                } else {
+                    state.currentQuoteItems.push({
+                        id: m.product.id,
+                        name: m.product.name,
+                        quantity: m.product.moq || 50
+                    });
+                }
+                addedCount++;
+            }
+        });
+
+        if (addedCount > 0) {
+            alert(`Added ${addedCount} matched product(s) to the Quotation. Switch to "Create Quote" tab to configure.`);
+            updateQuoteCalculations();
+        } else {
+            alert('No confident matches found to add. Try uploading clearer product images.');
+        }
+    });
+
+    // Rebuild index button
+    rebuildBtn?.addEventListener('click', async () => {
+        clearCatalogCache();
+        scannerState.catalogIndex = null;
+        await ensureCatalogIndexReady();
+    });
+}
+
+function resetScannerUI() {
+    const list = document.getElementById('scannerResultsList');
+    if (list) list.innerHTML = '';
+    const addAllBtn = document.getElementById('addAllToQuoteBtn');
+    if (addAllBtn) addAllBtn.disabled = true;
+    scannerState.matches = [];
+
+    // Auto-trigger indexing when scanner tab opens
+    ensureCatalogIndexReady();
+}
+
+/**
+ * Ensures the catalog visual index is built and ready.
+ * Shows/hides progress UI accordingly.
+ */
+async function ensureCatalogIndexReady() {
+    if (scannerState.catalogIndex && scannerState.catalogIndex.length > 0) {
+        // Already indexed — show completed state briefly
+        showIndexingComplete(scannerState.catalogIndex.length);
+        return;
+    }
+
+    if (scannerState.isIndexing) return; // Already in progress
+    scannerState.isIndexing = true;
+
+    const statusEl = document.getElementById('indexingStatus');
+    const labelEl = document.getElementById('indexingLabel');
+    const countEl = document.getElementById('indexingCount');
+    const barEl = document.getElementById('indexingProgressBar');
+
+    if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.classList.remove('done');
+    }
+
+    try {
+        scannerState.catalogIndex = await buildCatalogIndex(
+            state.products,
+            (current, total) => {
+                // Progress callback
+                const pct = Math.round((current / total) * 100);
+                if (barEl) barEl.style.width = pct + '%';
+                if (countEl) countEl.textContent = `${current} / ${total}`;
+                if (labelEl && current === total) {
+                    labelEl.textContent = '✅ Visual catalog index ready!';
+                }
+            }
+        );
+
+        showIndexingComplete(scannerState.catalogIndex.length);
+    } catch (err) {
+        console.error('Failed to build catalog index:', err);
+        if (labelEl) labelEl.textContent = '⚠️ Indexing failed: ' + err.message;
+    } finally {
+        scannerState.isIndexing = false;
+    }
+}
+
+function showIndexingComplete(count) {
+    const statusEl = document.getElementById('indexingStatus');
+    const labelEl = document.getElementById('indexingLabel');
+    const countEl = document.getElementById('indexingCount');
+    const barEl = document.getElementById('indexingProgressBar');
+
+    if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.classList.add('done');
+    }
+    if (labelEl) labelEl.textContent = `✅ Visual catalog index ready!`;
+    if (countEl) countEl.textContent = `${count} products indexed`;
+    if (barEl) barEl.style.width = '100%';
+
+    // Auto-hide after a short delay
+    setTimeout(() => {
+        if (statusEl) statusEl.style.display = 'none';
+    }, 3000);
+}
+
+async function handleScannerFiles(files) {
+    const filesArray = Array.from(files);
+    const list = document.getElementById('scannerResultsList');
+    if (!list) return;
+
+    // Ensure index is ready before processing
+    await ensureCatalogIndexReady();
+
+    if (!scannerState.catalogIndex || scannerState.catalogIndex.length === 0) {
+        alert('Catalog index is not ready yet. Please wait and try again.');
+        return;
+    }
+
+    // Process each file
+    filesArray.forEach((file, index) => {
+        const fileId = 'file-' + Date.now() + '-' + index;
+        const localImgUrl = URL.createObjectURL(file);
+
+        // Create result card with loading state
+        const cardHtml = `
+            <div id="${fileId}" class="scanner-card">
+                <div class="scanner-card-img-wrap">
+                    <img src="${localImgUrl}" alt="Uploaded image">
+                </div>
+                <div class="scanner-card-info">
+                    <div>
+                        <div class="scan-status-indicator text-muted" id="status-${fileId}">
+                            <div class="pulse-spinner"></div>
+                            <span>Comparing against catalog with Gemini AI...</span>
+                        </div>
+                        <h4 id="title-${fileId}" style="margin-top: 10px; font-size: 1.1rem;">${file.name}</h4>
+                        <div id="matches-${fileId}" class="match-candidates">
+                            <!-- Populated after matching -->
+                        </div>
+                    </div>
+                    <div id="actions-${fileId}" style="margin-top: 15px; display: flex; gap: 10px;">
+                        <!-- Match actions go here -->
+                    </div>
+                </div>
+            </div>
+        `;
+        list.insertAdjacentHTML('beforeend', cardHtml);
+
+        // Run visual matching for this file
+        runVisualMatch(file, fileId);
+    });
+}
+
+async function runVisualMatch(file, fileId) {
+    const statusEl = document.getElementById(`status-${fileId}`);
+    const titleEl = document.getElementById(`title-${fileId}`);
+    const matchesEl = document.getElementById(`matches-${fileId}`);
+    const actionsEl = document.getElementById(`actions-${fileId}`);
+
+    try {
+        // Match against catalog using Gemini AI
+        const topMatches = await matchAgainstCatalogGemini(file, state.products, 3);
+
+        if (topMatches.length === 0 || topMatches[0].score < 30) {
+            // No confident match
+            if (statusEl) {
+                statusEl.innerHTML = `<span style="color:var(--danger)">❌ No catalog match found</span>`;
+            }
+            if (matchesEl) {
+                matchesEl.innerHTML = `<p class="text-muted" style="font-size: 0.85rem;">This image does not closely match any product in the catalog. Try uploading a clearer or more direct product photo.</p>`;
+            }
+            return;
+        }
+
+        const bestMatch = topMatches[0];
+        const bestProduct = state.products.find(p => p.id === bestMatch.productId);
+
+        // Determine confidence level
+        let confidenceClass, confidenceLabel, confidenceIcon;
+        if (bestMatch.score >= 75) {
+            confidenceClass = 'strong';
+            confidenceLabel = 'Strong Match';
+            confidenceIcon = '✅';
+        } else if (bestMatch.score >= 50) {
+            confidenceClass = 'possible';
+            confidenceLabel = 'Possible Match';
+            confidenceIcon = '🟡';
+        } else {
+            confidenceClass = 'weak';
+            confidenceLabel = 'Weak Match';
+            confidenceIcon = '🔴';
+        }
+
+        // Store match in scanner state
+        if (bestProduct && bestMatch.score >= 50) {
+            scannerState.matches.push({
+                fileId,
+                product: bestProduct,
+                score: bestMatch.score
+            });
+            const addAllBtn = document.getElementById('addAllToQuoteBtn');
+            if (addAllBtn) addAllBtn.disabled = false;
+        }
+
+        // Update status
+        if (statusEl) {
+            statusEl.innerHTML = `<span class="confidence-badge ${confidenceClass}">${confidenceIcon} ${bestMatch.score}% — ${confidenceLabel}</span>`;
+        }
+
+        // Update title with best match product name
+        if (titleEl && bestProduct) {
+            titleEl.innerHTML = `${bestProduct.name} <span style="font-size:0.9rem; color:var(--text-muted);">(${bestProduct.id})</span>`;
+        }
+
+        // Build match candidates grid (top 3)
+        if (matchesEl) {
+            const rankLabels = ['Best Match', '2nd Match', '3rd Match'];
+            matchesEl.innerHTML = topMatches.map((match, idx) => {
+                const product = state.products.find(p => p.id === match.productId);
+                if (!product) return '';
+
+                let badgeClass = 'weak';
+                if (match.score >= 75) badgeClass = 'strong';
+                else if (match.score >= 50) badgeClass = 'possible';
+
+                const thumbUrl = product.images && product.images[0] ? product.images[0] : '';
+
+                return `
+                    <div class="match-candidate ${idx === 0 ? 'best-match' : ''}">
+                        <div class="match-candidate-thumb">
+                            <img src="${thumbUrl}" alt="${product.name}">
+                        </div>
+                        <div class="match-candidate-info">
+                            <div class="match-rank">${rankLabels[idx]}</div>
+                            <div class="match-name" title="${product.name}">${product.name}</div>
+                            <div class="match-sku">${product.id}</div>
+                            <span class="confidence-badge ${badgeClass}">${match.score}% match</span>
+                            <div class="match-reason" style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; line-height: 1.2;">${match.reason || ''}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Action buttons
+        if (actionsEl && bestProduct && bestMatch.score >= 50) {
+            actionsEl.innerHTML = `
+                <button class="action-btn primary small" onclick="addSingleScanToQuote('${bestProduct.id}')">➕ Add to Quote</button>
+                <a href="../product.html?id=${bestProduct.id}" target="_blank" class="action-btn small">👁️ View Details</a>
+            `;
+        } else if (actionsEl) {
+            actionsEl.innerHTML = `<span class="text-muted" style="font-size: 0.82rem;">Confidence too low for auto-match. Review candidates above.</span>`;
+        }
+
+    } catch (error) {
+        console.error('Error during visual matching:', error);
+        if (statusEl) {
+            statusEl.innerHTML = `<span style="color:var(--danger)">⚠️ Matching failed: ${error.message}</span>`;
+        }
+    }
+}
+
+window.addSingleScanToQuote = (productId) => {
+    const product = state.products.find(p => p.id === productId);
+    if (!product) return;
+
+    const existing = state.currentQuoteItems.find(item => item.id === productId);
+    if (existing) {
+        existing.quantity += (product.moq || 50);
+    } else {
+        state.currentQuoteItems.push({
+            id: productId,
+            name: product.name,
+            quantity: product.moq || 50
+        });
+    }
+    updateQuoteCalculations();
+    alert(`Added ${product.name} (Qty: ${product.moq || 50}) to current Quote list!`);
+};
+
 // Run Init
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {
     init();
 }
+

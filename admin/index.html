@@ -49,6 +49,9 @@
                 <button class="nav-btn" data-view="product-master">
                     <span class="icon">📦</span> Product Master
                 </button>
+                <button class="nav-btn" data-view="ai-scanner">
+                    <span class="icon">🔍</span> Visual Scanner
+                </button>
                 <button class="nav-btn" data-view="freight-costing">
                     <span class="icon">⚓</span> Costing & Freight
                 </button>
@@ -350,6 +353,51 @@
                                     <!-- Populated by JS -->
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VISUAL PRODUCT SCANNER VIEW -->
+                <section id="view-ai-scanner" class="view-section">
+                    <div class="card">
+                        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                            <div>
+                                <h3>Visual Product Scanner</h3>
+                                <p class="text-muted" style="font-size: 0.85rem; margin-top: 5px;">Upload or drop customer product images to visually match them against your catalog — no AI required.</p>
+                            </div>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <button id="rebuildIndexBtn" class="action-btn" title="Force rebuild visual index">🔄 Rebuild Index</button>
+                                <button id="addAllToQuoteBtn" class="action-btn primary" disabled>➕ Add All Matches to Quote</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <!-- Catalog Indexing Progress -->
+                            <div id="indexingStatus" class="indexing-status" style="display: none;">
+                                <div class="indexing-header">
+                                    <span id="indexingLabel">🔍 Building visual catalog index...</span>
+                                    <span id="indexingCount" class="text-muted">0 / 0</span>
+                                </div>
+                                <div class="indexing-progress-track">
+                                    <div id="indexingProgressBar" class="indexing-progress-fill" style="width: 0%;"></div>
+                                </div>
+                                <p class="text-muted" style="font-size: 0.78rem; margin-top: 6px;">First-time setup: computing visual fingerprints for all products. This is cached for future use.</p>
+                            </div>
+
+                            <!-- Drag and Drop Area -->
+                            <div id="dropZone" class="scanner-dropzone">
+                                <div class="dropzone-prompt">
+                                    <span style="font-size: 3rem;">📸</span>
+                                    <p style="font-size: 1.1rem; font-weight: 600; margin-top: 10px;">Drag & drop product images here</p>
+                                    <p class="text-muted" style="font-size: 0.85rem;">or click to select files from your computer</p>
+                                    <p class="text-muted" style="font-size: 0.78rem; margin-top: 6px;">Supports JPEG, PNG, WebP • Multiple files supported</p>
+                                </div>
+                                <input type="file" id="scannerFileInput" multiple accept="image/*" style="display: none;">
+                            </div>
+
+                            <!-- Scanned items list / results -->
+                            <div id="scannerResultsList" class="scanner-results-list" style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem;">
+                                <!-- Dynamically populated scanning cards -->
+                            </div>
                         </div>
                     </div>
                 </section>

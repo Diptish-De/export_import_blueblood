@@ -759,3 +759,314 @@ body {
         font-size: 9.5pt;
     }
 }
+
+/* --- AI Visual Scanner Styles --- */
+.scanner-dropzone {
+    border: 2.5px dashed var(--border-color);
+    border-radius: var(--radius);
+    padding: 3rem 2rem;
+    text-align: center;
+    background: #fdfdfd;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scanner-dropzone:hover, .scanner-dropzone.dragover {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.03);
+}
+
+.scanner-card {
+    display: flex;
+    gap: 1.5rem;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    animation: fadeIn 0.3s ease;
+}
+
+.scanner-card-img-wrap {
+    width: 140px;
+    height: 140px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 1px solid var(--border-color);
+    position: relative;
+    background: #f1f5f9;
+}
+
+.scanner-card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.scanner-card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.scan-status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.pulse-spinner {
+    width: 12px;
+    height: 12px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    animation: pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    50% { transform: scale(1.3); opacity: 1; }
+    100% { transform: scale(0.8); opacity: 0.5; }
+}
+
+.scan-match-badge {
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--success);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+/* --- Indexing Progress Bar --- */
+.indexing-status {
+    background: linear-gradient(135deg, #f0f4ff 0%, #fefce8 100%);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.indexing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.indexing-progress-track {
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.indexing-progress-fill {
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, var(--primary), #a78bfa, var(--primary));
+    background-size: 200% 100%;
+    animation: progressShimmer 2s linear infinite;
+    transition: width 0.3s ease-out;
+}
+
+@keyframes progressShimmer {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+}
+
+.indexing-status.done {
+    background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.indexing-status.done .indexing-progress-fill {
+    background: var(--success);
+    animation: none;
+}
+
+/* --- Scanner Result Card (Enhanced) --- */
+.scanner-card {
+    display: flex;
+    gap: 1.5rem;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    animation: fadeIn 0.3s ease;
+    transition: border-color 0.2s ease;
+}
+
+.scanner-card:hover {
+    border-color: var(--primary);
+}
+
+.scanner-card-img-wrap {
+    width: 140px;
+    height: 140px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 1px solid var(--border-color);
+    position: relative;
+    background: #f1f5f9;
+}
+
+.scanner-card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.scanner-card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* --- Match Candidates Grid --- */
+.match-candidates {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.match-candidate {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: #fafbfc;
+    flex: 1;
+    min-width: 200px;
+    max-width: 320px;
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+.match-candidate:hover {
+    background: #f0f4ff;
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.match-candidate.best-match {
+    border-color: rgba(16, 185, 129, 0.4);
+    background: rgba(16, 185, 129, 0.04);
+}
+
+.match-candidate-thumb {
+    width: 52px;
+    height: 52px;
+    border-radius: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 1px solid var(--border-color);
+    background: #f1f5f9;
+}
+
+.match-candidate-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.match-candidate-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.match-candidate-info .match-rank {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+
+.match-candidate-info .match-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.match-candidate-info .match-sku {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 1px;
+}
+
+/* --- Confidence Badges --- */
+.confidence-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 3px;
+}
+
+.confidence-badge.strong {
+    background: rgba(16, 185, 129, 0.12);
+    color: #059669;
+}
+
+.confidence-badge.possible {
+    background: rgba(245, 158, 11, 0.12);
+    color: #d97706;
+}
+
+.confidence-badge.weak {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+}
+
+/* --- Scan Status Styles --- */
+.scan-status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.pulse-spinner {
+    width: 12px;
+    height: 12px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    animation: pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    50% { transform: scale(1.3); opacity: 1; }
+    100% { transform: scale(0.8); opacity: 0.5; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
