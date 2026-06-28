@@ -12,7 +12,7 @@ Append `/admin/` to your website's main URL:
 ### **Security**
 - **Public Visibility**: Hidden. There are **no links** to this portal on the public-facing website.
 - **Login**: You will see a lock screen.
-- **PIN**: **2026**
+- **PIN**: Secure configured PIN
 
 ---
 
@@ -42,7 +42,7 @@ Once logged in, you have access to:
 ## 💡 Troubleshooting
 - **Link not working?** Ensure you typed `/admin/` correctly.
 - **Changes not showing?** The site may be caching. Do a hard refresh (Ctrl+F5) or wait 1-2 minutes after deployment.
-- **Forgot PIN?** It is hardcoded as `2026`.
+- **Forgot PIN?** Refer to secure configuration.
 
 ---
 *Generated for Blueblood Exports Administration*

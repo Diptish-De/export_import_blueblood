@@ -59,6 +59,13 @@ function init() {
 }
 
 // --- AUTHENTICATION ---
+async function hashPin(pin) {
+    const msgBuffer = new TextEncoder().encode(pin);
+    const hashBuffer = await window.crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 function setupAuth() {
     const loginOverlay = document.getElementById('loginOverlay');
     const loginForm = document.getElementById('loginForm');
@@ -73,14 +80,17 @@ function setupAuth() {
         adminApp.classList.remove('hidden');
     }
 
-    loginForm.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        if (adminPin.value === '2026') {
+        const hashedEntered = await hashPin(adminPin.value);
+        const targetHash = '146ed2f893591256632ee24fedc04c67cec2f054be74cda4f132858881883944';
+
+        if (hashedEntered === targetHash) {
             sessionStorage.setItem('admin_authenticated', 'true');
             loginOverlay.classList.add('hidden');
             adminApp.classList.remove('hidden');
         } else {
-            loginError.textContent = 'Incorrect Access PIN. Try 2026';
+            loginError.textContent = 'Incorrect Access PIN.';
             adminPin.value = '';
             setTimeout(() => { loginError.textContent = ''; }, 3000);
         }
