@@ -1,12 +1,9 @@
 <!-- Google Analytics (GA4) -->
-<!-- TODO: Replace G-XXXXXXXXXX with your actual Google Analytics Measurement ID -->
-<!-- Get your ID from: https://analytics.google.com -->
-<!-- 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<!-- Measurement ID: G-6E5HKXHBRS -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6E5HKXHBRS"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
+  gtag('config', 'G-6E5HKXHBRS');
 </script>
--->
